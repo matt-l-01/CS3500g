@@ -6,5 +6,5 @@ package model;
  */
 
 public enum Component {
-  RED, GREEN, BLUE, VALUE, INTENSITY, LUMA, NEWTEST
+  RED, GREEN, BLUE, VALUE, INTENSITY, LUMA
 }
