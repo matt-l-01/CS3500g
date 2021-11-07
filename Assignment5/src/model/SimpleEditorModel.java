@@ -203,7 +203,7 @@ public class SimpleEditorModel implements ImageEditorModel {
   public void component(Component type, String fromImageName, String toImageName)
       throws IllegalArgumentException, IllegalStateException {
     if (type == null || fromImageName == null || toImageName == null) {
-      throw new IllegalArgumentException("model.Component type and image names must not be null");
+      throw new IllegalArgumentException("Component type and image names must not be null");
     }
 
     Pixel[][] image = this.getImage(fromImageName);
