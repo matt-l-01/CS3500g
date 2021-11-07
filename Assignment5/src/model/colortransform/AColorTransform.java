@@ -5,7 +5,7 @@ import model.Pixel;
 /**
  * Represents an abstract color transformation function object to transform an image's color.
  */
-public abstract class AColorTransform {
+public abstract class AColorTransform implements ColorTransform {
   float[][] matrix;
   Pixel[][] image;
 
@@ -14,7 +14,7 @@ public abstract class AColorTransform {
    * @param matrix the specific matrix values for this color transformation.
    * @param image the array of Pixels to be operated on.
    */
-  public AColorTransform(float[][] matrix, Pixel[][] image) {
+  protected AColorTransform(float[][] matrix, Pixel[][] image) {
     this.matrix = matrix;
     this.image = image.clone();
   }

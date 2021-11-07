@@ -85,4 +85,8 @@ public interface ImageEditorModel extends ImageEditorState {
    * @param toImageName the new image name to save the resulting image to in memory.
    */
   void sharpen(String fromImageName, String toImageName);
+
+  void greyscale(String fromImageName, String toImageName);
+
+  void sepia(String fromImageName, String toImageName);
 }

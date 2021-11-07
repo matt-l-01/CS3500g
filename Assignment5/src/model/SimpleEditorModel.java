@@ -15,6 +15,9 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import model.colortransform.ColorTransform;
+import model.colortransform.Greyscale;
+import model.colortransform.Sepia;
 import model.filters.Blur;
 import model.filters.Filter;
 import model.filters.Sharpen;
@@ -356,12 +359,24 @@ public class SimpleEditorModel implements ImageEditorModel {
   @Override
   public void blur(String fromImageName, String toImageName) throws IllegalStateException {
     Filter blur = new Blur(this.getImage(fromImageName));
-    this.images.put(toImageName, blur.filter().clone());
+    this.images.put(toImageName, blur.filter());
   }
 
   @Override
   public void sharpen(String fromImageName, String toImageName) {
     Filter sharpen = new Sharpen(this.getImage(fromImageName));
-    this.images.put(toImageName, sharpen.filter().clone());
+    this.images.put(toImageName, sharpen.filter());
+  }
+
+  @Override
+  public void greyscale(String fromImageName, String toImageName) {
+    ColorTransform greyscale = new Greyscale(this.getImage(fromImageName));
+    this.images.put(toImageName, greyscale.transform());
+  }
+
+  @Override
+  public void sepia(String fromImageName, String toImageName) {
+    ColorTransform sepia = new Sepia(this.getImage(fromImageName));
+    this.images.put(toImageName, sepia.transform());
   }
 }

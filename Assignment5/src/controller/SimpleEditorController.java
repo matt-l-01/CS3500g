@@ -124,6 +124,16 @@ public class SimpleEditorController implements ImageEditorController {
             this.sharpen(args[1], args[2]);
           }
           break;
+        case "greyscale":
+          if (this.argsError(args, 2)) {
+            this.greyscale(args[1], args[2]);
+          }
+          break;
+        case "sepia":
+          if (this.argsError(args, 2)) {
+            this.sepia(args[1], args[2]);
+          }
+          break;
         case "menu":
           this.welcomeMessage();
           break;
@@ -320,6 +330,26 @@ public class SimpleEditorController implements ImageEditorController {
       this.view.renderMessage("Sharpening Image...");
       this.model.sharpen(beforeImage, afterImage);
       this.view.renderMessage("Successfully sharpened the image.\n");
+    } catch (IllegalStateException e) {
+      this.view.renderMessage("ERROR: The provided image name was not found.\n");
+    }
+  }
+
+  private void greyscale(String beforeImage, String afterImage) {
+    try {
+      this.view.renderMessage("Transforming image to greyscale...");
+      this.model.greyscale(beforeImage, afterImage);
+      this.view.renderMessage("Successfully transformed the image.\n");
+    } catch (IllegalStateException e) {
+      this.view.renderMessage("ERROR: The provided image name was not found.\n");
+    }
+  }
+
+  private void sepia(String beforeImage, String afterImage) {
+    try {
+      this.view.renderMessage("Transforming image to sepia...");
+      this.model.sepia(beforeImage, afterImage);
+      this.view.renderMessage("Successfully transformed the image.\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
