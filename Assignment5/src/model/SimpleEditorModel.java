@@ -354,8 +354,14 @@ public class SimpleEditorModel implements ImageEditorModel {
   }
 
   @Override
-  public void blur(String fromImageName, String toImageName) {
+  public void blur(String fromImageName, String toImageName) throws IllegalStateException {
     Filter blur = new Blur(this.getImage(fromImageName));
     this.images.put(toImageName, blur.filter().clone());
+  }
+
+  @Override
+  public void sharpen(String fromImageName, String toImageName) {
+    Filter sharpen = new Sharpen(this.getImage(fromImageName));
+    this.images.put(toImageName, sharpen.filter().clone());
   }
 }

@@ -78,4 +78,11 @@ public interface ImageEditorModel extends ImageEditorState {
    * @param toImageName the new image name to save the resulting image to in memory.
    */
   void blur(String fromImageName, String toImageName);
+
+  /**
+   * Sharpens the image and saves as the new name.
+   * @param fromImageName the image to conduct this operation on, stored in memory.
+   * @param toImageName the new image name to save the resulting image to in memory.
+   */
+  void sharpen(String fromImageName, String toImageName);
 }

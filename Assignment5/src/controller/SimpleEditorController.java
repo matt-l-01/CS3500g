@@ -114,6 +114,16 @@ public class SimpleEditorController implements ImageEditorController {
             this.component(Component.BLUE, args[1], args[2]);
           }
           break;
+        case "blur":
+          if (this.argsError(args, 2)) {
+            this.blur(args[1], args[2]);
+          }
+          break;
+        case "sharpen":
+          if (this.argsError(args, 2)) {
+            this.sharpen(args[1], args[2]);
+          }
+          break;
         case "menu":
           this.welcomeMessage();
           break;
@@ -149,6 +159,8 @@ public class SimpleEditorController implements ImageEditorController {
         + "show the green component and saves to the new name\n");
     this.view.renderMessage("- blue-component <image-name> <save-name> - Converts the image to "
         + "show the blue component and saves to the new name\n");
+    this.view.renderMessage("- blur <image-name> <save-name> - Blurs the image\n");
+    this.view.renderMessage("- sharpen <image-name> <save-name> - Sharpens the image\n");
     this.view.renderMessage("- menu - Shows this screen again.\n");
     this.view.renderMessage("Type \"q\" if you would like to quit the program.\n");
   }
@@ -276,6 +288,38 @@ public class SimpleEditorController implements ImageEditorController {
       this.view.renderMessage("Rendering component " + c + "...");
       this.model.component(c, beforeImage, afterImage);
       this.view.renderMessage("Successfully rendered the component " + c + " for the image.\n");
+    } catch (IllegalStateException e) {
+      this.view.renderMessage("ERROR: The provided image name was not found.\n");
+    }
+  }
+
+  /**
+   * Handles the blurring of images for the controller. Adds the subsequent
+   * messages and then calls the model to handle the task internally.
+   * @param beforeImage the name of the image in memory to conduct the operation on.
+   * @param afterImage the name to save the resulting image in memory.
+   */
+  private void blur(String beforeImage, String afterImage) {
+    try {
+      this.view.renderMessage("Blurring Image...");
+      this.model.blur(beforeImage, afterImage);
+      this.view.renderMessage("Successfully blurred the image.\n");
+    } catch (IllegalStateException e) {
+      this.view.renderMessage("ERROR: The provided image name was not found.\n");
+    }
+  }
+
+  /**
+   * Handles the sharpening of images for the controller. Adds the subsequent
+   * messages and then calls the model to handle the task internally.
+   * @param beforeImage the name of the image in memory to conduct the operation on.
+   * @param afterImage the name to save the resulting image in memory.
+   */
+  private void sharpen(String beforeImage, String afterImage) {
+    try {
+      this.view.renderMessage("Sharpening Image...");
+      this.model.sharpen(beforeImage, afterImage);
+      this.view.renderMessage("Successfully sharpened the image.\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }

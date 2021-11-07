@@ -60,4 +60,9 @@ public class ConfirmInputs implements ImageEditorModel {
   public void blur(String fromImageName, String toImageName) {
     
   }
+
+  @Override
+  public void sharpen(String fromImageName, String toImageName) {
+
+  }
 }

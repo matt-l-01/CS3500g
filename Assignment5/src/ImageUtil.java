@@ -71,10 +71,9 @@ public class ImageUtil {
 
   public static void main(String[] args) {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/sample1.png", "sample");
-    model.blur("sample", "sample");
-    model.blur("sample", "sample");
-    model.save("res/new_sample.png", "sample");
+    ImageEditorView view = new SimpleEditorView();
+    ImageEditorController cont = new SimpleEditorController(model, view, new InputStreamReader(System.in));
+    cont.start();
   }
 }
 
