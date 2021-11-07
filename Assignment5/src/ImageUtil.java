@@ -1,6 +1,8 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.Scanner;
 
 import controller.ImageEditorController;
@@ -70,9 +72,23 @@ public class ImageUtil {
   }
 
   public static void main(String[] args) {
+    Scanner sc = null;
+    try {
+      sc = new Scanner(new FileInputStream("res/Commands.txt"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    StringBuilder sb = new StringBuilder();
+
+    while (sc.hasNext()) {
+      sb.append(sc.nextLine() + "\n");
+    }
+
     ImageEditorModel model = new SimpleEditorModel();
     ImageEditorView view = new SimpleEditorView();
-    ImageEditorController cont = new SimpleEditorController(model, view, new InputStreamReader(System.in));
+    ImageEditorController cont = new SimpleEditorController(model, view,
+        new StringReader(sb.toString()));
     cont.start();
   }
 }

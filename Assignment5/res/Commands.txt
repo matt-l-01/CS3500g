@@ -1,0 +1,16 @@
+load res/sample.png sample
+brighten 85 sample sample
+vertical-flip sample sample
+horizontal-flip sample sample
+value-component sample sample
+intensity-component sample sample
+luma-component sample sample
+red-component sample sample
+green-component sample sample
+blue-component sample sample
+blur sample sample
+sharpen sample sample
+greyscale sample sample
+sepia sample sample
+save res/finalsample.png sample
+q
