@@ -171,6 +171,10 @@ public class SimpleEditorController implements ImageEditorController {
         + "show the blue component and saves to the new name\n");
     this.view.renderMessage("- blur <image-name> <save-name> - Blurs the image\n");
     this.view.renderMessage("- sharpen <image-name> <save-name> - Sharpens the image\n");
+    this.view.renderMessage("- sepia <image-name> <save-name> - Color transforms the " +
+        "image to sepia\n");
+    this.view.renderMessage("- greyscale <image-name> <save-image> - Color transforms the " +
+        "image to greyscale\n");
     this.view.renderMessage("- menu - Shows this screen again.\n");
     this.view.renderMessage("Type \"q\" if you would like to quit the program.\n");
   }

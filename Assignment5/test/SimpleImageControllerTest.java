@@ -129,15 +129,22 @@ public class SimpleImageControllerTest {
         + "the green component and saves to the new name", outs[10]);
     assertEquals("- blue-component <image-name> <save-name> - Converts the image to show "
         + "the blue component and saves to the new name", outs[11]);
-    assertEquals("- menu - Shows this screen again.", outs[12]);
-    assertEquals("Type \"q\" if you would like to quit the program.", outs[13]);
-    assertEquals("Enter a command: Goodbye.", outs[14]);
+    assertEquals("- blur <image-name> <save-name> - Blurs the image", outs[12]);
+    assertEquals("- sharpen <image-name> <save-name> - Sharpens the image", outs[13]);
+    assertEquals("- sepia <image-name> <save-name> - Color transforms the image to " +
+        "sepia", outs[14]);
+    assertEquals("- greyscale <image-name> <save-image> - Color transforms the image to " +
+        "greyscale", outs[15]);
+    assertEquals("- menu - Shows this screen again.", outs[16]);
+    assertEquals("Type \"q\" if you would like to quit the program.", outs[17]);
+    assertEquals("Enter a command: Goodbye.", outs[18]);
   }
 
   @Test
   public void testOutputLoad() {
     Appendable out = new StringBuilder();
-    Readable r = new StringReader("load res/Test.ppm small\nload res/NoHere.ppm NotHere\nq");
+    Readable r = new StringReader("load res/test/Test.ppm small\nload res/test/NoHere.ppm " +
+        "NotHere\nq");
     ImageEditorView view = new SimpleEditorView(out);
     ImageEditorModel model = new SimpleEditorModel();
     ImageEditorController controller = new SimpleEditorController(model, view, r);
@@ -146,9 +153,9 @@ public class SimpleImageControllerTest {
     String[] outs = out.toString().split("\n");
 
     assertEquals("Enter a command: Loading...Successfully loaded image with name "
-        + "\"small\".", outs[14]);
+        + "\"small\".", outs[18]);
     assertEquals("Enter a command: Loading...The was an error loading the provided file "
-        + "path. Not found or empty.", outs[15]);
+        + "path. Not found or empty.", outs[19]);
   }
 
   @Test
@@ -164,12 +171,12 @@ public class SimpleImageControllerTest {
     String[] outs = out.toString().split("\n");
 
     assertEquals("Enter a command: Brightening...ERROR: The provided image name was not "
-        + "found.", outs[14]);
+        + "found.", outs[18]);
     assertEquals("Enter a command: Flipping vertically...ERROR: The provided image name "
-        + "was not found.", outs[15]);
+        + "was not found.", outs[19]);
     assertEquals("Enter a command: Flipping horizontally...ERROR: The provided image name "
-        + "was not found.", outs[16]);
+        + "was not found.", outs[20]);
     assertEquals("Enter a command: Rendering component RED...ERROR: The provided image "
-        + "name was not found.", outs[17]);
+        + "name was not found.", outs[21]);
   }
 }

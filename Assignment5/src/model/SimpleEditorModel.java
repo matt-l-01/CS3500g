@@ -235,12 +235,12 @@ public class SimpleEditorModel implements ImageEditorModel {
             break;
           case INTENSITY:
             double avg = (p.getRed() + p.getGreen() + p.getBlue()) / 3.0;
-            int newAvg = (int) Math.floor(avg);
+            int newAvg = (int) Math.round(avg);
             p.setRGB(newAvg, newAvg, newAvg);
             break;
           case LUMA:
             double val = (p.getRed() * 0.2126) + (p.getGreen() * 0.7152) + (p.getBlue() * 0.0722);
-            int newVal = (int) Math.floor(val);
+            int newVal = (int) Math.round(val);
             p.setRGB(newVal, newVal, newVal);
             break;
           default:

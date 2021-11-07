@@ -65,4 +65,14 @@ public class ConfirmInputs implements ImageEditorModel {
   public void sharpen(String fromImageName, String toImageName) {
 
   }
+
+  @Override
+  public void greyscale(String fromImageName, String toImageName) {
+
+  }
+
+  @Override
+  public void sepia(String fromImageName, String toImageName) {
+
+  }
 }
