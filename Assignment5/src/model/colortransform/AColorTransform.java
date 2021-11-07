@@ -15,7 +15,8 @@ public abstract class AColorTransform {
    * @param image the array of Pixels to be operated on.
    */
   public AColorTransform(float[][] matrix, Pixel[][] image) {
-
+    this.matrix = matrix;
+    this.image = image.clone();
   }
 
   /**
@@ -23,6 +24,19 @@ public abstract class AColorTransform {
    * @return the new array of Pixels representing the image.
    */
   public Pixel[][] transform() {
-    return null;
+    for (int row = 0; row < this.image.length; row++) {
+      for (int col = 0; col < this.image[row].length; col++) {
+        float r = this.image[row][col].getRed();
+        float g = this.image[row][col].getGreen();
+        float b = this.image[row][col].getBlue();
+
+        r = (this.matrix[0][0] * r) + (this.matrix[0][1] * g) + (this.matrix[0][2] * b);
+        r = (this.matrix[1][0] * r) + (this.matrix[1][1] * g) + (this.matrix[1][2] * b);
+        r = (this.matrix[2][0] * r) + (this.matrix[2][1] * g) + (this.matrix[2][2] * b);
+
+        this.image[row][col] = new Pixel((int) Math.floor(r), (int) Math.floor(g), (int) Math.floor(b));
+      }
+    }
+    return this.image;
   }
 }
