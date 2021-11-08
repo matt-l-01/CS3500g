@@ -2,6 +2,9 @@ package model.filters;
 
 import model.Pixel;
 
+/**
+ * Represents an abstract filter object to convert the RGB values of an image.
+ */
 public abstract class AFilter implements Filter {
   float[][] kernel;
   int kWidth;
@@ -19,6 +22,10 @@ public abstract class AFilter implements Filter {
     this.image = image.clone();
   }
 
+  /**
+   * Goes through each Pixel of an image and applies a filter to change the RGB value.
+   * @return a new image with converted pixels
+   */
   public Pixel[][] filter() {
     for (int row = kHeight / 2; row < this.image.length - kHeight / 2; row++) {
       for (int col = kWidth / 2; col < this.image[row].length - kWidth / 2; col++) {

@@ -311,6 +311,26 @@ public class SimpleImageEditorTest {
     assertEquals(val4, array2[1][1].getBlue());
   }
 
+  @Test
+  public void testBlur() {
+
+  }
+
+  @Test
+  public void testSharpen() {
+
+  }
+
+  @Test
+  public void testGreyscale() {
+
+  }
+
+  @Test
+  public void testSepia() {
+
+  }
+
   //tests if path or name is null
   @Test(expected = IllegalArgumentException.class)
   public void loadIllegalNull1() {
@@ -518,7 +538,7 @@ public class SimpleImageEditorTest {
     }
   }
 
-  //test if image is not hashmap
+  //test if image is not in hashmap
   @Test
   public void brighten2() {
     ImageEditorModel model = new SimpleEditorModel();
@@ -538,4 +558,61 @@ public class SimpleImageEditorTest {
       // Should not reach here
     }
   }
+
+  //tests if the image is not in hashmap
+  @Test
+  public void blur() {
+    ImageEditorModel model = new SimpleEditorModel();
+    model.loadImage("res/test/Test.ppm", "test");
+    try {
+      model.blur("hello", "bye");
+      fail();
+    } catch (IllegalStateException ignore) {
+      //Should not reach here
+    }
+  }
+
+  //tests if the image is not in hashmap
+  @Test
+  public void sharpen() {
+    ImageEditorModel model = new SimpleEditorModel();
+    model.loadImage("res/test/Test.ppm", "test");
+    //throws IllegalStateException
+    try {
+      model.sharpen("matt", "ritu");
+      fail();
+    } catch (IllegalStateException ignore) {
+      //Should not reach here
+    }
+  }
+
+  //tests if the image is not in hashmap
+  @Test
+  public void greyscale() {
+    ImageEditorModel model = new SimpleEditorModel();
+    model.loadImage("res/test/Test.ppm", "test");
+
+    try {
+      model.greyscale("image1", "image2");
+      fail();
+    } catch (IllegalStateException ignore) {
+      //Should not reach here
+    }
+  }
+
+  //tests if the image is not in hashmap
+  @Test
+  public void sepia() {
+    ImageEditorModel model = new SimpleEditorModel();
+    model.loadImage("res/test/Test.ppm", "test");
+
+    try {
+      model.sepia("picture1", "picture2");
+      fail();
+    } catch (IllegalStateException ignore) {
+      //Should not reach here
+    }
+  }
 }
+
+

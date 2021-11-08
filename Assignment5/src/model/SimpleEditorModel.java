@@ -356,26 +356,50 @@ public class SimpleEditorModel implements ImageEditorModel {
     return value;
   }
 
+  /**
+   * Blurs an image given a fromImageName and a toImageName.
+   * @param fromImageName the image to conduct this operation on, stored in memory.
+   * @param toImageName the new image name to save the resulting image to in memory.
+   * @throws IllegalStateException if the program properly get an image
+   */
   @Override
   public void blur(String fromImageName, String toImageName) throws IllegalStateException {
     Filter blur = new Blur(this.getImage(fromImageName));
     this.images.put(toImageName, blur.filter());
   }
 
+  /**
+   * Sharpens an image given the fromImageName and toImageName.
+   * @param fromImageName the image to conduct this operation on, stored in memory.
+   * @param toImageName the new image name to save the resulting image to in memory.
+   * @throws IllegalStateException if the program is not able to properly get an image
+   */
   @Override
-  public void sharpen(String fromImageName, String toImageName) {
+  public void sharpen(String fromImageName, String toImageName) throws IllegalStateException {
     Filter sharpen = new Sharpen(this.getImage(fromImageName));
     this.images.put(toImageName, sharpen.filter());
   }
 
+  /**
+   * Converts a colored image to only have shades of grey.
+   * @param fromImageName the image to conduct this operation on, stored in memory
+   * @param toImageName the new image name to save the resulting image to in memory.
+   * @throws IllegalStateException if the program is not able to properly get an image
+   */
   @Override
-  public void greyscale(String fromImageName, String toImageName) {
+  public void greyscale(String fromImageName, String toImageName) throws IllegalStateException {
     ColorTransform greyscale = new Greyscale(this.getImage(fromImageName));
     this.images.put(toImageName, greyscale.transform());
   }
 
+  /**
+   * Converts a normal colored image into a sepia-toned image.
+   * @param fromImageName the image to conduct this operation on, stored in memory
+   * @param toImageName the new image name to save the resulting image to in memory.
+   * @throws IllegalStateException if the program is not able to properly get an image
+   */
   @Override
-  public void sepia(String fromImageName, String toImageName) {
+  public void sepia(String fromImageName, String toImageName) throws IllegalStateException {
     ColorTransform sepia = new Sepia(this.getImage(fromImageName));
     this.images.put(toImageName, sepia.transform());
   }
