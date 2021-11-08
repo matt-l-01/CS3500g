@@ -1,5 +1,8 @@
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
@@ -74,15 +77,19 @@ public class ImageUtil {
   public static void main(String[] args) {
     Scanner sc = null;
     try {
-      sc = new Scanner(new FileInputStream("res/Commands.txt"));
+      sc = new Scanner(new FileInputStream("Commands.txt"));
     } catch (IOException e) {
       e.printStackTrace();
     }
 
     StringBuilder sb = new StringBuilder();
 
+    if (sc == null) {
+      throw new IllegalStateException("Scanner is null");
+    }
+
     while (sc.hasNext()) {
-      sb.append(sc.nextLine() + "\n");
+      sb.append(sc.nextLine()).append("\n");
     }
 
     ImageEditorModel model = new SimpleEditorModel();
