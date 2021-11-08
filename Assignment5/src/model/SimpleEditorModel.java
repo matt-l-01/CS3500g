@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 
 import model.colortransform.ColorTransform;
 import model.colortransform.Greyscale;
+import model.colortransform.Luma;
 import model.colortransform.Sepia;
 import model.filters.Blur;
 import model.filters.Filter;
@@ -206,6 +207,12 @@ public class SimpleEditorModel implements ImageEditorModel {
       throw new IllegalArgumentException("Component type and image names must not be null");
     }
 
+    if (type == Component.LUMA) {
+      ColorTransform luma = new Luma(this.getImage(fromImageName));
+      this.images.put(toImageName, luma.transform());
+      return;
+    }
+
     Pixel[][] image = this.getImage(fromImageName);
     Pixel[][] result = new Pixel[image.length][image[0].length];
 
@@ -237,11 +244,6 @@ public class SimpleEditorModel implements ImageEditorModel {
             double avg = (p.getRed() + p.getGreen() + p.getBlue()) / 3.0;
             int newAvg = (int) Math.round(avg);
             p.setRGB(newAvg, newAvg, newAvg);
-            break;
-          case LUMA:
-            double val = (p.getRed() * 0.2126) + (p.getGreen() * 0.7152) + (p.getBlue() * 0.0722);
-            int newVal = (int) Math.round(val);
-            p.setRGB(newVal, newVal, newVal);
             break;
           default:
             /*

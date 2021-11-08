@@ -73,30 +73,5 @@ public class ImageUtil {
     }
     return pixels;
   }
-
-  public static void main(String[] args) {
-    Scanner sc = null;
-    try {
-      sc = new Scanner(new FileInputStream("Commands.txt"));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    StringBuilder sb = new StringBuilder();
-
-    if (sc == null) {
-      throw new IllegalStateException("Scanner is null");
-    }
-
-    while (sc.hasNext()) {
-      sb.append(sc.nextLine()).append("\n");
-    }
-
-    ImageEditorModel model = new SimpleEditorModel();
-    ImageEditorView view = new SimpleEditorView();
-    ImageEditorController cont = new SimpleEditorController(model, view,
-        new StringReader(sb.toString()));
-    cont.start();
-  }
 }
 
