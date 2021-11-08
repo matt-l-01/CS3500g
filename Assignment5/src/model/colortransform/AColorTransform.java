@@ -46,9 +46,6 @@ public abstract class AColorTransform implements ColorTransform {
     if (val < 0) {
       return 0;
     }
-    if (val > 255) {
-      return 255;
-    }
-    return val;
+    return Math.min(val, 255);
   }
 }

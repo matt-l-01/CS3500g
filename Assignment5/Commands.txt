@@ -13,4 +13,3 @@ sharpen sample sample
 greyscale sample sample
 sepia sample sample
 save res/finalsample.png sample
-q
