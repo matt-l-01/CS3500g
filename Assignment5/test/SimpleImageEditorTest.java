@@ -313,21 +313,87 @@ public class SimpleImageEditorTest {
 
   @Test
   public void testBlur() {
+    ImageEditorModel model = new SimpleEditorModel();
+    model.loadImage("res/test/Test.ppm", "testing");
+    model.blur("testing", "testing");
+    model.save("res/test/NewTestBlur.ppm", "testing");
+
+    Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
+    Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestBlur.ppm");
 
   }
 
   @Test
   public void testSharpen() {
+    ImageEditorModel model = new SimpleEditorModel();
+    model.loadImage("res/test/Test.ppm", "testing");
+    model.sharpen("testing", "testing");
+    model.save("res/test/NewTestSharpen.ppm", "testing");
+
+    Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
+    Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestSharpen.ppm");
 
   }
 
   @Test
   public void testGreyscale() {
+    ImageEditorModel model = new SimpleEditorModel();
+    model.loadImage("res/test/Test.ppm", "testing");
+    model.greyscale("testing", "testing");
+    model.save("res/test/NewTestGreyscale.ppm", "testing");
+
+    Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
+    Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestGreyscale.ppm");
+
+    int val1 = (int) Math.round((array1[0][0].getRed() * 0.2126)
+            + (array1[0][1].getGreen() * 0.7152) + (array1[0][2].getBlue() * 0.0722));
+    assertEquals(val1, array2[0][0].getRed());
+    assertEquals(val1, array2[0][1].getGreen());
+    assertEquals(val1, array2[0][2].getBlue());
+
+    int val2 = (int) Math.round((array1[1][0].getRed() * 0.2126)
+            + (array1[1][2].getGreen() * 0.7152) + (array1[1][3].getBlue() * 0.0722));
+    assertEquals(val2, array2[1][0].getRed());
+    assertEquals(val2, array2[1][1].getGreen());
+    assertEquals(val2, array2[1][2].getBlue());
+
+    int val3 = (int) Math.round((array1[2][0].getRed() * 0.2126)
+            + (array1[2][1].getGreen() * 0.7152) + (array1[2][2].getBlue() * 0.0722));
+    assertEquals(val3, array2[2][0].getRed());
+    assertEquals(val3, array2[2][1].getGreen());
+    assertEquals(val3, array2[2][2].getBlue());
 
   }
 
   @Test
   public void testSepia() {
+    ImageEditorModel model = new SimpleEditorModel();
+    model.loadImage("res/test/Test.ppm", "testing");
+    model.sepia("testing", "testing");
+    model.save("res/test/NewTestSepia.ppm", "testing");
+
+    Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
+    Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestSepia.ppm");
+
+
+
+    int val1 = (int) Math.round((array1[0][0].getRed() * 0.393)
+            + (array1[0][1].getGreen() * 0.769) + (array1[0][2].getBlue() * 0.189));
+    assertEquals(val1, array2[0][0].getRed());
+    assertEquals(val1, array2[0][1].getGreen());
+    assertEquals(val1, array2[0][2].getBlue());
+
+    int val2 = (int) Math.round((array1[1][0].getRed() * 0.349)
+            + (array1[1][2].getGreen() * 0.686) + (array1[1][3].getBlue() * 0.168));
+    assertEquals(val2, array2[1][0].getRed());
+    assertEquals(val2, array2[1][1].getGreen());
+    assertEquals(val2, array2[1][2].getBlue());
+
+    int val3 = (int) Math.round((array1[2][0].getRed() * 0.272)
+            + (array1[2][1].getGreen() * 0.534) + (array1[2][2].getBlue() * 0.131));
+    assertEquals(val3, array2[2][0].getRed());
+    assertEquals(val3, array2[2][1].getGreen());
+    assertEquals(val3, array2[2][2].getBlue());
 
   }
 
@@ -561,7 +627,7 @@ public class SimpleImageEditorTest {
 
   //tests if the image is not in hashmap
   @Test
-  public void blur() {
+  public void illegalBlur() {
     ImageEditorModel model = new SimpleEditorModel();
     model.loadImage("res/test/Test.ppm", "test");
     try {
@@ -574,7 +640,7 @@ public class SimpleImageEditorTest {
 
   //tests if the image is not in hashmap
   @Test
-  public void sharpen() {
+  public void illegalSharpen() {
     ImageEditorModel model = new SimpleEditorModel();
     model.loadImage("res/test/Test.ppm", "test");
     //throws IllegalStateException
@@ -588,7 +654,7 @@ public class SimpleImageEditorTest {
 
   //tests if the image is not in hashmap
   @Test
-  public void greyscale() {
+  public void illegalGreyscale() {
     ImageEditorModel model = new SimpleEditorModel();
     model.loadImage("res/test/Test.ppm", "test");
 
@@ -602,7 +668,7 @@ public class SimpleImageEditorTest {
 
   //tests if the image is not in hashmap
   @Test
-  public void sepia() {
+  public void illegalSepia() {
     ImageEditorModel model = new SimpleEditorModel();
     model.loadImage("res/test/Test.ppm", "test");
 
