@@ -14,6 +14,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import model.Component;
+import model.Flip;
 import model.ImageEditorModel;
 import model.Pixel;
 import view.ImageEditorView;
@@ -86,12 +87,12 @@ public class SimpleEditorController implements ImageEditorController {
           break;
         case "vertical-flip":
           if (this.argsError(args, 2)) {
-            this.verticalFlip(args[1], args[2]);
+            this.flip(Flip.VERTICAL, args[1], args[2]);
           }
           break;
         case "horizontal-flip":
           if (this.argsError(args, 2)) {
-            this.horizontalFlip(args[1], args[2]);
+            this.flip(Flip.HORIZONTAL, args[1], args[2]);
           }
           break;
         case "value-component":
@@ -443,7 +444,7 @@ public class SimpleEditorController implements ImageEditorController {
    * calls the model to handle the task internally.
    * @param val the value to brighten by, as a String from the Scanner.
    * @param beforeImage the name of the image in memory to conduct the operation on.
-   * @param afterImage the name to save the resulting image in memory.
+   * @param afterImage the name to save the resulting image in memory
    */
   private void brighten(String val, String beforeImage, String afterImage) {
     int value = 0;
@@ -459,37 +460,22 @@ public class SimpleEditorController implements ImageEditorController {
       this.model.brighten(value, beforeImage, afterImage);
       this.view.renderMessage("Successfully brightened image by " + val + ".\n");
     } catch (IllegalStateException e) {
-      this.view.renderMessage("ERROR: The provided image name was not found.\n");
+      this.view.renderMessage("ERROR: The provided image name was not found. \n");
     }
   }
 
   /**
-   * Handles the vertical flip of images for the controller. Adds the subsequent messages and then
+   * Handles the flipping of an image for the controller. Adds the subsequent messages and then
    * calls the model to handle the task internally.
+   * @param f the type of flip that will be performed on the image
    * @param beforeImage the name of the image in memory to conduct the operation on.
    * @param afterImage the name to save the resulting image in memory.
    */
-  private void verticalFlip(String beforeImage, String afterImage) {
+  private void flip(Flip f, String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Flipping vertically...");
-      this.model.flipVertical(beforeImage, afterImage);
-      this.view.renderMessage("Successfully flipped the image vertically.\n");
-    } catch (IllegalStateException e) {
-      this.view.renderMessage("ERROR: The provided image name was not found.\n");
-    }
-  }
-
-  /**
-   * Handles the horizontal flip of images for the controller. Adds the subsequent messages and
-   * then calls the model to handle the task internally.
-   * @param beforeImage the name of the image in memory to conduct the operation on.
-   * @param afterImage the name to save the resulting image in memory.
-   */
-  private void horizontalFlip(String beforeImage, String afterImage) {
-    try {
-      this.view.renderMessage("Flipping horizontally...");
-      this.model.flipHorizontal(beforeImage, afterImage);
-      this.view.renderMessage("Successfully flipped the image horizontally.\n");
+      this.view.renderMessage("Rendering flip " + f + "...");
+      this.model.flip(f, beforeImage, afterImage);
+      this.view.renderMessage("Successfully flipped the image. \n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
