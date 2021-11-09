@@ -418,27 +418,6 @@ public class SimpleImageEditorTest {
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestSepia.ppm");
 
-//    this.print(array1);
-//    int val1 = (int) Math.round((array1[0][0].getRed() * 0.393)
-//            + (array1[0][1].getGreen() * 0.769) + (array1[0][2].getBlue() * 0.189));
-//    assertEquals(val1, array2[0][0].getRed());
-//    assertEquals(val1, array2[0][1].getGreen());
-//    assertEquals(val1, array2[0][2].getBlue());
-//
-//    int val2 = (int) Math.round((array1[1][0].getRed() * 0.349)
-//            + (array1[1][2].getGreen() * 0.686) + (array1[1][3].getBlue() * 0.168));
-//    assertEquals(val2, array2[1][0].getRed());
-//    assertEquals(val2, array2[1][1].getGreen());
-//    assertEquals(val2, array2[1][2].getBlue());
-//
-//    int val3 = (int) Math.round((array1[2][0].getRed() * 0.272)
-//            + (array1[2][1].getGreen() * 0.534) + (array1[2][2].getBlue() * 0.131));
-//    assertEquals(val3, array2[2][0].getRed());
-//    assertEquals(val3, array2[2][1].getGreen());
-//    assertEquals(val3, array2[2][2].getBlue());
-
-    //----------
-
     int r1 = (int) Math.round((array1[0][0].getRed() * 0.393)
         + (array1[0][0].getGreen() * 0.769) + (array1[0][0].getBlue() * 0.189));
     int g1 = (int) Math.round((array1[0][0].getRed() * 0.349)
