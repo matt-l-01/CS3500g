@@ -34,20 +34,9 @@ public class ConfirmInputs implements ImageEditorModel {
   public void component(Component type, String fromImageName, String toImageName)
       throws IllegalArgumentException, IllegalStateException {
     log.append("COMPONENT ").append(type).append(" ").append(fromImageName).append(" ")
-        .append(toImageName).append("\n");
+            .append(toImageName).append("\n");
   }
 
-  @Override
-  public void flipHorizontal(String fromImageName, String toImageName)
-      throws IllegalArgumentException, IllegalStateException {
-    log.append("FLIP-H ").append(fromImageName).append(" ").append(toImageName).append("\n");
-  }
-
-  @Override
-  public void flipVertical(String fromImageName, String toImageName)
-      throws IllegalArgumentException, IllegalStateException {
-    log.append("FLIP-V ").append(fromImageName).append(" ").append(toImageName).append("\n");
-  }
 
   @Override
   public void brighten(int value, String fromImageName, String toImageName)
