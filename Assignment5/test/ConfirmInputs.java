@@ -41,7 +41,8 @@ public class ConfirmInputs implements ImageEditorModel {
   @Override
   public void flip(Flip type, String fromImageName, String toImageName)
       throws IllegalArgumentException, IllegalStateException {
-    log.append("FLIP " + type + " " + fromImageName + " " + toImageName);
+    log.append("FLIP ").append(type).append(" ").append(fromImageName).append(" ")
+        .append(toImageName);
   }
 
   @Override
