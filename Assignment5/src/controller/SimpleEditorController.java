@@ -460,7 +460,7 @@ public class SimpleEditorController implements ImageEditorController {
       this.model.brighten(value, beforeImage, afterImage);
       this.view.renderMessage("Successfully brightened image by " + val + ".\n");
     } catch (IllegalStateException e) {
-      this.view.renderMessage("ERROR: The provided image name was not found. \n");
+      this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
   }
 

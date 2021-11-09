@@ -42,7 +42,7 @@ public class ConfirmInputs implements ImageEditorModel {
   public void flip(Flip type, String fromImageName, String toImageName)
       throws IllegalArgumentException, IllegalStateException {
     log.append("FLIP ").append(type).append(" ").append(fromImageName).append(" ")
-        .append(toImageName);
+        .append(toImageName).append("\n");
   }
 
   @Override
@@ -54,21 +54,21 @@ public class ConfirmInputs implements ImageEditorModel {
 
   @Override
   public void blur(String fromImageName, String toImageName) {
-    
+    log.append("BLUR ").append(fromImageName).append(" ").append(toImageName).append("\n");
   }
 
   @Override
   public void sharpen(String fromImageName, String toImageName) {
-
+    log.append("SHARPEN ").append(fromImageName).append(" ").append(toImageName).append("\n");
   }
 
   @Override
   public void greyscale(String fromImageName, String toImageName) {
-
+    log.append("GREYSCALE ").append(fromImageName).append(" ").append(toImageName).append("\n");
   }
 
   @Override
   public void sepia(String fromImageName, String toImageName) {
-
+    log.append("SEPIA ").append(fromImageName).append(" ").append(toImageName).append("\n");
   }
 }

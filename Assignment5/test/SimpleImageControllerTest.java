@@ -72,32 +72,38 @@ public class SimpleImageControllerTest {
                                     + "horizontal-flip name-2 name-3\n"
                                     + "vertical-flip name-4 name-5\n"
                                     + "brighten 10 name-6 name-7\n"
-                                    + "save my-path2 name-8\n"
                                     + "red-component name-9 name-10\n"
                                     + "green-component name-11 name-12\n"
                                     + "blue-component name-13 name-14\n"
                                     + "value-component name-15 name-16\n"
                                     + "intensity-component name-17 name-18\n"
-                                    + "luma-component name-19 name-20\nq");
+                                    + "luma-component name-19 name-20\n"
+                                    + "blur name-21 name-22\n"
+                                    + "sharpen name-23 name-24\n"
+                                    + "greyscale name-25 name-26\n"
+                                    + "sepia name-27 name-28\nq");
     ImageEditorController controller = new SimpleEditorController(ci, view, in);
     controller.start();
 
-    String expectedLog = "LOAD my-path1 name-1\n"
-                       + "FLIP-H name-2 name-3\n"
-                       + "FLIP-V name-4 name-5\n"
+    String expectedLog = "FLIP HORIZONTAL name-2 name-3\n"
+                       + "FLIP VERTICAL name-4 name-5\n"
                        + "BRIGHTEN 10 name-6 name-7\n"
-                       + "SAVE my-path2 name-8\n"
                        + "COMPONENT RED name-9 name-10\n"
                        + "COMPONENT GREEN name-11 name-12\n"
                        + "COMPONENT BLUE name-13 name-14\n"
                        + "COMPONENT VALUE name-15 name-16\n"
                        + "COMPONENT INTENSITY name-17 name-18\n"
-                       + "COMPONENT LUMA name-19 name-20\n";
+                       + "COMPONENT LUMA name-19 name-20\n"
+                       + "BLUR name-21 name-22\n"
+                       + "SHARPEN name-23 name-24\n"
+                       + "GREYSCALE name-25 name-26\n"
+                       + "SEPIA name-27 name-28\n";
+
     assertEquals(expectedLog, log.toString());
   }
 
   @Test
-  public void testOutputs() {
+  public void testWelcomeOutputs() {
     Appendable out = new StringBuilder();
     Readable r = new StringReader("q");
     ImageEditorView view = new SimpleEditorView(out);
@@ -172,9 +178,9 @@ public class SimpleImageControllerTest {
 
     assertEquals("Enter a command: Brightening...ERROR: The provided image name was not "
         + "found.", outs[18]);
-    assertEquals("Enter a command: Flipping vertically...ERROR: The provided image name "
+    assertEquals("Enter a command: Rendering flip VERTICAL...ERROR: The provided image name "
         + "was not found.", outs[19]);
-    assertEquals("Enter a command: Flipping horizontally...ERROR: The provided image name "
+    assertEquals("Enter a command: Rendering flip HORIZONTAL...ERROR: The provided image name "
         + "was not found.", outs[20]);
     assertEquals("Enter a command: Rendering component RED...ERROR: The provided image "
         + "name was not found.", outs[21]);
