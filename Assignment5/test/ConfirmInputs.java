@@ -1,4 +1,5 @@
 import model.Component;
+import model.Flip;
 import model.ImageEditorModel;
 import model.Pixel;
 
@@ -37,6 +38,11 @@ public class ConfirmInputs implements ImageEditorModel {
             .append(toImageName).append("\n");
   }
 
+  @Override
+  public void flip(Flip type, String fromImageName, String toImageName)
+      throws IllegalArgumentException, IllegalStateException {
+    log.append("FLIP " + type + " " + fromImageName + " " + toImageName);
+  }
 
   @Override
   public void brighten(int value, String fromImageName, String toImageName)
