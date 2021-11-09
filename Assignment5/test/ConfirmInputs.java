@@ -27,7 +27,7 @@ public class ConfirmInputs implements ImageEditorModel {
   @Override
   public Pixel[][] releaseImage(String name) throws IllegalStateException {
     log.append("RELEASE IMAGE ").append(name).append("\n");
-    return new Pixel[0][];
+    return null;
   }
 
   @Override
