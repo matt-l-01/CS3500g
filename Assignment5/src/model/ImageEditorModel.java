@@ -38,26 +38,16 @@ public interface ImageEditorModel extends ImageEditorState {
       throws IllegalArgumentException, IllegalStateException;
 
   /**
-   * Conducts a horizontal flip on the given image in memory, and saves the resulting image to
-   * the new name in memory.
-   * @param fromImageName the image to conduct this operation on, stored in memory.
-   * @param toImageName the new image name to save the resulting image to in memory.
+   * Conducts either a vertical or horizontal flip on the given image in memory,
+   * and save the resulting image to the new name in memory.
+   * @param type the flip type, enum, which can either perform a vertical or horizontal flip
+   * @param fromImageName the image to conduct this operation on, stored in memory
+   * @param toImageName the new image name to save the resulting image to in memory
    * @throws IllegalArgumentException if any of the parameters are null.
    * @throws IllegalStateException if the given image name cannot be found in memory.
    */
-  void flipHorizontal(String fromImageName, String toImageName)
-      throws IllegalArgumentException, IllegalStateException;
-
-  /**
-   * Conducts a verticle flip on the given image in memory, and saves the resulting image to
-   * the new name in memory.
-   * @param fromImageName the image to conduct this operation on, stored in memory.
-   * @param toImageName the new image name to save the resulting image to in memory.
-   * @throws IllegalArgumentException if any of the parameters are null.
-   * @throws IllegalStateException if the given image name cannot be found in memory.
-   */
-  void flipVertical(String fromImageName, String toImageName)
-      throws IllegalArgumentException, IllegalStateException;
+  void flip(Flip type, String fromImageName, String toImageName)
+    throws IllegalArgumentException, IllegalStateException;
 
   /**
    * Brightens the image by the given value to the image stored in memory, and then saves the

@@ -106,8 +106,7 @@ public class SimpleEditorModel implements ImageEditorModel {
   }
 
   @Override
-  public void flipHorizontal(String fromImageName, String toImageName)
-      throws IllegalArgumentException, IllegalStateException {
+  public void flip(Flip type, String fromImageName, String toImageName) {
     if (fromImageName == null || toImageName == null) {
       throw new IllegalArgumentException("The image from and destination names must not be null.");
     }
@@ -118,32 +117,21 @@ public class SimpleEditorModel implements ImageEditorModel {
     for (int i = 0; i < result.length; i++) {
       for (int j = 0; j < result[i].length; j++) {
         Pixel temp = image[i][j].clone();
-        result[i][j] = image[i][result[i].length - j - 1].clone();
-        result[i][result[i].length - j - 1] = temp;
+        switch (type) {
+          case HORIZONTAL:
+            result[i][j] = image[i][result[i].length - j - 1].clone();
+            result[i][result[i].length - j - 1] = temp;
+            break;
+          case VERTICAL:
+            result[i][j] = image[result.length - i - 1][j].clone();
+            result[result.length - i - 1][j] = temp;
+            break;
+        }
       }
     }
     this.images.put(toImageName, result);
   }
 
-  @Override
-  public void flipVertical(String fromImageName, String toImageName)
-      throws IllegalArgumentException, IllegalStateException {
-    if (fromImageName == null || toImageName == null) {
-      throw new IllegalArgumentException("The image from and destination names must not be null.");
-    }
-
-    Pixel[][] image = this.releaseImage(fromImageName);
-    Pixel[][] result = new Pixel[image.length][image[0].length];
-
-    for (int i = 0; i < result.length; i++) {
-      for (int j = 0; j < result[i].length; j++) {
-        Pixel temp = image[i][j].clone();
-        result[i][j] = image[result.length - i - 1][j].clone();
-        result[result.length - i - 1][j] = temp;
-      }
-    }
-    this.images.put(toImageName, result);
-  }
 
   @Override
   public void brighten(int value, String fromImageName, String toImageName)
