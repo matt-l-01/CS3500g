@@ -1,11 +1,21 @@
 package controller;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import controller.ImageEditorController;
+import javax.imageio.ImageIO;
+
 import model.Component;
 import model.ImageEditorModel;
+import model.Pixel;
 import view.ImageEditorView;
 
 /**
@@ -61,12 +71,12 @@ public class SimpleEditorController implements ImageEditorController {
       switch (args[0]) {
         case "load":
           if (this.argsError(args, 2)) {
-            this.load(args[1], args[2]);
+            this.loadHelp(args[1], args[2]);
           }
           break;
         case "save":
           if (this.argsError(args, 2)) {
-            this.save(args[1], args[2]);
+            this.saveHelp(args[1], args[2]);
           }
           break;
         case "brighten":
@@ -187,11 +197,7 @@ public class SimpleEditorController implements ImageEditorController {
    * @return whether the number of arguments is correct.
    */
   private boolean argsError(String[] args, int amt) {
-    int count = 0;
-    for (String s : args) {
-      count++;
-    }
-    if (count == amt + 1) {
+    if (args.length == amt + 1) {
       return true;
     }
     this.view.renderMessage("You have provided an incorrect amount of arguments. "
@@ -205,10 +211,10 @@ public class SimpleEditorController implements ImageEditorController {
    * @param path the path of the file to load.
    * @param name the name to save the image as in memory.
    */
-  private void load(String path, String name) {
+  private void loadHelp(String path, String name) {
     try {
       this.view.renderMessage("Loading...");
-      this.model.loadImage(path, name);
+      this.load(path, name);
       this.view.renderMessage("Successfully loaded image with name \"" + name + "\".\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("The was an error loading the provided file path. Not found or "
@@ -217,19 +223,218 @@ public class SimpleEditorController implements ImageEditorController {
   }
 
   /**
+   * Checks to see if the file name ends with ppm or not and loads the image file accordingly
+   * whether it is a PPM file or another type.
+   * @param path the path at which the file is loaded from.
+   * @param name the name the file is being stored as in memory.
+   * @throws IllegalArgumentException if the path or name is null.
+   * @throws IllegalStateException if the program cannot read the file provided.
+   */
+  private void load(String path, String name)
+      throws IllegalArgumentException, IllegalStateException {
+    if (path == null || name == null) {
+      throw new IllegalArgumentException("Path and name must both not be null.");
+    }
+
+    if (path.endsWith(".ppm")) {
+      this.loadPPM(path, name);
+    } else {
+      this.loadNotPPM(path, name);
+    }
+  }
+
+  /**
+   * Loads an image of the type PPM differently than the other file types due to how it is
+   * read into the system. Then calls the accept method in the model which saves this specifc
+   * image in memory.
+   * @param path the path of the image to load.
+   * @param name the to save the image in memory as.
+   * @throws IllegalArgumentException if either of the parameters are null.
+   * @throws IllegalStateException if the file is not found.
+   */
+  private void loadPPM(String path, String name)
+      throws IllegalArgumentException, IllegalStateException {
+    if (path == null || name == null) {
+      throw new IllegalArgumentException("Path and name must both not be null.");
+    }
+    Scanner sc;
+    try {
+      sc = new Scanner(new FileInputStream(path));
+    } catch (FileNotFoundException e) {
+      throw new IllegalStateException("File is not found");
+    }
+
+    StringBuilder builder = new StringBuilder();
+
+    while (sc.hasNextLine()) {
+      String s = sc.nextLine();
+      if (s.charAt(0) != '#') {
+        builder.append(s).append(System.lineSeparator());
+      }
+    }
+
+    sc = new Scanner(builder.toString());
+    String token;
+
+    try {
+      token = sc.next();
+    } catch (NoSuchElementException e) {
+      throw new IllegalStateException("File is empty");
+    }
+
+    if (!token.equals("P3")) {
+      throw new IllegalStateException("Invalid PPM file: plain RAW file should begin with P3");
+    }
+
+    int width = sc.nextInt();
+    int height = sc.nextInt();
+    Pixel[][] loadedImage = new Pixel[height][width];
+
+    int maxValue = sc.nextInt(); // Not used, but needs to be scanned
+
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        int r = sc.nextInt();
+        int g = sc.nextInt();
+        int b = sc.nextInt();
+        Pixel p = new Pixel(r, g, b);
+        loadedImage[i][j] = p;
+      }
+    }
+    this.model.acceptNewImage(loadedImage, name);
+  }
+
+  /**
+   * Loads all other supported file types than PPM through a BufferedImage, and inputs the array
+   * of Pixels into the HashMap with the given name.
+   * @param path the path of the file to be read.
+   * @param name the name to store the array in memory with.
+   * @throws IllegalArgumentException if either of the parameters are null.
+   * @throws IllegalStateException if the program cannot properly read the file provided.
+   */
+  private void loadNotPPM(String path, String name)
+      throws IllegalArgumentException, IllegalStateException {
+    if (path == null || name == null) {
+      throw new IllegalArgumentException("Path and name must both not be null.");
+    }
+    BufferedImage img;
+    try {
+      img = ImageIO.read(new File(path));
+    } catch (IOException e) {
+      throw new IllegalStateException("Program could not read JPG");
+    }
+
+    Pixel[][] loadedImage = new Pixel[img.getHeight()][img.getWidth()];
+    for (int i = 0; i < img.getHeight(); i++) {
+      for (int j = 0; j < img.getWidth(); j++) {
+        Color c = new Color(img.getRGB(j, i));
+        Pixel p = new Pixel(c.getRed(), c.getGreen(), c.getBlue());
+        loadedImage[i][j] = p;
+      }
+    }
+    this.model.acceptNewImage(loadedImage, name);
+  }
+
+  /**
    * Handles the saving of images for the controller. Adds the subsequent messages and then calls
    * the model to handle the task internally.
    * @param path the path of where to save.
    * @param name the name of the image in memory.
    */
-  private void save(String path, String name) {
+  private void saveHelp(String path, String name) {
     try {
       this.view.renderMessage("Saving...");
-      this.model.save(path, name);
+      this.save(path, name);
       this.view.renderMessage("Successfully saved image to path \"" + path + "\".\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: Couldn't save the provided file. Please ensure the name and "
           + "path are correct and try again.\n");
+    }
+  }
+
+  /**
+   * Saves the image file if it is a ppm file or another type of file.
+   * @param path the path where the file is being saved.
+   * @param name the name of the image stored in memory to save.
+   * @throws IllegalArgumentException if the path or name is null.
+   * @throws IllegalStateException if the program could not save the file properly.
+   */
+  private void save(String path, String name)
+      throws IllegalArgumentException, IllegalStateException {
+    if (path == null || name == null) {
+      throw new IllegalArgumentException("Path and name must both not be null.");
+    }
+    if (path.endsWith(".ppm")) {
+      this.savePPM(path,name);
+    } else {
+      this.saveNotPPM(path,name);
+    }
+  }
+
+  /**
+   * Handles the saving of images that are of type PPM.
+   * @param path the name of the path to save the file to.
+   * @param name the image name to save from memory.
+   * @throws IllegalArgumentException if either of the parameters are null.
+   * @throws IllegalStateException if the name is not found, or if there is an error saving.
+   */
+  private void savePPM(String path, String name)
+      throws IllegalArgumentException, IllegalStateException {
+    if (path == null || name == null) {
+      throw new IllegalArgumentException("Path and name must both not be null.");
+    }
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+      Pixel[][] image = this.model.releaseImage(name);
+
+      writer.write("P3" + System.lineSeparator());
+      writer.write("# Created by SimpleImage program. OOD Assignment 4"
+          + System.lineSeparator());
+      writer.write(image[0].length + " " + image.length + System.lineSeparator());
+      writer.write("255" + System.lineSeparator());
+
+      for (int i = 0; i < image.length; i++) {
+        for (int j = 0; j < image[i].length; j++) {
+          writer.write(image[i][j].getRed() + System.lineSeparator());
+          writer.write(image[i][j].getGreen() + System.lineSeparator());
+          writer.write(image[i][j].getBlue() + System.lineSeparator());
+        }
+      }
+
+      writer.close();
+
+    } catch (IOException e) {
+      throw new IllegalStateException("Editor could not properly save file.");
+    }
+  }
+
+  /**
+   * Handles the saving of images that are not of type PPM.
+   * @param path the name of the path to save the file to.
+   * @param name the image name to save from memory.
+   * @throws IllegalArgumentException if either of the parameters are null.
+   * @throws IllegalStateException if the name is not found, or if there is an error saving.
+   */
+  private void saveNotPPM(String path, String name)
+      throws IllegalArgumentException, IllegalStateException {
+    if (path == null || name == null) {
+      throw new IllegalArgumentException("Path and name must both not be null.");
+    }
+    try {
+      Pixel[][] image = this.model.releaseImage(name);
+      BufferedImage img = new BufferedImage(image[0].length, image.length, 2);
+
+      for (int i = 0; i < image.length; i++) {
+        for (int j = 0; j < image[i].length; j++) {
+          Pixel p = image[i][j];
+          Color c = new Color(p.getRed(), p.getGreen(), p.getBlue());
+          img.setRGB(j, i, c.getRGB());
+        }
+      }
+
+      ImageIO.write(img, "png", new File(path));
+    } catch (IOException e) {
+      throw new IllegalStateException("Couldn't properly save file");
     }
   }
 
@@ -339,6 +544,12 @@ public class SimpleEditorController implements ImageEditorController {
     }
   }
 
+  /**
+   * Handles greyscale of the images for the controller. Adds the subsequent messages and
+   * then calls the model to handle the task internally.
+   * @param beforeImage the name of the image in memory to conduct the operation on.
+   * @param afterImage the name to save the resulting image in memory.
+   */
   private void greyscale(String beforeImage, String afterImage) {
     try {
       this.view.renderMessage("Transforming image to greyscale...");
@@ -349,6 +560,12 @@ public class SimpleEditorController implements ImageEditorController {
     }
   }
 
+  /**
+   * Handles sepia of the images for the controller. Adds the subsequent messages and
+   * then calls the model to handle the task internally.
+   * @param beforeImage the name of the image in memory to conduct the operation on.
+   * @param afterImage the name to save the resulting image in memory.
+   */
   private void sepia(String beforeImage, String afterImage) {
     try {
       this.view.renderMessage("Transforming image to sepia...");

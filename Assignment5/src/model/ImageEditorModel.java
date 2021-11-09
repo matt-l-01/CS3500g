@@ -7,24 +7,23 @@ package model;
  */
 public interface ImageEditorModel extends ImageEditorState {
   /**
-   * Loads the image from the given path. Obtains the internal information about the file, such as
-   * the pixels, and stores this in memory as the given name.
-   * @param path the path at which the file is loaded from.
+   * Accepts a loaded image from the given path. Obtains the internal information about the file,
+   * such as the pixels, and stores this in memory as the given name.
+   * @param image the 2D array of Pixels for the newly loaded image to accept into the model.
    * @param name the name the file is being stored as in memory.
    * @throws IllegalArgumentException if either of the parameters are null.
-   * @throws IllegalStateException if the file is not found by the reader.
    */
-  void loadImage(String path, String name) throws IllegalArgumentException, IllegalStateException;
+  void acceptNewImage(Pixel[][] image, String name)
+      throws IllegalArgumentException;
 
   /**
-   * Saves an image stored in memory to the given path. Takes in the path and image name as
-   * strings and saves the file.
-   * @param path the path where the file is being saved.
-   * @param name the name of the image stored in memory to save.
-   * @throws IllegalArgumentException if any of the parameters are null.
-   * @throws IllegalStateException if the program cannot properly write to the path.
+   * Given a name of an image in memory, returns the image 2D array of Pixels representing that
+   * specific image. If it is not found, throws an error.
+   * @param name the name of the image that has been saved in memory.
+   * @return the 2D array of Pixels representing the image.
+   * @throws IllegalStateException if the image cannot be found by its name in memory.
    */
-  void save(String path, String name) throws IllegalArgumentException, IllegalStateException;
+  Pixel[][] releaseImage(String name) throws IllegalStateException;
 
   /**
    * Uses the given component type to convert the given image to greyscale. Then, stores the

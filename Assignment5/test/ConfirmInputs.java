@@ -1,5 +1,6 @@
 import model.Component;
 import model.ImageEditorModel;
+import model.Pixel;
 
 /**
  * A mock model.ImageEditorModel class in order to test the inputs of the program. Will allow any
@@ -19,15 +20,14 @@ public class ConfirmInputs implements ImageEditorModel {
   }
 
   @Override
-  public void loadImage(String path, String name)
-      throws IllegalArgumentException, IllegalStateException {
-    log.append("LOAD ").append(path).append(" ").append(name).append("\n");
+  public void acceptNewImage(Pixel[][] image, String name) throws IllegalArgumentException {
+    log.append("ACCEPT NEW IMAGE ").append(name).append("\n");
   }
 
   @Override
-  public void save(String path, String name)
-      throws IllegalArgumentException, IllegalStateException {
-    log.append("SAVE ").append(path).append(" ").append(name).append("\n");
+  public Pixel[][] releaseImage(String name) throws IllegalStateException {
+    log.append("RELEASE IMAGE ").append(name).append("\n");
+    return new Pixel[0][];
   }
 
   @Override

@@ -1,9 +1,15 @@
 import org.junit.Test;
 
+import java.io.StringReader;
+
+import controller.ImageEditorController;
+import controller.SimpleEditorController;
 import model.Component;
 import model.ImageEditorModel;
 import model.Pixel;
 import model.SimpleEditorModel;
+import view.ImageEditorView;
+import view.SimpleEditorView;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -21,8 +27,11 @@ public class SimpleImageEditorTest {
      * loaded and saved into the new file with the same data.
      */
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.save("res/test/NewTest.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing" +
+        "\nsave res/test/NewTest.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTest.ppm");
@@ -47,9 +56,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testBrighten() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.brighten(10, "testing", "testing");
-    model.save("res/test/NewTestBright.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nbrighten 10 testing testing" +
+        "\nsave res/test/NewTestBright.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestBright.ppm");
@@ -74,9 +85,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testFlipHorizontal() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.flipHorizontal("testing", "testing");
-    model.save("res/test/NewTestFlipH.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nhorizontal-flip " +
+        "testing testing\nsave res/test/NewTestFlipH.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestFlipH.ppm");
@@ -101,9 +114,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testFlipVertical() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.flipVertical("testing", "testing");
-    model.save("res/test/NewTestFlipV.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nvertical-flip " +
+        "testing testing\nsave res/test/NewTestFlipV.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestFlipV.ppm");
@@ -128,9 +143,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testRedComponent() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.component(Component.RED, "testing", "testing");
-    model.save("res/test/NewTestCompRed.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nred-component " +
+        "testing testing\nsave res/test/NewTestCompRed.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestCompRed.ppm");
@@ -155,9 +172,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testGreenComponent() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.component(Component.GREEN, "testing", "testing");
-    model.save("res/test/NewTestCompGreen.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\ngreen-component " +
+        "testing testing\nsave res/test/NewTestCompGreen.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestCompGreen.ppm");
@@ -182,9 +201,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testBlueComponent() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.component(Component.BLUE, "testing", "testing");
-    model.save("res/test/NewTestCompBlue.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nblue-component " +
+        "testing testing\nsave res/test/NewTestCompBlue.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestCompBlue.ppm");
@@ -209,9 +230,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testValueComponent() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.component(Component.VALUE, "testing", "testing");
-    model.save("res/test/NewTestCompValue.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nvalue-component " +
+        "testing testing\nsave res/test/NewTestCompValue.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestCompValue.ppm");
@@ -244,9 +267,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testIntensityComponent() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.component(Component.INTENSITY, "testing", "testing");
-    model.save("res/test/NewTestCompIntensity.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nintensity-component " +
+        "testing testing\nsave res/test/NewTestCompIntensity.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestCompIntensity.ppm");
@@ -279,12 +304,17 @@ public class SimpleImageEditorTest {
   @Test
   public void testLumaComponent() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.component(Component.LUMA, "testing", "testing");
-    model.save("res/test/NewTestCompLuma.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nluma-component " +
+        "testing testing\nsave res/test/NewTestCompLuma.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestCompLuma.ppm");
+
+    this.print(array1);
+    this.print(array2);
 
     int val1 = (int) Math.round((array1[0][0].getRed() * 0.2126)
         + (array1[0][0].getGreen() * 0.7152) + (array1[0][0].getBlue() * 0.0722));
@@ -314,9 +344,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testBlur() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.blur("testing", "testing");
-    model.save("res/test/NewTestBlur.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nblur " +
+        "testing testing\nsave res/test/NewTestBlur.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestBlur.ppm");
@@ -326,9 +358,11 @@ public class SimpleImageEditorTest {
   @Test
   public void testSharpen() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.sharpen("testing", "testing");
-    model.save("res/test/NewTestSharpen.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\nsharpen " +
+        "testing testing\nsave res/test/NewTestSharpen.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestSharpen.ppm");
@@ -338,345 +372,119 @@ public class SimpleImageEditorTest {
   @Test
   public void testGreyscale() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.greyscale("testing", "testing");
-    model.save("res/test/NewTestGreyscale.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable r = new StringReader("load res/test/Test.ppm testing\ngreyscale " +
+        "testing testing\nsave res/test/NewTestGreyscale.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, r);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestGreyscale.ppm");
 
     int val1 = (int) Math.round((array1[0][0].getRed() * 0.2126)
-            + (array1[0][1].getGreen() * 0.7152) + (array1[0][2].getBlue() * 0.0722));
+            + (array1[0][0].getGreen() * 0.7152) + (array1[0][0].getBlue() * 0.0722));
     assertEquals(val1, array2[0][0].getRed());
-    assertEquals(val1, array2[0][1].getGreen());
-    assertEquals(val1, array2[0][2].getBlue());
+    assertEquals(val1, array2[0][0].getGreen());
+    assertEquals(val1, array2[0][0].getBlue());
 
-    int val2 = (int) Math.round((array1[1][0].getRed() * 0.2126)
-            + (array1[1][2].getGreen() * 0.7152) + (array1[1][3].getBlue() * 0.0722));
-    assertEquals(val2, array2[1][0].getRed());
-    assertEquals(val2, array2[1][1].getGreen());
-    assertEquals(val2, array2[1][2].getBlue());
+    int val2 = (int) Math.round((array1[0][1].getRed() * 0.2126)
+            + (array1[0][1].getGreen() * 0.7152) + (array1[0][1].getBlue() * 0.0722));
+    assertEquals(val2, array2[0][1].getRed());
+    assertEquals(val2, array2[0][1].getGreen());
+    assertEquals(val2, array2[0][1].getBlue());
 
-    int val3 = (int) Math.round((array1[2][0].getRed() * 0.2126)
-            + (array1[2][1].getGreen() * 0.7152) + (array1[2][2].getBlue() * 0.0722));
-    assertEquals(val3, array2[2][0].getRed());
-    assertEquals(val3, array2[2][1].getGreen());
-    assertEquals(val3, array2[2][2].getBlue());
+    int val3 = (int) Math.round((array1[1][0].getRed() * 0.2126)
+            + (array1[1][0].getGreen() * 0.7152) + (array1[1][0].getBlue() * 0.0722));
+    assertEquals(val3, array2[1][0].getRed());
+    assertEquals(val3, array2[1][0].getGreen());
+    assertEquals(val3, array2[1][0].getBlue());
 
+    int val4 = (int) Math.round((array1[1][1].getRed() * 0.2126)
+        + (array1[1][1].getGreen() * 0.7152) + (array1[1][1].getBlue() * 0.0722));
+    assertEquals(val4, array2[1][1].getRed());
+    assertEquals(val4, array2[1][1].getGreen());
+    assertEquals(val4, array2[1][1].getBlue());
   }
 
   @Test
   public void testSepia() {
     ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "testing");
-    model.sepia("testing", "testing");
-    model.save("res/test/NewTestSepia.ppm", "testing");
+    ImageEditorView view = new SimpleEditorView(new StringBuilder());
+    Readable read = new StringReader("load res/test/Test.ppm testing\nsepia " +
+        "testing testing\nsave res/test/NewTestSepia.ppm testing\nq");
+    ImageEditorController cont = new SimpleEditorController(model, view, read);
+    cont.start();
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestSepia.ppm");
 
+//    this.print(array1);
+//    int val1 = (int) Math.round((array1[0][0].getRed() * 0.393)
+//            + (array1[0][1].getGreen() * 0.769) + (array1[0][2].getBlue() * 0.189));
+//    assertEquals(val1, array2[0][0].getRed());
+//    assertEquals(val1, array2[0][1].getGreen());
+//    assertEquals(val1, array2[0][2].getBlue());
+//
+//    int val2 = (int) Math.round((array1[1][0].getRed() * 0.349)
+//            + (array1[1][2].getGreen() * 0.686) + (array1[1][3].getBlue() * 0.168));
+//    assertEquals(val2, array2[1][0].getRed());
+//    assertEquals(val2, array2[1][1].getGreen());
+//    assertEquals(val2, array2[1][2].getBlue());
+//
+//    int val3 = (int) Math.round((array1[2][0].getRed() * 0.272)
+//            + (array1[2][1].getGreen() * 0.534) + (array1[2][2].getBlue() * 0.131));
+//    assertEquals(val3, array2[2][0].getRed());
+//    assertEquals(val3, array2[2][1].getGreen());
+//    assertEquals(val3, array2[2][2].getBlue());
 
+    //----------
 
-    int val1 = (int) Math.round((array1[0][0].getRed() * 0.393)
-            + (array1[0][1].getGreen() * 0.769) + (array1[0][2].getBlue() * 0.189));
-    assertEquals(val1, array2[0][0].getRed());
-    assertEquals(val1, array2[0][1].getGreen());
-    assertEquals(val1, array2[0][2].getBlue());
+    int r1 = (int) Math.round((array1[0][0].getRed() * 0.393)
+        + (array1[0][0].getGreen() * 0.769) + (array1[0][0].getBlue() * 0.189));
+    int g1 = (int) Math.round((array1[0][0].getRed() * 0.349)
+        + (array1[0][0].getGreen() * 0.686) + (array1[0][0].getBlue() * 0.168));
+    int b1 = (int) Math.round((array1[0][0].getRed() * 0.272)
+        + (array1[0][0].getGreen() * 0.534) + (array1[0][0].getBlue() * 0.131));
+    assertEquals(r1, array2[0][0].getRed());
+    assertEquals(g1, array2[0][0].getGreen());
+    assertEquals(b1, array2[0][0].getBlue());
 
-    int val2 = (int) Math.round((array1[1][0].getRed() * 0.349)
-            + (array1[1][2].getGreen() * 0.686) + (array1[1][3].getBlue() * 0.168));
-    assertEquals(val2, array2[1][0].getRed());
-    assertEquals(val2, array2[1][1].getGreen());
-    assertEquals(val2, array2[1][2].getBlue());
+    int r2 = (int) Math.round((array1[0][1].getRed() * 0.393)
+        + (array1[0][1].getGreen() * 0.769) + (array1[0][1].getBlue() * 0.189));
+    int g2 = (int) Math.round((array1[0][1].getRed() * 0.349)
+        + (array1[0][1].getGreen() * 0.686) + (array1[0][1].getBlue() * 0.168));
+    int b2 = (int) Math.round((array1[0][1].getRed() * 0.272)
+        + (array1[0][1].getGreen() * 0.534) + (array1[0][1].getBlue() * 0.131));
+    assertEquals(r2, array2[0][1].getRed());
+    assertEquals(g2, array2[0][1].getGreen());
+    assertEquals(b2, array2[0][1].getBlue());
 
-    int val3 = (int) Math.round((array1[2][0].getRed() * 0.272)
-            + (array1[2][1].getGreen() * 0.534) + (array1[2][2].getBlue() * 0.131));
-    assertEquals(val3, array2[2][0].getRed());
-    assertEquals(val3, array2[2][1].getGreen());
-    assertEquals(val3, array2[2][2].getBlue());
+    int r3 = (int) Math.round((array1[1][0].getRed() * 0.393)
+        + (array1[1][0].getGreen() * 0.769) + (array1[1][0].getBlue() * 0.189));
+    int g3 = (int) Math.round((array1[1][0].getRed() * 0.349)
+        + (array1[1][0].getGreen() * 0.686) + (array1[1][0].getBlue() * 0.168));
+    int b3 = (int) Math.round((array1[1][0].getRed() * 0.272)
+        + (array1[1][0].getGreen() * 0.534) + (array1[1][0].getBlue() * 0.131));
+    assertEquals(r3, array2[1][0].getRed());
+    assertEquals(g3, array2[1][0].getGreen());
+    assertEquals(b3, array2[1][0].getBlue());
 
+    int g4 = (int) Math.round((array1[1][1].getRed() * 0.349)
+        + (array1[1][1].getGreen() * 0.686) + (array1[1][1].getBlue() * 0.168));
+    int b4 = (int) Math.round((array1[1][1].getRed() * 0.272)
+        + (array1[1][1].getGreen() * 0.534) + (array1[1][1].getBlue() * 0.131));
+    assertEquals(255, array2[1][1].getRed()); // Capped at 255
+    assertEquals(g4, array2[1][1].getGreen());
+    assertEquals(b4, array2[1][1].getBlue());
   }
 
-  //tests if path or name is null
-  @Test(expected = IllegalArgumentException.class)
-  public void loadIllegalNull1() {
-    ImageEditorModel model1 = new SimpleEditorModel();
-    model1.loadImage("res/test/Test.ppm", null);
-  }
-
-  //tests if path or name is null
-  @Test(expected = IllegalArgumentException.class)
-  public void loadIllegalNull2() {
-    ImageEditorModel model1 = new SimpleEditorModel();
-    model1.loadImage(null, "test");
-  }
-
-  //tests if file doesn't exist
-  @Test(expected = IllegalStateException.class)
-  public void loadIllegal1() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Google.ppm", "google");
-  }
-
-  //tests if file is empty
-  @Test(expected = IllegalStateException.class)
-  public void loadIllegal2() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Empty.ppm", "Empty");
-  }
-
-  //tests if token isn't equal to P3
-  @Test(expected = IllegalStateException.class)
-  public void loadIllegal3() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/NoP3.ppm", "nop3");
-  }
-
-  //tests if path or name is null
-  @Test
-  public void saveIllegal1() {
-    ImageEditorModel model1 = new SimpleEditorModel();
-    try {
-      model1.save("res/test/Test.ppm", null);
-      fail();
-    } catch (IllegalArgumentException ignored) {
-      // Should not reach here
-    }
-
-    try {
-      model1.save(null, "test");
-      fail();
-    } catch (IllegalArgumentException ignored) {
-      // Should not reach here
-    }
-  }
-
-  //tests if type, toImageName, or fromImageName is null
-  @Test(expected = IllegalArgumentException.class)
-  public void componentIllegal1() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-    model.component(Component.LUMA, null, null);
-  }
-
-  //tests if image is not in hashmap
-  @Test
-  public void componentIllegal2() {
-    ImageEditorModel model = new SimpleEditorModel();
-    try {
-      model.component(Component.RED, "Not", "Here");
-      fail();
-    } catch (IllegalStateException ignored) {
-      // Should not reach here
-    }
-
-    try {
-      model.component(Component.BLUE, "Google", "Gone");
-      fail();
-    } catch (IllegalStateException ignored) {
-      // Should not reach here
-    }
-  }
-
-  //tests if fromImageName or toImageName is null
-  @Test
-  public void flipHorizontalIllegal1() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-
-    try {
-      model.flipHorizontal(null, null);
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.flipHorizontal("test", null);
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.flipHorizontal(null, "test");
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-  }
-
-  //tests if image is not in hashmap
-  @Test
-  public void flipHorizontalIllegal2() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-
-    try {
-      model.component(Component.LUMA, "bob", "bob2");
-      fail();
-    } catch (IllegalStateException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.flipHorizontal("abc", "def");
-      fail();
-    } catch (IllegalStateException ignore) {
-      // Should not reach here
-    }
-  }
-
-  //tests if fromImageName or toImageName is null
-  @Test
-  public void flipVerticalIllegal1() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-
-    try {
-      model.flipVertical(null, null);
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.flipVertical("test", null);
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.flipVertical(null, "test");
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-  }
-
-  //tests if image is not in hashmap
-  @Test
-  public void flipVerticalIllegal2() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-
-    try {
-      model.flipVertical("bob", "bob2");
-      fail();
-    } catch (IllegalStateException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.flipVertical("abc", "def");
-      fail();
-    } catch (IllegalStateException ignore) {
-      // Should not reach here
-    }
-  }
-
-  //tests if fromImageName or toImageName is null
-  @Test
-  public void brighten1() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-
-    try {
-      model.brighten(10, null, null);
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.brighten(10, "test", null);
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.brighten(-10, null, "test");
-      fail();
-    } catch (IllegalArgumentException ignore) {
-      // Should not reach here
-    }
-  }
-
-  //test if image is not in hashmap
-  @Test
-  public void brighten2() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-
-    try {
-      model.brighten(10, "bob", "bob2");
-      fail();
-    } catch (IllegalStateException ignore) {
-      // Should not reach here
-    }
-
-    try {
-      model.brighten(100, "abc", "def");
-      fail();
-    } catch (IllegalStateException ignore) {
-      // Should not reach here
-    }
-  }
-
-  //tests if the image is not in hashmap
-  @Test
-  public void illegalBlur() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-    try {
-      model.blur("hello", "bye");
-      fail();
-    } catch (IllegalStateException ignore) {
-      //Should not reach here
-    }
-  }
-
-  //tests if the image is not in hashmap
-  @Test
-  public void illegalSharpen() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-    //throws IllegalStateException
-    try {
-      model.sharpen("matt", "ritu");
-      fail();
-    } catch (IllegalStateException ignore) {
-      //Should not reach here
-    }
-  }
-
-  //tests if the image is not in hashmap
-  @Test
-  public void illegalGreyscale() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-
-    try {
-      model.greyscale("image1", "image2");
-      fail();
-    } catch (IllegalStateException ignore) {
-      //Should not reach here
-    }
-  }
-
-  //tests if the image is not in hashmap
-  @Test
-  public void illegalSepia() {
-    ImageEditorModel model = new SimpleEditorModel();
-    model.loadImage("res/test/Test.ppm", "test");
-
-    try {
-      model.sepia("picture1", "picture2");
-      fail();
-    } catch (IllegalStateException ignore) {
-      //Should not reach here
+  private void print(Pixel[][] a) {
+    for (int i = 0; i < a.length; i++) {
+      for (int j = 0; j < a[i].length; j++) {
+        System.out.print("(" + a[i][j].getRed() + " "
+            + a[i][j].getGreen() + " " + a[i][j].getBlue() + ") ");
+      }
+      System.out.println();
     }
   }
 }

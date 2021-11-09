@@ -26,13 +26,13 @@ public abstract class AColorTransform implements ColorTransform {
   public Pixel[][] transform() {
     for (int row = 0; row < this.image.length; row++) {
       for (int col = 0; col < this.image[row].length; col++) {
-        float r = this.image[row][col].getRed();
-        float g = this.image[row][col].getGreen();
-        float b = this.image[row][col].getBlue();
+        float rX = this.image[row][col].getRed();
+        float gX = this.image[row][col].getGreen();
+        float bX = this.image[row][col].getBlue();
 
-        r = (this.matrix[0][0] * r) + (this.matrix[0][1] * g) + (this.matrix[0][2] * b);
-        g = (this.matrix[1][0] * r) + (this.matrix[1][1] * g) + (this.matrix[1][2] * b);
-        b = (this.matrix[2][0] * r) + (this.matrix[2][1] * g) + (this.matrix[2][2] * b);
+        float r = (this.matrix[0][0] * rX) + (this.matrix[0][1] * gX) + (this.matrix[0][2] * bX);
+        float g = (this.matrix[1][0] * rX) + (this.matrix[1][1] * gX) + (this.matrix[1][2] * bX);
+        float b = (this.matrix[2][0] * rX) + (this.matrix[2][1] * gX) + (this.matrix[2][2] * bX);
 
         this.image[row][col] = new Pixel(this.colorCap(Math.round(r)),
             this.colorCap(Math.round(g)),

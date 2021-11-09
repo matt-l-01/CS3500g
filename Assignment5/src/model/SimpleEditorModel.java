@@ -1,19 +1,7 @@
 package model;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-
-import javax.imageio.ImageIO;
 
 import model.colortransform.ColorTransform;
 import model.colortransform.Greyscale;
@@ -40,164 +28,22 @@ public class SimpleEditorModel implements ImageEditorModel {
     this.images = new HashMap<>();
   }
 
-  /**
-   * Checks to see if the file name ends with ppm or not and depends the image file accordingly.
-   * @param path the path at which the file is loaded from.
-   * @param name the name the file is being stored as in memory.
-   * @throws IllegalArgumentException if the path or name is null
-   * @throws IllegalStateException if the program cannot read the file provided
-   */
   @Override
-  public void loadImage(String path, String name)
-      throws IllegalArgumentException, IllegalStateException {
-    if (path == null || name == null) {
-      throw new IllegalArgumentException("Path and name must both not be null.");
-    }
-
-    if (path.endsWith(".ppm")) {
-      this.loadPPM(path, name);
-    } else {
-      this.loadNotPPM(path, name);
-    }
-  }
-
-  /**
-   * Loads all other supported file types than PPM through a BufferedImage, and inputs the array
-   * of Pixels into the HashMap with the given name.
-   * @param path the path of the file to be read.
-   * @param name the name to store the array in memory with.
-   * @throws IllegalStateException if the program cannot properly read the file provided.
-   */
-  private void loadNotPPM(String path, String name) throws IllegalStateException {
-    BufferedImage img;
-    try {
-      img = ImageIO.read(new File(path));
-    } catch (IOException e) {
-      throw new IllegalStateException("Program could not read JPG");
-    }
-
-    Pixel[][] image = new Pixel[img.getHeight()][img.getWidth()];
-    for (int i = 0; i < img.getHeight(); i++) {
-      for (int j = 0; j < img.getWidth(); j++) {
-        Color c = new Color(img.getRGB(j, i));
-        Pixel p = new Pixel(c.getRed(), c.getGreen(), c.getBlue());
-        image[i][j] = p;
-      }
+  public void acceptNewImage(Pixel[][] image, String name)
+      throws IllegalArgumentException {
+    if (image == null || name == null) {
+      throw new IllegalArgumentException("Image or name accepted may not be null");
     }
     this.images.put(name, image);
   }
 
-  private void loadPPM(String path, String name) {
-    Scanner sc;
-    try {
-      sc = new Scanner(new FileInputStream(path));
-    } catch (FileNotFoundException e) {
-      throw new IllegalStateException("File is not found");
-    }
-
-    StringBuilder builder = new StringBuilder();
-
-    while (sc.hasNextLine()) {
-      String s = sc.nextLine();
-      if (s.charAt(0) != '#') {
-        builder.append(s).append(System.lineSeparator());
-      }
-    }
-
-    sc = new Scanner(builder.toString());
-    String token;
-
-    try {
-      token = sc.next();
-    } catch (NoSuchElementException e) {
-      throw new IllegalStateException("File is empty");
-    }
-
-    if (!token.equals("P3")) {
-      throw new IllegalStateException("Invalid PPM file: plain RAW file should begin with P3");
-    }
-
-    int width = sc.nextInt();
-    int height = sc.nextInt();
-    this.images.put(name, new Pixel[height][width]);
-
-    int maxValue = sc.nextInt(); // Not used, but needs to be scanned
-
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        int r = sc.nextInt();
-        int g = sc.nextInt();
-        int b = sc.nextInt();
-        Pixel p = new Pixel(r, g, b);
-        this.getImage(name)[i][j] = p;
-      }
-    }
-  }
-
-  /**
-   * Saves the image file if it is a ppm file or another type of file.
-   * @param path the path where the file is being saved.
-   * @param name the name of the image stored in memory to save.
-   * @throws IllegalArgumentException if the path or name is null
-   * @throws IllegalStateException if the program could not save the file properly
-   */
   @Override
-  public void save(String path, String name)
-      throws IllegalArgumentException, IllegalStateException {
-    if (path == null || name == null) {
-      throw new IllegalArgumentException("Path and name must both not be null.");
+  public Pixel[][] releaseImage(String name) throws IllegalStateException {
+    Pixel[][] value = this.images.get(name);
+    if (value == null) {
+      throw new IllegalStateException("Image \"" + name + "\" not found in saved list.");
     }
-    if (path.endsWith(".ppm")) {
-      this.savePPM(path,name);
-    } else {
-      this.saveNotPPM(path,name);
-    }
-  }
-
-  private void savePPM(String path, String name) {
-    try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-      Pixel[][] image = this.getImage(name);
-
-      writer.write("P3" + System.lineSeparator());
-      writer.write("# Created by SimpleImage program. OOD Assignment 4"
-          + System.lineSeparator());
-      writer.write(image[0].length + " " + image.length + System.lineSeparator());
-      writer.write("255" + System.lineSeparator());
-
-      for (int i = 0; i < image.length; i++) {
-        for (int j = 0; j < image[i].length; j++) {
-          writer.write(image[i][j].getRed() + System.lineSeparator());
-          writer.write(image[i][j].getGreen() + System.lineSeparator());
-          writer.write(image[i][j].getBlue() + System.lineSeparator());
-        }
-      }
-
-      writer.close();
-
-    } catch (IOException e) {
-      throw new IllegalStateException("Editor could not properly save file.");
-    }
-  }
-
-
-  private void saveNotPPM(String path, String name) {
-    try {
-      Pixel[][] image = this.getImage(name);
-      BufferedImage img = new BufferedImage(image[0].length, image.length, 2);
-
-      for (int i = 0; i < image.length; i++) {
-        for (int j = 0; j < image[i].length; j++) {
-          Pixel p = image[i][j];
-          Color c = new Color(p.getRed(), p.getGreen(), p.getBlue());
-          img.setRGB(j, i, c.getRGB());
-        }
-      }
-
-      ImageIO.write(img, "png", new File(path));
-    } catch (IOException e) {
-      throw new IllegalStateException("Couldn't properly save file");
-    }
+    return value;
   }
 
   @Override
@@ -208,12 +54,12 @@ public class SimpleEditorModel implements ImageEditorModel {
     }
 
     if (type == Component.LUMA) {
-      ColorTransform luma = new Luma(this.getImage(fromImageName));
+      ColorTransform luma = new Luma(this.releaseImage(fromImageName));
       this.images.put(toImageName, luma.transform());
       return;
     }
 
-    Pixel[][] image = this.getImage(fromImageName);
+    Pixel[][] image = this.releaseImage(fromImageName);
     Pixel[][] result = new Pixel[image.length][image[0].length];
 
     for (int i = 0; i < result.length; i++) {
@@ -266,7 +112,7 @@ public class SimpleEditorModel implements ImageEditorModel {
       throw new IllegalArgumentException("The image from and destination names must not be null.");
     }
 
-    Pixel[][] image = this.getImage(fromImageName);
+    Pixel[][] image = this.releaseImage(fromImageName);
     Pixel[][] result = new Pixel[image.length][image[0].length];
 
     for (int i = 0; i < result.length; i++) {
@@ -286,7 +132,7 @@ public class SimpleEditorModel implements ImageEditorModel {
       throw new IllegalArgumentException("The image from and destination names must not be null.");
     }
 
-    Pixel[][] image = this.getImage(fromImageName);
+    Pixel[][] image = this.releaseImage(fromImageName);
     Pixel[][] result = new Pixel[image.length][image[0].length];
 
     for (int i = 0; i < result.length; i++) {
@@ -306,7 +152,7 @@ public class SimpleEditorModel implements ImageEditorModel {
       throw new IllegalArgumentException("The image from and destination names must not be null.");
     }
 
-    Pixel[][] image = this.getImage(fromImageName);
+    Pixel[][] image = this.releaseImage(fromImageName);
     Pixel[][] result = new Pixel[image.length][image[0].length];
 
     for (int i = 0; i < result.length; i++) {
@@ -344,21 +190,6 @@ public class SimpleEditorModel implements ImageEditorModel {
   }
 
   /**
-   * Attempts to get the image array from the hash map using the name. If it is not found in the
-   * hash map, it will throw an IllegalStateException.
-   * @param name the name of the image stored in memory to retrieve.
-   * @return the array of Pixels for the given saved image.
-   * @throws IllegalStateException if the image is not found in the saved hash map.
-   */
-  private Pixel[][] getImage(String name) throws IllegalStateException {
-    Pixel[][] value = this.images.get(name);
-    if (value == null) {
-      throw new IllegalStateException("Image \"" + name + "\" not found in saved list.");
-    }
-    return value;
-  }
-
-  /**
    * Blurs an image given a fromImageName and a toImageName.
    * @param fromImageName the image to conduct this operation on, stored in memory.
    * @param toImageName the new image name to save the resulting image to in memory.
@@ -366,7 +197,7 @@ public class SimpleEditorModel implements ImageEditorModel {
    */
   @Override
   public void blur(String fromImageName, String toImageName) throws IllegalStateException {
-    Filter blur = new Blur(this.getImage(fromImageName));
+    Filter blur = new Blur(this.releaseImage(fromImageName));
     this.images.put(toImageName, blur.filter());
   }
 
@@ -378,7 +209,7 @@ public class SimpleEditorModel implements ImageEditorModel {
    */
   @Override
   public void sharpen(String fromImageName, String toImageName) throws IllegalStateException {
-    Filter sharpen = new Sharpen(this.getImage(fromImageName));
+    Filter sharpen = new Sharpen(this.releaseImage(fromImageName));
     this.images.put(toImageName, sharpen.filter());
   }
 
@@ -390,7 +221,7 @@ public class SimpleEditorModel implements ImageEditorModel {
    */
   @Override
   public void greyscale(String fromImageName, String toImageName) throws IllegalStateException {
-    ColorTransform greyscale = new Greyscale(this.getImage(fromImageName));
+    ColorTransform greyscale = new Greyscale(this.releaseImage(fromImageName));
     this.images.put(toImageName, greyscale.transform());
   }
 
@@ -402,7 +233,7 @@ public class SimpleEditorModel implements ImageEditorModel {
    */
   @Override
   public void sepia(String fromImageName, String toImageName) throws IllegalStateException {
-    ColorTransform sepia = new Sepia(this.getImage(fromImageName));
+    ColorTransform sepia = new Sepia(this.releaseImage(fromImageName));
     this.images.put(toImageName, sepia.transform());
   }
 }
