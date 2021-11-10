@@ -1,6 +1,0 @@
-load res/beach.png sample
-sharpen sample sample
-save res/newsample.png sample
-
-
-

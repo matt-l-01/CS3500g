@@ -1,20 +1,16 @@
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.StringReader;
 
 import controller.ImageEditorController;
 import controller.SimpleEditorController;
-import model.Component;
 import model.ImageEditorModel;
 import model.Pixel;
 import model.SimpleEditorModel;
 import view.ImageEditorView;
 import view.SimpleEditorView;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * Test class for the model.SimpleEditorModel.
@@ -315,9 +311,6 @@ public class SimpleImageEditorTest {
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestCompLuma.ppm");
 
-    this.print(array1);
-    this.print(array2);
-
     int val1 = (int) Math.round((array1[0][0].getRed() * 0.2126)
         + (array1[0][0].getGreen() * 0.7152) + (array1[0][0].getBlue() * 0.0722));
     assertEquals(val1, array2[0][0].getRed());
@@ -567,16 +560,6 @@ public class SimpleImageEditorTest {
       return 0;
     }
     return Math.min(val, 255);
-  }
-
-  private void print(Pixel[][] a) {
-    for (int i = 0; i < a.length; i++) {
-      for (int j = 0; j < a[i].length; j++) {
-        System.out.print("(" + a[i][j].getRed() + " "
-            + a[i][j].getGreen() + " " + a[i][j].getBlue() + ") ");
-      }
-      System.out.println();
-    }
   }
 }
 

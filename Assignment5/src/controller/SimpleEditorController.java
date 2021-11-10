@@ -423,7 +423,7 @@ public class SimpleEditorController implements ImageEditorController {
     }
     try {
       Pixel[][] image = this.model.releaseImage(name);
-      BufferedImage img = new BufferedImage(image[0].length, image.length, 2);
+      BufferedImage img = new BufferedImage(image[0].length, image.length, 1);
 
       for (int i = 0; i < image.length; i++) {
         for (int j = 0; j < image[i].length; j++) {
@@ -433,7 +433,12 @@ public class SimpleEditorController implements ImageEditorController {
         }
       }
 
-      ImageIO.write(img, "png", new File(path));
+      String ext = path.substring(path.length() - 3);
+      if (!(ext.equals("jpg") || ext.equals("png") || ext.equals("bmp"))) {
+        throw new IllegalStateException("File extension not recognized");
+      }
+
+      ImageIO.write(img, ext, new File(path));
     } catch (IOException e) {
       throw new IllegalStateException("Couldn't properly save file");
     }
