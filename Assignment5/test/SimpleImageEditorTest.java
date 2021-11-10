@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.StringReader;
@@ -11,6 +12,7 @@ import model.SimpleEditorModel;
 import view.ImageEditorView;
 import view.SimpleEditorView;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -352,6 +354,64 @@ public class SimpleImageEditorTest {
 
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestBlur.ppm");
+
+
+    this.print(array1);
+    this.print(array2);
+
+    int r1 = (int) Math.round((array1[0][0].getRed() * 0.25)
+            + (array1[0][1].getRed() * 0.125) + (array1[1][1].getRed() * 0.0625)
+            + (array1[1][0].getRed() * 0.125));
+    int g1 = (int) Math.round((array1[0][0].getGreen() * 0.25)
+            + (array1[0][1].getGreen() * 0.125) + (array1[1][1].getGreen() * 0.0625)
+            + (array1[1][0].getGreen() * 0.125));
+    int b1 = (int) Math.round((array1[0][0].getBlue() * 0.25)
+            + (array1[0][1].getBlue() * 0.125) + (array1[1][1].getBlue() * 0.0625)
+            + (array1[1][0].getBlue() * 0.125));
+    assertEquals(r1, array2[0][0].getRed());
+    assertEquals(g1, array2[0][0].getGreen());
+    assertEquals(b1, array2[0][0].getBlue());
+
+    int r2 = (int)(Math.round((array1[0][0].getRed() * 0.125)
+            + (array1[0][1].getRed() * 0.25)
+            + (array1[1][0].getRed() * 0.0625)
+            + (array1[1][1].getRed() * 0.125)));
+    int g2 = (int) Math.round((array1[0][0].getGreen() * 0.125)
+            + (array1[0][1].getGreen() * 0.25) + (array1[1][1].getGreen() * 0.125)
+            + (array1[1][0].getGreen() * 0.0625));
+    int b2 = (int) Math.round((array1[0][0].getBlue() * 0.125)
+            + (array1[0][1].getBlue() * 0.25) + (array1[1][1].getBlue() * 0.125)
+            + (array1[1][0].getBlue() * 0.0625));
+    assertEquals(r2, array2[0][1].getRed());
+    assertEquals(g2, array2[0][1].getGreen());
+    assertEquals(b2, array2[0][1].getBlue());
+
+    int r3 = (int) Math.round((array1[0][0].getRed() * 0.25)
+            + (array1[0][1].getRed() * 0.125) + (array1[1][1].getRed() * 0.0625)
+            + (array1[1][0].getRed() * 0.125));
+    int g3 = (int) Math.round((array1[0][0].getGreen() * 0.25)
+            + (array1[0][1].getGreen() * 0.125) + (array1[1][1].getGreen() * 0.0625)
+            + (array1[1][0].getGreen() * 0.125));
+    int b3 = (int) Math.round((array1[0][0].getBlue() * 0.25)
+            + (array1[0][1].getBlue() * 0.125) + (array1[1][1].getBlue() * 0.0625)
+            + (array1[1][0].getBlue() * 0.125));
+    assertEquals(r3, array2[0][0].getRed());
+    assertEquals(g3, array2[0][0].getGreen());
+    assertEquals(b3, array2[0][0].getBlue());
+
+    int r4 = (int) Math.round((array1[0][0].getRed() * 0.25)
+            + (array1[0][1].getRed() * 0.125) + (array1[1][1].getRed() * 0.0625)
+            + (array1[1][0].getRed() * 0.125));
+    int g4 = (int) Math.round((array1[0][0].getGreen() * 0.25)
+            + (array1[0][1].getGreen() * 0.125) + (array1[1][1].getGreen() * 0.0625)
+            + (array1[1][0].getGreen() * 0.125));
+    int b4 = (int) Math.round((array1[0][0].getBlue() * 0.25)
+            + (array1[0][1].getBlue() * 0.125) + (array1[1][1].getBlue() * 0.0625)
+            + (array1[1][0].getBlue() * 0.125));
+    assertEquals(r4, array2[0][0].getRed());
+    assertEquals(g4, array2[0][0].getGreen());
+    assertEquals(b4, array2[0][0].getBlue());
+
 
   }
 

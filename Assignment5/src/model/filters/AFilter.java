@@ -51,40 +51,38 @@ public abstract class AFilter implements Filter {
 
     for (int row = 0; row < this.image.length; row++) {
       for (int col = 0; col < this.image[row].length; col++) {
-        int r = 0;
-        int g = 0;
-        int b = 0;
+        double r = 0;
+        double g = 0;
+        double b = 0;
 
         for (int i = 0; i < this.kHeight; i++) {
           for (int j = 0; j < this.kWidth; j++) {
-            int newRow = (kHeight / 2) + i + row;
-            int newCol = (kWidth / 2) + j + col;
+            int newRow = row + i - (kHeight / 2);
+            int newCol = col + j - (kWidth / 2);
 
             if (this.outOfBounds(newRow, newCol)) {
               continue;
             }
 
+            System.out.println(r);
             r += this.kernel[i][j] * this.image[newRow][newCol].getRed();
             g += this.kernel[i][j] * this.image[newRow][newCol].getGreen();
             b += this.kernel[i][j] * this.image[newRow][newCol].getBlue();
+
           }
+
         }
-        this.image[row][col] = new Pixel(this.colorCap(r), this.colorCap(g), this.colorCap(b));
+        this.image[row][col] = new Pixel(this.colorCap((int) Math.round(r)), this.colorCap((int)Math.round(g)), this.colorCap((int)Math.round(b)));
       }
     }
-
     return this.image;
   }
 
-//  private boolean outOfBounds(int row, int col) {
-//    return row + (kHeight / 2) > this.image.length - 1
-//        || row - (kHeight / 2) < 0
-//        || col - (kWidth / 2) < 0
-//        || col + (kWidth / 2) > this.image[row].length - 1;
-//  }
-
   private boolean outOfBounds(int row, int col) {
-    return row > this.image.length - 1|| col > this.image[row].length - 1;
+    if (row > image.length - 1 || row < 0) {
+      return true;
+   }
+    return col > this.image[row].length - 1 || col < 0;
   }
 
   private int colorCap(int val) {
