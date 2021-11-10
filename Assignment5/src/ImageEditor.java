@@ -22,23 +22,17 @@ public class ImageEditor {
    * @param args the command line arguments provided.
    */
   public static void main(String[] args) {
-    if (args.length == 0) {
+    if (args.length < 2) {
       runInteractive();
       return;
     }
 
     String file = null;
 
-    try {
-      for (int i = 0; i < args.length; i++) {
-        if (args[i].equalsIgnoreCase("-file")) {
-          file = args[i + 1];
-        }
+    for (int i = 0; i < args.length - 1; i++) {
+      if (args[i].equalsIgnoreCase("-file")) {
+        file = args[i + 1];
       }
-    } catch (ArrayIndexOutOfBoundsException e) {
-      // If the user specified -file, but did not specify an argument for the file name after
-      runInteractive();
-      return;
     }
 
     if (file == null) {
@@ -105,8 +99,7 @@ public class ImageEditor {
     }
 
     // Starts the program
-    cont = new SimpleEditorController(model, view,
-        new StringReader(sb.toString()));
+    cont = new SimpleEditorController(model, view, new StringReader(sb.toString()));
     cont.start();
   }
 }

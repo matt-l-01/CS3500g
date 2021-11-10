@@ -168,7 +168,8 @@ public class SimpleImageControllerTest {
   public void testOutputsOther() {
     Appendable out = new StringBuilder();
     Readable r = new StringReader("brighten 10 name1 name2\nvertical-flip name1 name2"
-        + "\nhorizontal-flip name1 name2\nred-component name1 name2\nq");
+        + "\nhorizontal-flip name1 name2\nred-component name1 name2\nblur name1 name2\n" +
+        "sharpen name1 name2\ngreyscale name1 name2\nsepia name1 name2\nq");
     ImageEditorView view = new SimpleEditorView(out);
     ImageEditorModel model = new SimpleEditorModel();
     ImageEditorController controller = new SimpleEditorController(model, view, r);
@@ -184,5 +185,13 @@ public class SimpleImageControllerTest {
         + "was not found.", outs[20]);
     assertEquals("Enter a command: Rendering component RED...ERROR: The provided image "
         + "name was not found.", outs[21]);
+    assertEquals("Enter a command: Blurring image...ERROR: The provided image "
+        + "name was not found.", outs[22]);
+    assertEquals("Enter a command: Sharpening image...ERROR: The provided image "
+        + "name was not found.", outs[23]);
+    assertEquals("Enter a command: Transforming image to greyscale...ERROR: The provided image "
+        + "name was not found.", outs[24]);
+    assertEquals("Enter a command: Transforming image to sepia...ERROR: The provided image "
+        + "name was not found.", outs[25]);
   }
 }

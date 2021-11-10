@@ -1,1 +1,3 @@
-load res/sample.png sample
+load res/beach.png sample
+blur sample sample
+save res/newsample.png sample

@@ -506,7 +506,7 @@ public class SimpleEditorController implements ImageEditorController {
    */
   private void blur(String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Blurring Image...");
+      this.view.renderMessage("Blurring image...");
       this.model.blur(beforeImage, afterImage);
       this.view.renderMessage("Successfully blurred the image.\n");
     } catch (IllegalStateException e) {
@@ -522,7 +522,7 @@ public class SimpleEditorController implements ImageEditorController {
    */
   private void sharpen(String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Sharpening Image...");
+      this.view.renderMessage("Sharpening image...");
       this.model.sharpen(beforeImage, afterImage);
       this.view.renderMessage("Successfully sharpened the image.\n");
     } catch (IllegalStateException e) {
