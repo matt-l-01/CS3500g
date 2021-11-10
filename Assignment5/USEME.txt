@@ -20,11 +20,18 @@ Script Commands Supported:
 - q - if you would like to quit the program.
 
 Example of loading, flipping horizontally, blurring, and saving a PNG image as a JPG file:
-
 - load res/image_path.png image1
 - horizontal-flip image1 hflip_image1
 - blur hflip_image1 blurred_image1
 - save res/new_image_path.jpg blurred_image1
+
+Example of loading, flipping vertically, sharpening, converting to sepia, and saving a PPM image as a BMP file:
+- load res/image_path.ppm image1
+- vertical-flip image1 image2
+- sharpen image2 image3
+- sepia image3 image4
+- save res/new_image_path.bmp image4
+
 
 CONDITIONS:
 - The load command must be executed before any sort of operation can occur. The image must be loaded into memory before conducting operations.
