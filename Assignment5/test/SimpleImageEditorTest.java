@@ -355,10 +355,6 @@ public class SimpleImageEditorTest {
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestBlur.ppm");
 
-
-    this.print(array1);
-    this.print(array2);
-
     int r1 = (int) Math.round((array1[0][0].getRed() * 0.25)
             + (array1[0][1].getRed() * 0.125) + (array1[1][1].getRed() * 0.0625)
             + (array1[1][0].getRed() * 0.125));
@@ -372,47 +368,45 @@ public class SimpleImageEditorTest {
     assertEquals(g1, array2[0][0].getGreen());
     assertEquals(b1, array2[0][0].getBlue());
 
-    int r2 = (int)(Math.round((array1[0][0].getRed() * 0.125)
+    int r2 = (int)(Math.round((r1 * 0.125)
             + (array1[0][1].getRed() * 0.25)
             + (array1[1][0].getRed() * 0.0625)
             + (array1[1][1].getRed() * 0.125)));
-    int g2 = (int) Math.round((array1[0][0].getGreen() * 0.125)
+    int g2 = (int) Math.round((g1 * 0.125)
             + (array1[0][1].getGreen() * 0.25) + (array1[1][1].getGreen() * 0.125)
             + (array1[1][0].getGreen() * 0.0625));
-    int b2 = (int) Math.round((array1[0][0].getBlue() * 0.125)
+    int b2 = (int) Math.round((b1 * 0.125)
             + (array1[0][1].getBlue() * 0.25) + (array1[1][1].getBlue() * 0.125)
             + (array1[1][0].getBlue() * 0.0625));
     assertEquals(r2, array2[0][1].getRed());
     assertEquals(g2, array2[0][1].getGreen());
     assertEquals(b2, array2[0][1].getBlue());
 
-    int r3 = (int) Math.round((array1[0][0].getRed() * 0.25)
-            + (array1[0][1].getRed() * 0.125) + (array1[1][1].getRed() * 0.0625)
-            + (array1[1][0].getRed() * 0.125));
-    int g3 = (int) Math.round((array1[0][0].getGreen() * 0.25)
-            + (array1[0][1].getGreen() * 0.125) + (array1[1][1].getGreen() * 0.0625)
-            + (array1[1][0].getGreen() * 0.125));
-    int b3 = (int) Math.round((array1[0][0].getBlue() * 0.25)
-            + (array1[0][1].getBlue() * 0.125) + (array1[1][1].getBlue() * 0.0625)
-            + (array1[1][0].getBlue() * 0.125));
-    assertEquals(r3, array2[0][0].getRed());
-    assertEquals(g3, array2[0][0].getGreen());
-    assertEquals(b3, array2[0][0].getBlue());
+    int r3 = (int) Math.round((r1 * 0.125)
+            + (r2 * 0.0625) + (array1[1][1].getRed() * 0.125)
+            + (array1[1][0].getRed() * 0.25));
+    int g3 = (int) Math.round((g1 * 0.125)
+        + (g2 * 0.0625) + (array1[1][1].getGreen() * 0.125)
+        + (array1[1][0].getGreen() * 0.25));
+    int b3 = (int) Math.round((b1 * 0.125)
+        + (b2 * 0.0625) + (array1[1][1].getBlue() * 0.125)
+        + (array1[1][0].getBlue() * 0.25));
+    assertEquals(r3, array2[1][0].getRed());
+    assertEquals(g3, array2[1][0].getGreen());
+    assertEquals(b3, array2[1][0].getBlue());
 
-    int r4 = (int) Math.round((array1[0][0].getRed() * 0.25)
-            + (array1[0][1].getRed() * 0.125) + (array1[1][1].getRed() * 0.0625)
-            + (array1[1][0].getRed() * 0.125));
-    int g4 = (int) Math.round((array1[0][0].getGreen() * 0.25)
-            + (array1[0][1].getGreen() * 0.125) + (array1[1][1].getGreen() * 0.0625)
-            + (array1[1][0].getGreen() * 0.125));
-    int b4 = (int) Math.round((array1[0][0].getBlue() * 0.25)
-            + (array1[0][1].getBlue() * 0.125) + (array1[1][1].getBlue() * 0.0625)
-            + (array1[1][0].getBlue() * 0.125));
-    assertEquals(r4, array2[0][0].getRed());
-    assertEquals(g4, array2[0][0].getGreen());
-    assertEquals(b4, array2[0][0].getBlue());
-
-
+    int r4 = (int) Math.round((r1 * 0.0625)
+        + (r2 * 0.125) + (array1[1][1].getRed() * 0.25)
+        + (r3 * 0.125));
+    int g4 = (int) Math.round((g1 * 0.0625)
+        + (g2 * 0.125) + (array1[1][1].getGreen() * 0.25)
+        + (g3 * 0.125));
+    int b4 = (int) Math.round((b1 * 0.0625)
+        + (b2 * 0.125) + (array1[1][1].getBlue() * 0.25)
+        + (b3 * 0.125));
+    assertEquals(r4, array2[1][1].getRed());
+    assertEquals(g4, array2[1][1].getGreen());
+    assertEquals(b4, array2[1][1].getBlue());
   }
 
   @Test
@@ -427,6 +421,57 @@ public class SimpleImageEditorTest {
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
     Pixel[][] array2 = ImageUtil.readPPM("res/test/NewTestSharpen.ppm");
 
+    int r1 = (int) Math.round((array1[0][0].getRed())
+        + (array1[0][1].getRed() * 0.25) + (array1[1][1].getRed() * 0.25)
+        + (array1[1][0].getRed() * 0.25));
+    int g1 = (int) Math.round((array1[0][0].getGreen())
+        + (array1[0][1].getGreen() * 0.25) + (array1[1][1].getGreen() * 0.25)
+        + (array1[1][0].getGreen() * 0.25));
+    int b1 = (int) Math.round((array1[0][0].getBlue())
+        + (array1[0][1].getBlue() * 0.25) + (array1[1][1].getBlue() * 0.25)
+        + (array1[1][0].getBlue() * 0.25));
+    assertEquals(this.colorCap(r1), array2[0][0].getRed());
+    assertEquals(this.colorCap(g1), array2[0][0].getGreen());
+    assertEquals(this.colorCap(b1), array2[0][0].getBlue());
+
+    int r2 = (int) Math.round((r1 * 0.25)
+        + (array1[0][1].getRed()) + (array1[1][1].getRed() * 0.25)
+        + (array1[1][0].getRed() * 0.25));
+    int g2 = (int) Math.round((g1 * 0.25)
+        + (array1[0][1].getGreen()) + (array1[1][1].getGreen() * 0.25)
+        + (array1[1][0].getGreen() * 0.25));
+    int b2 = (int) Math.round((b1 * 0.25)
+        + (array1[0][1].getBlue()) + (array1[1][1].getBlue() * 0.25)
+        + (array1[1][0].getBlue() * 0.25));
+    assertEquals(this.colorCap(r2), array2[0][1].getRed());
+    assertEquals(this.colorCap(g2), array2[0][1].getGreen());
+    assertEquals(this.colorCap(b2), array2[0][1].getBlue());
+
+    int r3 = (int) Math.round((r1 * 0.25)
+        + (r2 * 0.25) + (array1[1][1].getRed() * 0.25)
+        + (array1[1][0].getRed()));
+    int g3 = (int) Math.round((g1 * 0.25)
+        + (g2 * 0.25) + (array1[1][1].getGreen() * 0.25)
+        + (array1[1][0].getGreen()));
+    int b3 = (int) Math.round((b1 * 0.25)
+        + (b2 * 0.25) + (array1[1][1].getBlue() * 0.25)
+        + (array1[1][0].getBlue()));
+    assertEquals(this.colorCap(r3), array2[1][0].getRed());
+    assertEquals(this.colorCap(g3), array2[1][0].getGreen());
+    assertEquals(this.colorCap(b3), array2[1][0].getBlue());
+
+    int r4 = (int) Math.round((r1 * 0.25)
+        + (r2 * 0.25) + (array1[1][1].getRed())
+        + (r3 * 0.25));
+    int g4 = (int) Math.round((g1 * 0.25)
+        + (g2 * 0.25) + (array1[1][1].getGreen())
+        + (g3 * 0.25));
+    int b4 = (int) Math.round((b1 * 0.25)
+        + (b2 * 0.25) + (array1[1][1].getBlue())
+        + (b3 * 0.25));
+    assertEquals(this.colorCap(r4), array2[1][1].getRed());
+    assertEquals(this.colorCap(g4), array2[1][1].getGreen());
+    assertEquals(this.colorCap(b4), array2[1][1].getBlue());
   }
 
   @Test
@@ -515,6 +560,13 @@ public class SimpleImageEditorTest {
     assertEquals(255, array2[1][1].getRed()); // Capped at 255
     assertEquals(g4, array2[1][1].getGreen());
     assertEquals(b4, array2[1][1].getBlue());
+  }
+
+  private int colorCap(int val) {
+    if (val < 0) {
+      return 0;
+    }
+    return Math.min(val, 255);
   }
 
   private void print(Pixel[][] a) {

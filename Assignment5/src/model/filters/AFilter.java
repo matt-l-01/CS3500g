@@ -28,27 +28,6 @@ public abstract class AFilter implements Filter {
    */
   public Pixel[][] filter() {
     // Goes through each Pixel from the image
-//    for (int row = kHeight / 2; row < this.image.length - kHeight / 2; row++) {
-//      for (int col = kWidth / 2; col < this.image[row].length - kWidth / 2; col++) {
-//        int r = 0;
-//        int g = 0;
-//        int b = 0;
-//
-//        // Goes through the Kernel
-//        for (int i = 0; i < kHeight; i++) {
-//          for (int j = 0; j < kWidth; j++) {
-//            int row_index = row + i - kHeight / 2;
-//            int col_index = col + j - kWidth / 2;
-//
-//            r += this.image[row_index][col_index].getRed() * this.kernel[i][j];
-//            g += this.image[row_index][col_index].getGreen() * this.kernel[i][j];
-//            b += this.image[row_index][col_index].getBlue() * this.kernel[i][j];
-//          }
-//        }
-//        this.image[row][col] = new Pixel(this.colorCap(r), this.colorCap(g), this.colorCap(b));
-//      }
-//    }
-
     for (int row = 0; row < this.image.length; row++) {
       for (int col = 0; col < this.image[row].length; col++) {
         double r = 0;
@@ -64,15 +43,13 @@ public abstract class AFilter implements Filter {
               continue;
             }
 
-            System.out.println(r);
             r += this.kernel[i][j] * this.image[newRow][newCol].getRed();
             g += this.kernel[i][j] * this.image[newRow][newCol].getGreen();
             b += this.kernel[i][j] * this.image[newRow][newCol].getBlue();
-
           }
 
         }
-        this.image[row][col] = new Pixel(this.colorCap((int) Math.round(r)), this.colorCap((int)Math.round(g)), this.colorCap((int)Math.round(b)));
+        this.image[row][col] = new Pixel(this.colorCap((int) Math.round(r)), this.colorCap((int) Math.round(g)), this.colorCap((int)Math.round(b)));
       }
     }
     return this.image;

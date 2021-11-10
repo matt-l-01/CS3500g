@@ -1,3 +1,6 @@
 load res/beach.png sample
-blur sample sample
+sharpen sample sample
 save res/newsample.png sample
+
+
+
