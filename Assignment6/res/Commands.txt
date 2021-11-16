@@ -1,0 +1,15 @@
+load Sample_Blur.png image
+brighten 80 image image
+vertical-flip image image
+horizontal-flip image image
+value-component image image
+intensity-component image image
+luma-component image image
+red-component image image
+green-component image image
+blue-component image image
+blur image image
+sharpen image image
+sepia image image
+greyscale image image
+save CrazySample.png image
