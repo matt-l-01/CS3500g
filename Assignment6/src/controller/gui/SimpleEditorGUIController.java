@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FilenameFilter;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -23,12 +24,14 @@ public class SimpleEditorGUIController extends SimpleEditorController
   private final ImageEditorGUIView view;
   private final JFrame frame;
   private String currentImage;
+  private String currentPath;
 
   public SimpleEditorGUIController(ImageEditorModel model, ImageEditorGUIView view) {
     super(model, view);
     this.view = view;
     this.frame = view.releaseFrame();
-    this.currentImage = "";
+    this.currentImage = null;
+    this.currentPath = "C:\\";
   }
 
   @Override
@@ -36,40 +39,79 @@ public class SimpleEditorGUIController extends SimpleEditorController
     this.view.show(this);
   }
 
+  /**
+   * This static inner class represents a FilenameFilter implementation that ensures the file
+   * types when saving and loading are one of the following: png, jpg, jpeg, ppm, or bmp.
+   */
+  private static class EditorFilter implements FilenameFilter {
+    @Override
+    public boolean accept(File dir, String name) {
+      return name.endsWith(".png")
+          || name.endsWith(".jpg")
+          || name.endsWith(".jpeg")
+          || name.endsWith(".ppm")
+          || name.endsWith(".bmp");
+    }
+  }
+
   @Override
   public void actionPerformed(ActionEvent e) {
     switch (e.getActionCommand()) {
       case "Load":
-
+        String newName = this.showPopUp("Enter a new name for the layer");
+        if (newName == null) {
+          break;
+        }
         FileDialog fd = new FileDialog(this.frame, "Select an Image", FileDialog.LOAD);
-        fd.setDirectory("C:\\");
-        fd.setFile("*.jpeg;*.jpg;*.ppm;*.bmp;*.png");
+        fd.setDirectory(this.currentPath);
+        fd.setFilenameFilter(new EditorFilter());
         fd.setMultipleMode(false);
         fd.setVisible(true);
 
-        String filename = fd.getFile();
-        String path = fd.getDirectory() + filename;
-
-        if (filename != null) {
-          System.out.println(filename);
+        String path = fd.getDirectory() + fd.getFile();
+        if (fd.getFile() != null) {
           System.out.println(path);
+          super.loadHelp(path, newName);
+          this.currentPath = path;
+          this.currentImage = newName;
         }
-//        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-//        int returnValue = jfc.showOpenDialog(null);
-//        jfc.setDialogType(JFileChooser.FILES_ONLY);
-//        if (returnValue == JFileChooser.APPROVE_OPTION) {
-//          File selectedFile = jfc.getSelectedFile();
-//          System.out.println(selectedFile.getAbsolutePath());
-//        }
         break;
       case "Save":
-        System.out.println(this.showPopUp("Ayo Save"));
+        if (this.currentImage == null) {
+          this.showError("No Layers Loaded");
+          break;
+        }
+        FileDialog save = new FileDialog(this.frame, "Select an Image", FileDialog.SAVE);
+        save.setDirectory(this.currentPath);
+        save.setFilenameFilter(new EditorFilter());
+        //save.setFile("*.jpg;*.jpeg;*.png;*.bmp;*.ppm");
+        save.setName(this.currentImage);
+        save.setMultipleMode(false);
+        save.setVisible(true);
+
+        String savePath = save.getDirectory() + save.getFile();
+        if (save.getFile() != null) {
+          System.out.println(savePath);
+          super.saveHelp(savePath, this.currentImage);
+          this.currentPath = savePath;
+        }
         break;
       case "Change Layer":
-        System.out.println(this.showListOfLayers());
+        String selected = this.showListOfLayers();
+        if (selected == null) {
+          break;
+        }
+        this.currentImage = selected;
+        // Change here TODO
         break;
       case "Brighten":
-        System.out.println("Brightening");
+        if (this.currentImage == null) {
+          this.showError("No Layers Loaded");
+          break;
+        }
+        String brightenNewName = this.showPopUp("Enter New Layer Name");
+        super.brighten(this.showPopUp("Enter Amount"), currentImage, brightenNewName);
+        this.currentImage = brightenNewName;
         break;
       case "Vertical Flip":
         System.out.println("Vertical Flip");
@@ -100,9 +142,14 @@ public class SimpleEditorGUIController extends SimpleEditorController
   private String showListOfLayers() {
     String[] layers = this.model.getListOfLayers();
     if (layers.length == 0) {
-      return "";
+      this.showError("No Layers Loaded");
+      return null;
     }
-    Object selectionObject = JOptionPane.showInputDialog(null, "Choose", "Menu", JOptionPane.PLAIN_MESSAGE, null, layers, layers[0]);
+    Object selectionObject = JOptionPane.showInputDialog(null, "Choose a layer",
+        "Layer Selection", JOptionPane.PLAIN_MESSAGE, null, layers, "");
+    if (selectionObject == null) {
+      return null;
+    }
     return selectionObject.toString();
   }
 }

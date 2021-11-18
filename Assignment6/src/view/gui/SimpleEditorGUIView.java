@@ -18,7 +18,8 @@ public class SimpleEditorGUIView implements ImageEditorGUIView {
 
   @Override
   public void renderMessage(String message) throws IllegalStateException {
-
+    JOptionPane.showMessageDialog(this.ev, message, "Simple Image Editor",
+        JOptionPane.INFORMATION_MESSAGE);
   }
 
   @Override
