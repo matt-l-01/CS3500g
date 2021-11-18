@@ -1,6 +1,8 @@
 package view.gui;
 
-import view.ImageEditorView;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 /**
  * Description of class goes here.
@@ -20,7 +22,13 @@ public class SimpleEditorGUIView implements ImageEditorGUIView {
   }
 
   @Override
-  public void show() {
-    ev.setVisible(true);
+  public void show(ActionListener a) {
+    this.ev.setUpListeners(a);
+    this.ev.setVisible(true);
+  }
+
+  @Override
+  public JFrame releaseFrame() {
+    return ev;
   }
 }

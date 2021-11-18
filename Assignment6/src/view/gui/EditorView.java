@@ -1,6 +1,7 @@
 package view.gui;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -18,9 +19,14 @@ public class EditorView extends JFrame {
   private final JMenu file;
   private final JMenuItem load;
   private final JMenuItem save;
+  private final JMenuItem changeLayer;
 
   private final JMenu edit;
   private final JMenuItem brighten;
+  private final JMenuItem vFlip;
+  private final JMenuItem hFlip;
+  private final JMenuItem component;
+  private final JMenuItem filter;
 
   public EditorView() {
     super();
@@ -31,9 +37,14 @@ public class EditorView extends JFrame {
     this.file = new JMenu("File");
     this.load = new JMenuItem("Load");
     this.save = new JMenuItem("Save");
+    this.changeLayer = new JMenuItem("Change Layer");
 
     this.edit = new JMenu("Edit");
     this.brighten = new JMenuItem("Brighten");
+    this.vFlip = new JMenuItem("Vertical Flip");
+    this.hFlip = new JMenuItem("Horizontal Flip");
+    this.component = new JMenuItem("Component");
+    this.filter = new JMenuItem("Filter");
 
     this.initialize();
   }
@@ -58,8 +69,24 @@ public class EditorView extends JFrame {
     this.menuBar.add(this.edit);
     this.file.add(this.load);
     this.file.add(this.save);
+    this.file.add(this.changeLayer);
     this.edit.add(this.brighten);
+    this.edit.add(this.vFlip);
+    this.edit.add(this.hFlip);
+    this.edit.add(this.component);
+    this.edit.add(this.filter);
 
     this.setJMenuBar(this.menuBar);
+  }
+
+  protected void setUpListeners(ActionListener a) {
+    this.load.addActionListener(a);
+    this.save.addActionListener(a);
+    this.changeLayer.addActionListener(a);
+    this.brighten.addActionListener(a);
+    this.vFlip.addActionListener(a);
+    this.hFlip.addActionListener(a);
+    this.component.addActionListener(a);
+    this.filter.addActionListener(a);
   }
 }

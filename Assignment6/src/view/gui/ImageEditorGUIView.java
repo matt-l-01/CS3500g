@@ -1,5 +1,9 @@
 package view.gui;
 
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
 import view.ImageEditorView;
 
 /**
@@ -8,5 +12,6 @@ import view.ImageEditorView;
  * @author Matthew Love
  */
 public interface ImageEditorGUIView extends ImageEditorView {
-  void show();
+  void show(ActionListener a);
+  JFrame releaseFrame();
 }

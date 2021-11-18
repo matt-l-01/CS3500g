@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -24,7 +25,7 @@ import view.ImageEditorView;
  * of commands, and facilitation of the output for the user. Runs the program.
  */
 public class SimpleEditorController implements ImageEditorController {
-  private final ImageEditorModel model;
+  protected final ImageEditorModel model;
   private final ImageEditorView view;
   private final Scanner scan;
 
@@ -46,6 +47,10 @@ public class SimpleEditorController implements ImageEditorController {
     this.model = model;
     this.view = view;
     this.scan = new Scanner(in); // Instantiates a Scanner with the Readable input provided
+  }
+
+  public SimpleEditorController(ImageEditorModel model, ImageEditorView view) {
+    this(model, view, new StringReader(""));
   }
 
   @Override

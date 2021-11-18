@@ -6,4 +6,5 @@ package model;
  * the output of the model will be shown externally when the image is opened.
  */
 public interface ImageEditorState {
+  String[] getListOfLayers();
 }

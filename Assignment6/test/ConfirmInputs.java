@@ -71,4 +71,9 @@ public class ConfirmInputs implements ImageEditorModel {
   public void sepia(String fromImageName, String toImageName) {
     log.append("SEPIA ").append(fromImageName).append(" ").append(toImageName).append("\n");
   }
+
+  @Override
+  public String[] getListOfLayers() {
+    return new String[0];
+  }
 }

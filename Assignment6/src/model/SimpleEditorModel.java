@@ -221,4 +221,9 @@ public class SimpleEditorModel implements ImageEditorModel {
     ColorTransform sepia = new Sepia(this.releaseImage(fromImageName));
     this.images.put(toImageName, sepia.transform());
   }
+
+  @Override
+  public String[] getListOfLayers() {
+    return this.images.keySet().toArray(new String[0]);
+  }
 }
