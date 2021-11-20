@@ -7,10 +7,11 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 
 import controller.ImageEditorController;
 import controller.SimpleEditorController;
+import model.Component;
+import model.Flip;
 import model.ImageEditorModel;
 import view.gui.ImageEditorGUIView;
 
@@ -25,6 +26,7 @@ public class SimpleEditorGUIController extends SimpleEditorController
   private final JFrame frame;
   private String currentImage;
   private String currentPath;
+  private final EditorCanvas canvas;
 
   public SimpleEditorGUIController(ImageEditorModel model, ImageEditorGUIView view) {
     super(model, view);
@@ -32,6 +34,8 @@ public class SimpleEditorGUIController extends SimpleEditorController
     this.frame = view.releaseFrame();
     this.currentImage = null;
     this.currentPath = "C:\\";
+    this.canvas = new EditorCanvas(model);
+    this.frame.add(this.canvas);
   }
 
   @Override
@@ -58,7 +62,7 @@ public class SimpleEditorGUIController extends SimpleEditorController
   public void actionPerformed(ActionEvent e) {
     switch (e.getActionCommand()) {
       case "Load":
-        String newName = this.showPopUp("Enter a new name for the layer");
+        String newName = this.showPopUp("Enter a Name for this Layer");
         if (newName == null) {
           break;
         }
@@ -70,64 +74,188 @@ public class SimpleEditorGUIController extends SimpleEditorController
 
         String path = fd.getDirectory() + fd.getFile();
         if (fd.getFile() != null) {
-          System.out.println(path);
           super.loadHelp(path, newName);
           this.currentPath = path;
           this.currentImage = newName;
+          this.canvas.drawImage(this.currentImage);
         }
         break;
       case "Save":
-        if (this.currentImage == null) {
-          this.showError("No Layers Loaded");
+        if (this.checkLayersWithError()) {
           break;
         }
         FileDialog save = new FileDialog(this.frame, "Select an Image", FileDialog.SAVE);
         save.setDirectory(this.currentPath);
         save.setFilenameFilter(new EditorFilter());
-        //save.setFile("*.jpg;*.jpeg;*.png;*.bmp;*.ppm");
         save.setName(this.currentImage);
         save.setMultipleMode(false);
         save.setVisible(true);
 
         String savePath = save.getDirectory() + save.getFile();
         if (save.getFile() != null) {
-          System.out.println(savePath);
           super.saveHelp(savePath, this.currentImage);
           this.currentPath = savePath;
         }
         break;
       case "Change Layer":
-        String selected = this.showListOfLayers();
+        if (this.checkLayersWithError()) {
+          break;
+        }
+        String selected = this.showSelection("Choose a Layer", "Layer Selection",
+            this.model.getListOfLayers());
         if (selected == null) {
           break;
         }
+        if (this.currentImage.equals(selected)) {
+          this.showError("You are already on this layer");
+          return;
+        }
         this.currentImage = selected;
-        // Change here TODO
+        this.canvas.drawImage(this.currentImage);
         break;
       case "Brighten":
-        if (this.currentImage == null) {
-          this.showError("No Layers Loaded");
+        if (this.checkLayersWithError()) {
           break;
         }
-        String brightenNewName = this.showPopUp("Enter New Layer Name");
-        super.brighten(this.showPopUp("Enter Amount"), currentImage, brightenNewName);
-        this.currentImage = brightenNewName;
+        this.brighten();
+        this.canvas.drawImage(this.currentImage);
         break;
       case "Vertical Flip":
-        System.out.println("Vertical Flip");
+        if (this.checkLayersWithError()) {
+          break;
+        }
+        this.vFlip();
+        this.canvas.drawImage(this.currentImage);
         break;
       case "Horizontal Flip":
-        System.out.println("Horizontal Flip");
+        if (this.checkLayersWithError()) {
+          break;
+        }
+        this.hFlip();
+        this.canvas.drawImage(this.currentImage);
         break;
       case "Component":
-        System.out.println("Component");
+        if (this.checkLayersWithError()) {
+          break;
+        }
+        this.component();
+        this.canvas.drawImage(this.currentImage);
         break;
       case "Filter":
-        System.out.println("Filter");
+        if (this.checkLayersWithError()) {
+          break;
+        }
+        this.filter();
+        this.canvas.drawImage(this.currentImage);
         break;
       default:
         throw new IllegalStateException("Unknown action performed");
     }
+  }
+
+  private boolean checkLayersWithError() {
+    if (this.currentImage == null) {
+      this.showError("No Layers Loaded");
+      return true;
+    }
+    return false;
+  }
+
+  private void brighten() {
+    String layerName = this.showPopUp("Enter Layer Name for Change");
+    if (layerName == null) {
+      return;
+    }
+
+    super.brighten(this.showPopUp("Enter Amount to Brighten"), currentImage, layerName);
+    this.currentImage = layerName;
+  }
+
+  private void vFlip() {
+    String layerName = this.showPopUp("Enter Layer Name for Change");
+    if (layerName == null) {
+      return;
+    }
+
+    super.flip(Flip.VERTICAL, this.currentImage, layerName);
+    this.currentImage = layerName;
+  }
+
+  private void hFlip() {
+    String layerName = this.showPopUp("Enter Layer Name for Change");
+    if (layerName == null) {
+      return;
+    }
+
+    super.flip(Flip.HORIZONTAL, this.currentImage, layerName);
+    this.currentImage = layerName;
+  }
+
+  private void component() {
+    String selection = this.showSelection("Choose a Component Type", "Component Selection",
+        "Value", "Intensity", "Luma", "Red", "Green", "Blue");
+    if (selection == null) {
+      return;
+    }
+
+    String layerName = this.showPopUp("Enter Layer Name for Change");
+    if (layerName == null) {
+      return;
+    }
+
+    super.component(this.getComponentType(selection), this.currentImage, layerName);
+    this.currentImage = layerName;
+  }
+
+  private Component getComponentType(String name) {
+    switch (name) {
+      case "Value":
+        return Component.VALUE;
+      case "Intensity":
+        return Component.INTENSITY;
+      case "Luma":
+        return Component.LUMA;
+      case "Red":
+        return Component.RED;
+      case "Green":
+        return Component.GREEN;
+      case "Blue":
+        return Component.BLUE;
+      default:
+        // No action
+    }
+    return Component.VALUE;
+  }
+
+  private void filter() {
+    String selection = this.showSelection("Choose a Filter Type", "Filter Selection",
+        "Blur", "Sharpen", "Greyscale", "Sepia");
+    if (selection == null) {
+      return;
+    }
+
+    String layerName = this.showPopUp("Enter Layer Name for Change");
+    if (layerName == null) {
+      return;
+    }
+
+    switch (selection) {
+      case "Blur":
+        super.blur(this.currentImage, layerName);
+        break;
+      case "Sharpen":
+        super.sharpen(this.currentImage, layerName);
+        break;
+      case "Greyscale":
+        super.greyscale(this.currentImage, layerName);
+        break;
+      case "Sepia":
+        super.sepia(this.currentImage, layerName);
+        break;
+      default:
+        // No action
+    }
+    this.currentImage = layerName;
   }
 
   private String showPopUp(String str) {
@@ -139,17 +267,15 @@ public class SimpleEditorGUIController extends SimpleEditorController
         JOptionPane.ERROR_MESSAGE);
   }
 
-  private String showListOfLayers() {
-    String[] layers = this.model.getListOfLayers();
-    if (layers.length == 0) {
-      this.showError("No Layers Loaded");
+  private String showSelection(String message, String title, String... list) {
+    if (list.length == 0) {
       return null;
     }
-    Object selectionObject = JOptionPane.showInputDialog(null, "Choose a layer",
-        "Layer Selection", JOptionPane.PLAIN_MESSAGE, null, layers, "");
-    if (selectionObject == null) {
+    Object selectionObj = JOptionPane.showInputDialog(null, message,
+        title, JOptionPane.PLAIN_MESSAGE, null, list, "");
+    if (selectionObj == null) {
       return null;
     }
-    return selectionObject.toString();
+    return selectionObj.toString();
   }
 }
