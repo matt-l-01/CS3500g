@@ -217,9 +217,8 @@ public class SimpleEditorController implements ImageEditorController {
    * @param path the path of the file to load.
    * @param name the name to save the image as in memory.
    */
-  private void loadHelp(String path, String name) {
+  protected void loadHelp(String path, String name) {
     try {
-      this.view.renderMessage("Loading...");
       this.load(path, name);
       this.view.renderMessage("Successfully loaded image with name \"" + name + "\".\n");
     } catch (IllegalStateException e) {
@@ -347,9 +346,8 @@ public class SimpleEditorController implements ImageEditorController {
    * @param path the path of where to save.
    * @param name the name of the image in memory.
    */
-  private void saveHelp(String path, String name) {
+  protected void saveHelp(String path, String name) {
     try {
-      this.view.renderMessage("Saving...");
       this.save(path, name);
       this.view.renderMessage("Successfully saved image to path \"" + path + "\".\n");
     } catch (IllegalStateException e) {
@@ -456,7 +454,7 @@ public class SimpleEditorController implements ImageEditorController {
    * @param beforeImage the name of the image in memory to conduct the operation on.
    * @param afterImage the name to save the resulting image in memory
    */
-  private void brighten(String val, String beforeImage, String afterImage) {
+  protected void brighten(String val, String beforeImage, String afterImage) {
     int value = 0;
     try {
       value = Integer.parseInt(val);
@@ -466,7 +464,6 @@ public class SimpleEditorController implements ImageEditorController {
     }
 
     try {
-      this.view.renderMessage("Brightening...");
       this.model.brighten(value, beforeImage, afterImage);
       this.view.renderMessage("Successfully brightened image by " + val + ".\n");
     } catch (IllegalStateException e) {
@@ -481,9 +478,8 @@ public class SimpleEditorController implements ImageEditorController {
    * @param beforeImage the name of the image in memory to conduct the operation on.
    * @param afterImage the name to save the resulting image in memory.
    */
-  private void flip(Flip f, String beforeImage, String afterImage) {
+  protected void flip(Flip f, String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Rendering flip " + f + "...");
       this.model.flip(f, beforeImage, afterImage);
       this.view.renderMessage("Successfully flipped the image. \n");
     } catch (IllegalStateException e) {
@@ -498,9 +494,8 @@ public class SimpleEditorController implements ImageEditorController {
    * @param beforeImage the name of the image in memory to conduct the operation on.
    * @param afterImage the name to save the resulting image in memory.
    */
-  private void component(Component c, String beforeImage, String afterImage) {
+  protected void component(Component c, String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Rendering component " + c + "...");
       this.model.component(c, beforeImage, afterImage);
       this.view.renderMessage("Successfully rendered the component " + c + " for the image.\n");
     } catch (IllegalStateException e) {
@@ -514,9 +509,8 @@ public class SimpleEditorController implements ImageEditorController {
    * @param beforeImage the name of the image in memory to conduct the operation on.
    * @param afterImage the name to save the resulting image in memory.
    */
-  private void blur(String beforeImage, String afterImage) {
+  protected void blur(String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Blurring image...");
       this.model.blur(beforeImage, afterImage);
       this.view.renderMessage("Successfully blurred the image.\n");
     } catch (IllegalStateException e) {
@@ -530,9 +524,8 @@ public class SimpleEditorController implements ImageEditorController {
    * @param beforeImage the name of the image in memory to conduct the operation on.
    * @param afterImage the name to save the resulting image in memory.
    */
-  private void sharpen(String beforeImage, String afterImage) {
+  protected void sharpen(String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Sharpening image...");
       this.model.sharpen(beforeImage, afterImage);
       this.view.renderMessage("Successfully sharpened the image.\n");
     } catch (IllegalStateException e) {
@@ -546,9 +539,8 @@ public class SimpleEditorController implements ImageEditorController {
    * @param beforeImage the name of the image in memory to conduct the operation on.
    * @param afterImage the name to save the resulting image in memory.
    */
-  private void greyscale(String beforeImage, String afterImage) {
+  protected void greyscale(String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Transforming image to greyscale...");
       this.model.greyscale(beforeImage, afterImage);
       this.view.renderMessage("Successfully transformed the image.\n");
     } catch (IllegalStateException e) {
@@ -562,9 +554,8 @@ public class SimpleEditorController implements ImageEditorController {
    * @param beforeImage the name of the image in memory to conduct the operation on.
    * @param afterImage the name to save the resulting image in memory.
    */
-  private void sepia(String beforeImage, String afterImage) {
+  protected void sepia(String beforeImage, String afterImage) {
     try {
-      this.view.renderMessage("Transforming image to sepia...");
       this.model.sepia(beforeImage, afterImage);
       this.view.renderMessage("Successfully transformed the image.\n");
     } catch (IllegalStateException e) {
