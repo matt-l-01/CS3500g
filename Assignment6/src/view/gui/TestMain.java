@@ -15,7 +15,7 @@ import model.SimpleEditorModel;
 public class TestMain {
   public static void main(String[] args) {
     ImageEditorModel model = new SimpleEditorModel();
-    ImageEditorGUIView view = new SimpleEditorGUIView();
+    ImageEditorGUIView view = new SimpleEditorGUIView(model);
     ImageEditorController cont = new SimpleEditorGUIController(model, view);
     cont.start();
   }

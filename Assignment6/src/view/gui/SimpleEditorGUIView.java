@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import model.ImageEditorState;
+
 /**
  * Description of class goes here.
  *
@@ -11,9 +13,14 @@ import javax.swing.*;
  */
 public class SimpleEditorGUIView implements ImageEditorGUIView {
   private final EditorView ev;
+  private final ImageEditorState state;
 
-  public SimpleEditorGUIView() {
-    this.ev = new EditorView();
+  public SimpleEditorGUIView(ImageEditorState state) {
+    if (state == null) {
+      throw new IllegalArgumentException("State may not be null");
+    }
+    this.ev = new EditorView(state);
+    this.state = state;
   }
 
   @Override
@@ -31,5 +38,10 @@ public class SimpleEditorGUIView implements ImageEditorGUIView {
   @Override
   public JFrame releaseFrame() {
     return ev;
+  }
+
+  @Override
+  public void drawImage(String name) {
+    this.ev.drawImage(this.state.releaseImage(name));
   }
 }

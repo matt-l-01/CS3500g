@@ -26,7 +26,6 @@ public class SimpleEditorGUIController extends SimpleEditorController
   private final JFrame frame;
   private String currentImage;
   private String currentPath;
-  private final EditorCanvas canvas;
 
   public SimpleEditorGUIController(ImageEditorModel model, ImageEditorGUIView view) {
     super(model, view);
@@ -34,8 +33,6 @@ public class SimpleEditorGUIController extends SimpleEditorController
     this.frame = view.releaseFrame();
     this.currentImage = null;
     this.currentPath = "C:\\";
-    this.canvas = new EditorCanvas(model);
-    this.frame.add(this.canvas);
   }
 
   @Override
@@ -77,7 +74,7 @@ public class SimpleEditorGUIController extends SimpleEditorController
           super.loadHelp(path, newName);
           this.currentPath = path;
           this.currentImage = newName;
-          this.canvas.drawImage(this.currentImage);
+          this.view.drawImage(this.currentImage);
         }
         break;
       case "Save":
@@ -87,11 +84,13 @@ public class SimpleEditorGUIController extends SimpleEditorController
         FileDialog save = new FileDialog(this.frame, "Select an Image", FileDialog.SAVE);
         save.setDirectory(this.currentPath);
         save.setFilenameFilter(new EditorFilter());
-        save.setName(this.currentImage);
-        save.setMultipleMode(false);
         save.setVisible(true);
 
         String savePath = save.getDirectory() + save.getFile();
+        if (!(savePath.endsWith(".png") || savePath.endsWith(".jpg") || savePath.endsWith(".ppm")
+        || savePath.endsWith(".jpeg") || savePath.endsWith(".bmp"))) {
+          savePath = savePath + ".png";
+        }
         if (save.getFile() != null) {
           super.saveHelp(savePath, this.currentImage);
           this.currentPath = savePath;
@@ -111,42 +110,42 @@ public class SimpleEditorGUIController extends SimpleEditorController
           return;
         }
         this.currentImage = selected;
-        this.canvas.drawImage(this.currentImage);
+        this.view.drawImage(this.currentImage);
         break;
       case "Brighten":
         if (this.checkLayersWithError()) {
           break;
         }
         this.brighten();
-        this.canvas.drawImage(this.currentImage);
+        this.view.drawImage(this.currentImage);
         break;
       case "Vertical Flip":
         if (this.checkLayersWithError()) {
           break;
         }
         this.vFlip();
-        this.canvas.drawImage(this.currentImage);
+        this.view.drawImage(this.currentImage);
         break;
       case "Horizontal Flip":
         if (this.checkLayersWithError()) {
           break;
         }
         this.hFlip();
-        this.canvas.drawImage(this.currentImage);
+        this.view.drawImage(this.currentImage);
         break;
       case "Component":
         if (this.checkLayersWithError()) {
           break;
         }
         this.component();
-        this.canvas.drawImage(this.currentImage);
+        this.view.drawImage(this.currentImage);
         break;
       case "Filter":
         if (this.checkLayersWithError()) {
           break;
         }
         this.filter();
-        this.canvas.drawImage(this.currentImage);
+        this.view.drawImage(this.currentImage);
         break;
       default:
         throw new IllegalStateException("Unknown action performed");

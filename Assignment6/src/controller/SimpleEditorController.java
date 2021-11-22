@@ -332,8 +332,11 @@ public class SimpleEditorController implements ImageEditorController {
     Pixel[][] loadedImage = new Pixel[img.getHeight()][img.getWidth()];
     for (int i = 0; i < img.getHeight(); i++) {
       for (int j = 0; j < img.getWidth(); j++) {
-        Color c = new Color(img.getRGB(j, i));
-        Pixel p = new Pixel(c.getRed(), c.getGreen(), c.getBlue());
+        int color = img.getRGB(j, i);
+        int r = (color >> 16) & 0xFF;
+        int g = (color >> 8) & 0xFF;
+        int b = color & 0xFF;
+        Pixel p = new Pixel(r, g, b);
         loadedImage[i][j] = p;
       }
     }
@@ -431,8 +434,8 @@ public class SimpleEditorController implements ImageEditorController {
       for (int i = 0; i < image.length; i++) {
         for (int j = 0; j < image[i].length; j++) {
           Pixel p = image[i][j];
-          Color c = new Color(p.getRed(), p.getGreen(), p.getBlue());
-          img.setRGB(j, i, c.getRGB());
+          int color = (p.getRed() << 16) | (p.getGreen() << 8) | p.getBlue();
+          img.setRGB(j, i, color);
         }
       }
 
