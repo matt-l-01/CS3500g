@@ -1,3 +1,4 @@
+package model.histogram;
 
 import java.util.ArrayList;
 
@@ -6,7 +7,7 @@ import model.SimpleEditorModel;
 import model.histogram.Histogram;
 
 /**
- * Represents a HistogramModel.
+ * Represents a model.histogram.HistogramModel.
  */
 public class HistogramModel extends SimpleEditorModel implements Histogram {
   private final ArrayList<Integer> redFrequency;

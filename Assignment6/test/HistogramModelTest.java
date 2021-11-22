@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import model.Pixel;
+import model.histogram.HistogramModel;
 
 import static org.junit.Assert.*;
 
