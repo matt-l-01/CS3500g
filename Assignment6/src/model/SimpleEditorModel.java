@@ -17,7 +17,7 @@ import model.filters.Sharpen;
  * the user to save any of these representations of the images to a given path.
  */
 public class SimpleEditorModel implements ImageEditorModel {
-  private final Map<String, Pixel[][]> images;
+  protected final Map<String, Pixel[][]> images;
 
   /**
    * Constructs an instance of the model to represent the image at the given file name for the

@@ -1,45 +1,84 @@
-import model.Component;
+
+import java.util.ArrayList;
+
 import model.Pixel;
 import model.SimpleEditorModel;
 
+/**
+ * Represents a HistogramModel.
+ */
 public class HistogramModel extends SimpleEditorModel implements Histogram {
-  private final Pixel[][] image;
-  private final Histogram[][] table;
+  private final ArrayList<Integer> redFrequency;
+  private final ArrayList<Integer> greenFrequency;
+  private final ArrayList<Integer> blueFrequency;
 
-  private HistogramModel(Pixel[][] image) {
-    this.image = image;
-    this.table = new Histogram[image.length][image.length];
+  public HistogramModel() {
+    this.redFrequency = new ArrayList<>();
+    this.greenFrequency = new ArrayList<>();
+    this.blueFrequency = new ArrayList<>();
+
+    for (int i = 0; i < 256; i++) {
+      redFrequency.add(0);
+      greenFrequency.add(0);
+      blueFrequency.add(0);
+    }
   }
 
-  //have a table for each of the RGB components & frequency (intensity = average of all components)
-  //creates a line chart for each of the RGB components
-  public void createTable(String imageName) {
+  //don't keep here, put into util class
+  public boolean checkTransparentImage(Pixel[][] imageModel) {
+    //if the image is not a png then go to fillFrequencies
+    //go through all the pixels of an image and see if each pixel has an RGB equal to (0,0,0)
+    int count0 = 0;
+    int count255 = 0;
+    for (int i = 0; i < imageModel.length; i++) {
+      for (int j = 0; j < imageModel[i].length; j++) {
+        Pixel checkRGB = imageModel[i][j];
+        if (checkRGB.clone().equals(new Pixel(0, 0, 0))) {
+          count0++;
+        } else if (checkRGB.clone().equals(new Pixel(255, 255, 255))) {
+          count255++;
+        }
+      }
+    }
+    //checks if image is black or white
+    return ((count0 == imageModel.length * imageModel[0].length)) ||
+            (!(count255 == imageModel.length * imageModel[0].length));
+  }
 
-    Pixel[][] image = this.releaseImage(imageName);
-    Histogram redTable = new HistogramModel(image);
-    Histogram greenTable = new HistogramModel(image);
-    Histogram blueTable = new HistogramModel(image);
 
-    for (int i = 0; i < image.length; i++) {
-      for (int j = 0; j < image[i].length; j++) {
-        redTable[image.getRed()][component(Component.INTENSITY, imageName, imageName)];
-        greenTable[image.getGreen()][component(Component.INTENSITY, imageName, imageName)];
-        blueTable[image.getBlue()][component(Component.INTENSITY, imageName, imageName)];
+  //have 3 tables for each RGB component
+  //have another table for the average of all components
+  //create 4 different histograms
+  //include intensity table which is average of all components in RGB value
+  public void fillFrequencies(Pixel[][] imageModel) {
+    for (int i = 0; i < imageModel.length; i++) {
+      for (int j = 0; j < imageModel[i].length; j++) {
+        Pixel p = imageModel[i][j];
+        int resultR = p.getRed();
+        int resultG = p.getGreen();
+        int resultB = p.getRed();
+        redFrequency.set(resultR, redFrequency.get(resultR) + 1);
+        greenFrequency.set(resultG, greenFrequency.get(resultG) + 1);
+        blueFrequency.set(resultB, blueFrequency.get(resultB) + 1);
       }
     }
   }
 
-  public Pixel[][] releaseImage (String name) throws IllegalStateException {
-    Pixel[][] value = this.image.get(name);
-    if (value == null) {
-      throw new IllegalStateException("Image \"" + name + "\" not found in saved list.");
-    }
-    return value;
+
+  public ArrayList<Integer> getRedBar() {
+    return this.redFrequency;
   }
 
+  public ArrayList<Integer> getGreenBar() {
+    return this.greenFrequency;
+  }
+
+  public ArrayList<Integer> getBlueBar() {
+    return this.blueFrequency;
+  }
 }
 
 
 
 
-
+//get the bars of the newly saved image for the different operations
