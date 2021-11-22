@@ -1,3 +1,5 @@
+package model.histogram;
+
 import java.util.ArrayList;
 
 import model.Pixel;

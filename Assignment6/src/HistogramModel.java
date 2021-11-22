@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import model.Pixel;
 import model.SimpleEditorModel;
+import model.histogram.Histogram;
 
 /**
  * Represents a HistogramModel.
