@@ -3,22 +3,19 @@ package model.histogram;
 import java.util.ArrayList;
 
 import model.Pixel;
+import model.SimpleEditorModel;
+import model.histogram.Histogram;
 
 /**
- * Represents a model for the histogram representation. Allows the image to be shown as components
- * on the histogram with red, green, blue, and intensity values shown on the screen.
+ * Represents a model.histogram.HistogramModel.
  */
-public class HistogramModel implements Histogram {
+public class HistogramModel extends SimpleEditorModel implements Histogram {
   private final ArrayList<Integer> redFrequency;
   private final ArrayList<Integer> greenFrequency;
   private final ArrayList<Integer> blueFrequency;
   private final ArrayList<Integer> intensityFrequency;
   private Pixel[][] image;
 
-  /**
-   * Constructs a Histogram model to represent the different components of an image on a histogram
-   * with each red, green, blue, and intensity value being shown.
-   */
   public HistogramModel() {
     this.redFrequency = new ArrayList<>();
     this.greenFrequency = new ArrayList<>();
@@ -40,12 +37,32 @@ public class HistogramModel implements Histogram {
     this.fillFrequencies();
   }
 
+  private boolean checkTransparentImage() {
+    if (image == null) {
+      return false;
+    }
+    int count0 = 0;
+    int count255 = 0;
+    for (int i = 0; i < this.image.length; i++) {
+      for (int j = 0; j < this.image[i].length; j++) {
+        Pixel checkRGB = this.image[i][j];
+        if (checkRGB.getRed() == 0 && checkRGB.getBlue() == 0 && checkRGB.getGreen() == 0) {
+          count0++;
+        } else if (checkRGB.getRed() == 255 && checkRGB.getBlue() == 255
+                && checkRGB.getGreen() == 255) {
+          count255++;
+        }
+      }
+    }
+    return (!(count0 == this.image.length * this.image[0].length)) ||
+            (!(count255 == this.image.length * this.image[0].length));
+  }
+
   @Override
   public void fillFrequencies() {
     if (image == null) {
       return;
     }
-
     for (int i = 0; i < this.image.length; i++) {
       for (int j = 0; j < this.image[i].length; j++) {
         Pixel p = this.image[i][j];
@@ -55,23 +72,21 @@ public class HistogramModel implements Histogram {
       }
     }
   }
-  @Override
+
   public ArrayList<Integer> getRedBar() {
     return this.redFrequency;
   }
 
-  @Override
   public ArrayList<Integer> getGreenBar() {
     return this.greenFrequency;
   }
 
-  @Override
   public ArrayList<Integer> getBlueBar() {
     return this.blueFrequency;
   }
 
-  @Override
   public ArrayList<Integer> getIntensityBar() {
     return this.intensityFrequency;
   }
 }
+
