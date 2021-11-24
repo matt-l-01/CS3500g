@@ -11,7 +11,6 @@ import model.Pixel;
 import model.histogram.DrawHistogram;
 import model.histogram.Histogram;
 import model.histogram.HistogramModel;
-import model.histogram.HistogramView;
 
 /**
  * Description of class goes here.
@@ -130,7 +129,6 @@ public class EditorView extends JFrame {
         Pixel p = image[i][j];
         int color = (p.getRed() << 16) | (p.getGreen() << 8) | p.getBlue();
         img.setRGB(j, i, color);
-        System.out.println("1Drawing " + i);
       }
     }
 
@@ -143,6 +141,5 @@ public class EditorView extends JFrame {
     this.lastUsed = scrollPane;
     scrollPane.setPreferredSize(new Dimension(500,500));
     this.pack();
-    System.out.println("1Drawn");
   }
 }

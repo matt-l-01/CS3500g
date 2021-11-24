@@ -1,16 +1,30 @@
 package model.histogram;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
-public class DrawHistogram extends JPanel implements HistogramView {
+/**
+ * This class allows the program to draw the histogram to the screen. Extended from JPanel,
+ * this class draws the components and intensity for the image on the screen and connects the
+ * points.
+ */
+public class DrawHistogram extends JPanel {
   private final Histogram hm;
 
   private final ArrayList<Color> lineColor = new ArrayList<>();
   private final ArrayList<Color> pointColor = new ArrayList<>();
 
+  /**
+   * Constructs a new histogram drawing class in order to draw the histogram to the screen.
+   * @param hm the Histogram model to be used with this class in order to obtain information
+   *           about the histogram.
+   */
   public DrawHistogram(Histogram hm) {
     super();
 
@@ -35,7 +49,7 @@ public class DrawHistogram extends JPanel implements HistogramView {
     //redFrequency lines
     int x_valueR = 0;
     g.setColor(Color.RED);
-    java.util.List<Integer> red = this.hm.getRedBar();
+    List<Integer> red = this.hm.getRedBar();
     int lastX = 0;
     int lastY = 0;
     for (Integer y_valueR : red) {
@@ -49,7 +63,7 @@ public class DrawHistogram extends JPanel implements HistogramView {
     //greenFrequency lines
     int x_valueG = 0;
     g.setColor(Color.GREEN);
-    java.util.List<Integer> green = this.hm.getGreenBar();
+    List<Integer> green = this.hm.getGreenBar();
     for (Integer y_valueG : green) {
       g.fillRect(x_valueG, 500 - y_valueG, 2, 2);
       g.drawLine(lastX, lastY, x_valueG, 500 - y_valueG);
@@ -61,7 +75,7 @@ public class DrawHistogram extends JPanel implements HistogramView {
     //blueFrequency lines
     int x_valueB = 0;
     g.setColor(Color.blue);
-    java.util.List<Integer> blue = this.hm.getBlueBar();
+    List<Integer> blue = this.hm.getBlueBar();
     for (Integer y_valueB : blue) {
       g.fillRect(x_valueB, 500 - y_valueB, 2, 2);
       g.drawLine(lastX, lastY, x_valueB, 500 - y_valueB);
@@ -73,7 +87,7 @@ public class DrawHistogram extends JPanel implements HistogramView {
     //intensity component lines
     int x_valueI = 0;
     g.setColor(Color.black);
-    java.util.List<Integer> intensity = this.hm.getIntensityBar();
+    List<Integer> intensity = this.hm.getIntensityBar();
     for (Integer y_valueI : intensity) {
       g.fillRect(x_valueI, 500 - y_valueI, 2, 2);
       g.drawLine(lastX, lastY, x_valueI, 500 - y_valueI);

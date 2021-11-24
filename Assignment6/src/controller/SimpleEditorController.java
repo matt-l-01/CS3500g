@@ -220,7 +220,7 @@ public class SimpleEditorController implements ImageEditorController {
   protected void loadHelp(String path, String name) {
     try {
       this.load(path, name);
-      this.view.renderMessage("Successfully loaded image with name \"" + name + "\".\n");
+      this.view.renderMessage("Loading image with name \"" + name + "\".\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("The was an error loading the provided file path. Not found or "
           + "empty.\n");
@@ -468,7 +468,7 @@ public class SimpleEditorController implements ImageEditorController {
 
     try {
       this.model.brighten(value, beforeImage, afterImage);
-      this.view.renderMessage("Successfully brightened image by " + val + ".\n");
+      this.view.renderMessage("Brightening image by " + val + ".\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
@@ -484,7 +484,7 @@ public class SimpleEditorController implements ImageEditorController {
   protected void flip(Flip f, String beforeImage, String afterImage) {
     try {
       this.model.flip(f, beforeImage, afterImage);
-      this.view.renderMessage("Successfully flipped the image. \n");
+      this.view.renderMessage("Flipping the image. \n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
@@ -500,7 +500,7 @@ public class SimpleEditorController implements ImageEditorController {
   protected void component(Component c, String beforeImage, String afterImage) {
     try {
       this.model.component(c, beforeImage, afterImage);
-      this.view.renderMessage("Successfully rendered the component " + c + " for the image.\n");
+      this.view.renderMessage("Rendering the component " + c + " for the image.\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
@@ -515,7 +515,7 @@ public class SimpleEditorController implements ImageEditorController {
   protected void blur(String beforeImage, String afterImage) {
     try {
       this.model.blur(beforeImage, afterImage);
-      this.view.renderMessage("Successfully blurred the image.\n");
+      this.view.renderMessage("Blurring the image.\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
@@ -530,7 +530,7 @@ public class SimpleEditorController implements ImageEditorController {
   protected void sharpen(String beforeImage, String afterImage) {
     try {
       this.model.sharpen(beforeImage, afterImage);
-      this.view.renderMessage("Successfully sharpened the image.\n");
+      this.view.renderMessage("Sharpening the image.\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
@@ -545,7 +545,7 @@ public class SimpleEditorController implements ImageEditorController {
   protected void greyscale(String beforeImage, String afterImage) {
     try {
       this.model.greyscale(beforeImage, afterImage);
-      this.view.renderMessage("Successfully transformed the image.\n");
+      this.view.renderMessage("Transforming the image.\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }
@@ -560,7 +560,7 @@ public class SimpleEditorController implements ImageEditorController {
   protected void sepia(String beforeImage, String afterImage) {
     try {
       this.model.sepia(beforeImage, afterImage);
-      this.view.renderMessage("Successfully transformed the image.\n");
+      this.view.renderMessage("Transforming the image.\n");
     } catch (IllegalStateException e) {
       this.view.renderMessage("ERROR: The provided image name was not found.\n");
     }

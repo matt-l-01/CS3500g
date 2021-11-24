@@ -1,12 +1,13 @@
 package controller.gui;
 
-import java.awt.*;
+import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import controller.ImageEditorController;
 import controller.SimpleEditorController;
@@ -16,9 +17,8 @@ import model.ImageEditorModel;
 import view.gui.ImageEditorGUIView;
 
 /**
- * Description of class goes here.
- *
- * @author Matthew Love
+ * Handles all the inputs and outputs for the program with the GUI, and allows the user to control
+ * the model using the GUI elements.
  */
 public class SimpleEditorGUIController extends SimpleEditorController
     implements ImageEditorController, ActionListener {
@@ -27,6 +27,12 @@ public class SimpleEditorGUIController extends SimpleEditorController
   private String currentImage;
   private String currentPath;
 
+  /**
+   * Creates a GUI controller to run the program using the provided parameters of model and view.
+   * Will allow the controller to control the model and view to make the program work.
+   * @param model the editor model in order to edit images.
+   * @param view the view in order to show output to the user.
+   */
   public SimpleEditorGUIController(ImageEditorModel model, ImageEditorGUIView view) {
     super(model, view);
     this.view = view;
