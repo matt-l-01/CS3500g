@@ -14,12 +14,14 @@ public class HistogramModel extends SimpleEditorModel implements Histogram {
   private final ArrayList<Integer> greenFrequency;
   private final ArrayList<Integer> blueFrequency;
   private final ArrayList<Integer> intensityFrequency;
+  private Pixel[][] image;
 
   public HistogramModel() {
     this.redFrequency = new ArrayList<>();
     this.greenFrequency = new ArrayList<>();
     this.blueFrequency = new ArrayList<>();
     this.intensityFrequency = new ArrayList<>();
+    this.image = null;
 
     for (int i = 0; i < 256; i++) {
       redFrequency.add(0);
@@ -29,39 +31,37 @@ public class HistogramModel extends SimpleEditorModel implements Histogram {
     }
   }
 
-  public boolean checkTransparentImage(Pixel[][] imageModel) {
+  @Override
+  public void setImage(Pixel[][] image) {
+    this.image = image;
+    this.fillFrequencies();
+  }
+
+  private boolean checkTransparentImage() {
+    if (image == null) {
+      return false;
+    }
     int count0 = 0;
     int count255 = 0;
-    for (int i = 0; i < imageModel.length; i++) {
-      for (int j = 0; j < imageModel[i].length; j++) {
-        Pixel checkRGB = imageModel[i][j];
-        if (checkRGB.clone().equals(new Pixel(0, 0, 0))) {
+    for (int i = 0; i < this.image.length; i++) {
+      for (int j = 0; j < this.image[i].length; j++) {
+        Pixel checkRGB = this.image[i][j];
+        if (checkRGB.getRed() == 0 && checkRGB.getBlue() == 0 && checkRGB.getGreen() == 0) {
           count0++;
         } else if (checkRGB.clone().equals(new Pixel(255, 255, 255))) {
           count255++;
         }
       }
     }
-    return (!(count0 == imageModel.length * imageModel[0].length)) ||
-            (!(count255 == imageModel.length * imageModel[0].length));
+    return (!(count0 == this.image.length * this.image[0].length)) ||
+            (!(count255 == this.image.length * this.image[0].length));
   }
 
   //have 3 tables for each RGB component & 1 table for the intensity component
-  public void fillFrequencies(Pixel[][] imageModel) {
-    if (!checkTransparentImage(imageModel)) {
-      for (int i = 0; i < imageModel.length; i++) {
-        for (int j = 0; j < imageModel[i].length; j++) {
-          Pixel p = imageModel[i][j];
-          int resultR = p.getRed();
-          int resultG = p.getGreen();
-          int resultB = p.getBlue();
-          int resultI = (int) Math.round((p.getRed() + p.getGreen() + p.getBlue()) / 3.0);
-          redFrequency.set(resultR, redFrequency.get(resultR) + 1);
-          greenFrequency.set(resultG, greenFrequency.get(resultG) + 1);
-          blueFrequency.set(resultB, blueFrequency.get(resultB) + 1);
-          intensityFrequency.set(resultI, intensityFrequency.get(resultI) + 1);
-        }
-      }
+  @Override
+  public void fillFrequencies() {
+    if (image == null) {
+      return;
     }
   }
 

@@ -5,5 +5,4 @@ import java.awt.*;
 public interface HistogramView {
 
   void paintComponent(Graphics g);
-
 }

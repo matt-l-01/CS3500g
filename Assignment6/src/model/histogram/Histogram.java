@@ -7,7 +7,7 @@ import model.Pixel;
 
 public interface Histogram {
 
-  void fillFrequencies(Pixel[][] image);
+  void setImage(Pixel[][] image);
 
   ArrayList<Integer> getRedBar();
 

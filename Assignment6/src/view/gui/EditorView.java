@@ -32,6 +32,8 @@ public class EditorView extends JFrame {
   private final JMenuItem component;
   private final JMenuItem filter;
 
+  private final JProgressBar bar;
+  private final JPanel barCont;
   private JScrollPane lastUsed;
 
   public EditorView(ImageEditorState state) {
@@ -55,11 +57,15 @@ public class EditorView extends JFrame {
     this.hFlip = new JMenuItem("Horizontal Flip");
     this.component = new JMenuItem("Component");
     this.filter = new JMenuItem("Filter");
+    this.bar = new JProgressBar();
+    this.barCont = new JPanel();
 
     this.initialize();
   }
 
   private void initialize() {
+    JPanel finalPanel = new JPanel();
+    finalPanel.setLayout(new GridLayout(2, 1));
     this.container.setLayout(new GridLayout(1, 2));
     this.leftPanel.setLayout(new BorderLayout());
     this.rightPanel.setLayout(new BorderLayout());
@@ -67,9 +73,12 @@ public class EditorView extends JFrame {
     rightPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Histogram"));
     this.container.add(this.leftPanel);
     this.container.add(this.rightPanel);
+    this.barCont.add(this.bar);
+    finalPanel.add(this.container);
+    finalPanel.add(this.barCont);
     this.add(this.container);
 
-    this.setResizable(false);
+    this.setResizable(true);
     this.setTitle("Simple Image Editor GUI");
     this.pack();
     this.setSize(1000, 500);
@@ -106,6 +115,9 @@ public class EditorView extends JFrame {
   }
 
   protected void drawImage(Pixel[][] image) {
+    this.hm.setImage(image);
+    this.rightPanel.invalidate();
+    this.rightPanel.repaint();
     BufferedImage img = new BufferedImage(image[0].length, image.length, 1);
 
     for (int i = 0; i < image.length; i++) {
