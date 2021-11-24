@@ -4,6 +4,7 @@ import java.io.StringReader;
 
 import controller.ImageEditorController;
 import controller.SimpleEditorController;
+import mocks.ConfirmInputs;
 import model.ImageEditorModel;
 import model.SimpleEditorModel;
 import view.ImageEditorView;
