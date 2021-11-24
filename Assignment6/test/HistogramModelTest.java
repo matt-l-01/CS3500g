@@ -1,11 +1,8 @@
 import org.junit.Test;
 
-import java.awt.*;
 import java.util.ArrayList;
 
-import model.ImageEditorModel;
 import model.Pixel;
-import model.SimpleEditorModel;
 import model.histogram.Histogram;
 import model.histogram.HistogramModel;
 
@@ -90,5 +87,4 @@ public class HistogramModelTest {
     hm.getIntensityBar();
     assertEquals(intensityList, hm.getIntensityBar());
   }
-
 }

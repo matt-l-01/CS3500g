@@ -54,6 +54,8 @@ public class DrawHistogram extends JPanel {
 
     // Green
     int xGreen = 0;
+    lastX = 0;
+    lastY = 0;
     g.setColor(Color.GREEN);
     List<Integer> green = this.hm.getGreenBar();
     for (Integer yGreen : green) {
@@ -66,6 +68,8 @@ public class DrawHistogram extends JPanel {
 
     // Blue
     int xBlue = 0;
+    lastX = 0;
+    lastY = 0;
     g.setColor(Color.blue);
     List<Integer> blue = this.hm.getBlueBar();
     for (Integer yBlue : blue) {
@@ -78,8 +82,11 @@ public class DrawHistogram extends JPanel {
 
     // Intensity
     int xIntensity = 0;
+    lastX = 0;
+    lastY = 0;
     g.setColor(Color.black);
     List<Integer> intensity = this.hm.getIntensityBar();
+    System.out.println(intensity);
     for (Integer yIntensity : intensity) {
       g.fillRect(xIntensity, 500 - yIntensity, 2, 2);
       g.drawLine(lastX, lastY, xIntensity, 500 - yIntensity);

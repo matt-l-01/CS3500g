@@ -95,7 +95,7 @@ public class SimpleEditorGUIController extends SimpleEditorController
 
         String savePath = save.getDirectory() + save.getFile();
         if (!(savePath.endsWith(".png") || savePath.endsWith(".jpg") || savePath.endsWith(".ppm")
-        || savePath.endsWith(".jpeg") || savePath.endsWith(".bmp"))) {
+            || savePath.endsWith(".jpeg") || savePath.endsWith(".bmp"))) {
           savePath = savePath + ".png";
         }
         if (save.getFile() != null) {

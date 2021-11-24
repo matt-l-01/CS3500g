@@ -1,10 +1,24 @@
 package view.gui;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 
 import model.ImageEditorState;
 import model.Pixel;
@@ -78,7 +92,8 @@ public class EditorView extends JFrame {
     this.container.setLayout(new GridLayout(1, 2));
     this.leftPanel.setLayout(new BorderLayout());
     this.rightPanel.setLayout(new FlowLayout());
-    leftPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Image View"));
+    leftPanel.setBorder(BorderFactory.createTitledBorder(
+        BorderFactory.createLineBorder(Color.BLACK), "Image View"));
     this.container.add(this.leftPanel);
     this.container.add(this.rightPanel);
     this.barCont.add(this.bar);

@@ -38,3 +38,5 @@ UPDATES:
 
 Image Citation:
 Roche, Daniel S. “Flowers.” IC210: Project1 , Department of Computer Science, https://www.usna.edu/Users/cs/choi/ic210/project/p01/index.html. Accessed 2 Nov. 2021.
+
+Second Image: https://sample-videos.com/download-sample-png-image.php

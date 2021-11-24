@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import model.Pixel;
 import model.SimpleEditorModel;
-import model.histogram.Histogram;
 
 /**
  * Represents a model.histogram.HistogramModel.
@@ -16,6 +15,10 @@ public class HistogramModel extends SimpleEditorModel implements Histogram {
   private final ArrayList<Integer> intensityFrequency;
   private Pixel[][] image;
 
+  /**
+   * Constructs a histogram model and instantiates the fields above. Allows the program to store
+   * component values for red, green, blue, and intensity.
+   */
   public HistogramModel() {
     this.redFrequency = new ArrayList<>();
     this.greenFrequency = new ArrayList<>();
@@ -37,27 +40,6 @@ public class HistogramModel extends SimpleEditorModel implements Histogram {
     this.fillFrequencies();
   }
 
-  private boolean checkTransparentImage() {
-    if (image == null) {
-      return false;
-    }
-    int count0 = 0;
-    int count255 = 0;
-    for (int i = 0; i < this.image.length; i++) {
-      for (int j = 0; j < this.image[i].length; j++) {
-        Pixel checkRGB = this.image[i][j];
-        if (checkRGB.getRed() == 0 && checkRGB.getBlue() == 0 && checkRGB.getGreen() == 0) {
-          count0++;
-        } else if (checkRGB.getRed() == 255 && checkRGB.getBlue() == 255
-                && checkRGB.getGreen() == 255) {
-          count255++;
-        }
-      }
-    }
-    return (!(count0 == this.image.length * this.image[0].length)) ||
-            (!(count255 == this.image.length * this.image[0].length));
-  }
-
   @Override
   public void fillFrequencies() {
     if (image == null) {
@@ -66,9 +48,12 @@ public class HistogramModel extends SimpleEditorModel implements Histogram {
     for (int i = 0; i < this.image.length; i++) {
       for (int j = 0; j < this.image[i].length; j++) {
         Pixel p = this.image[i][j];
+        double avg = (p.getRed() + p.getGreen() + p.getBlue()) / 3.0;
+        int newAvg = (int) Math.round(avg);
         this.redFrequency.set(p.getRed(), this.redFrequency.get(p.getRed()) + 1);
         this.greenFrequency.set(p.getGreen(), this.greenFrequency.get(p.getGreen()) + 1);
         this.blueFrequency.set(p.getBlue(), this.blueFrequency.get(p.getBlue()) + 1);
+        this.intensityFrequency.set(newAvg, this.intensityFrequency.get(newAvg) + 1);
       }
     }
   }
