@@ -23,6 +23,9 @@ public class DrawHistogram extends JPanel {
    */
   public DrawHistogram(Histogram hm) {
     super();
+    if (hm == null) {
+      throw new IllegalArgumentException("Histogram must not be null");
+    }
 
     this.hm = hm;
   }

@@ -35,6 +35,7 @@ public class SimpleEditorGUIController extends SimpleEditorController
    */
   public SimpleEditorGUIController(ImageEditorModel model, ImageEditorGUIView view) {
     super(model, view);
+
     this.view = view;
     this.frame = view.releaseFrame();
     this.currentImage = null;

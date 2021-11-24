@@ -10,7 +10,7 @@ public class MockGUIController implements ActionListener {
   private final StringBuilder log;
 
   /**
-   * Constructs a new MocKGUIController mock model. Instantiates a new StringBuilder given
+   * Constructs a new MockGUIController mock model. Instantiates a new StringBuilder given
    * as a log in order to keep track of the inputs provided to the program, and confirm they are
    * correctly being used.
    * @param log the StringBuilder log provided in which to use as a log.

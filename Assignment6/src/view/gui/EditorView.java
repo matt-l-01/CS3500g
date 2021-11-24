@@ -44,7 +44,7 @@ public class EditorView extends JFrame {
    * @param state the state of the image editor, read only, so changes may not be made to the
    *              model.
    */
-  public EditorView(ImageEditorState state) {
+  protected EditorView(ImageEditorState state) {
     super();
     if (state == null) {
       throw new IllegalArgumentException("State may not be null");
