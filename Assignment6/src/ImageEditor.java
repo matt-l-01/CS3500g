@@ -6,10 +6,13 @@ import java.util.Scanner;
 
 import controller.ImageEditorController;
 import controller.SimpleEditorController;
+import controller.gui.SimpleEditorGUIController;
 import model.ImageEditorModel;
 import model.SimpleEditorModel;
 import view.ImageEditorView;
 import view.SimpleEditorView;
+import view.gui.ImageEditorGUIView;
+import view.gui.SimpleEditorGUIView;
 
 /**
  * Contains the main method for the program and starts using the model, view, and controller
@@ -22,25 +25,33 @@ public class ImageEditor {
    * @param args the command line arguments provided.
    */
   public static void main(String[] args) {
-    if (args.length < 2) {
-      runInteractive();
+    if (args.length < 1) {
+      runAsGUI();
       return;
     }
 
-    String file = null;
-
-    for (int i = 0; i < args.length - 1; i++) {
+    for (int i = 0; i < args.length; i++) {
+      if (args[i].equalsIgnoreCase("-text")) {
+        runInteractive();
+        break;
+      }
       if (args[i].equalsIgnoreCase("-file")) {
-        file = args[i + 1];
+        if (i + 1 < args.length) {
+          runScriptFile(args[i + 1]);
+        }
       }
     }
+    runAsGUI();
+  }
 
-    if (file == null) {
-      runInteractive();
-      return;
-    }
-
-    runScriptFile(file);
+  /**
+   * Runs the program as a GUI view using the created model and view classes for the GUI.
+   */
+  private static void runAsGUI() {
+    ImageEditorModel model = new SimpleEditorModel();
+    ImageEditorGUIView view = new SimpleEditorGUIView(model);
+    ImageEditorController cont = new SimpleEditorGUIController(model, view);
+    cont.start();
   }
 
   /**

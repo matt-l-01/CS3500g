@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -17,9 +16,6 @@ import javax.swing.JPanel;
 public class DrawHistogram extends JPanel {
   private final Histogram hm;
 
-  private final ArrayList<Color> lineColor = new ArrayList<>();
-  private final ArrayList<Color> pointColor = new ArrayList<>();
-
   /**
    * Constructs a new histogram drawing class in order to draw the histogram to the screen.
    * @param hm the Histogram model to be used with this class in order to obtain information
@@ -29,71 +25,64 @@ public class DrawHistogram extends JPanel {
     super();
 
     this.hm = hm;
-    pointColor.add(Color.DARK_GRAY);
-    pointColor.add(Color.DARK_GRAY);
-    pointColor.add(Color.DARK_GRAY);
-    pointColor.add(Color.DARK_GRAY);
-
-    lineColor.add(Color.RED);
-    lineColor.add(Color.GREEN);
-    lineColor.add(Color.BLUE);
-    lineColor.add(Color.BLACK);
   }
 
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
+
     Graphics2D g1 = (Graphics2D) g;
+
     g1.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-    //redFrequency lines
-    int x_valueR = 0;
+    // Red
+    int xRed = 0;
     g.setColor(Color.RED);
     List<Integer> red = this.hm.getRedBar();
     int lastX = 0;
     int lastY = 0;
-    for (Integer y_valueR : red) {
-      g.fillRect(x_valueR, 500 - y_valueR, 2, 2);
-      g.drawLine(lastX, lastY, x_valueR, 500 - y_valueR);
-      lastX = x_valueR;
-      lastY = 500 - y_valueR;
-      x_valueR++;
+    for (Integer yRed : red) {
+      g.fillRect(xRed, 500 - yRed, 2, 2);
+      g.drawLine(lastX, lastY, xRed, 500 - yRed);
+      lastX = xRed;
+      lastY = 500 - yRed;
+      xRed++;
     }
 
-    //greenFrequency lines
-    int x_valueG = 0;
+    // Green
+    int xGreen = 0;
     g.setColor(Color.GREEN);
     List<Integer> green = this.hm.getGreenBar();
-    for (Integer y_valueG : green) {
-      g.fillRect(x_valueG, 500 - y_valueG, 2, 2);
-      g.drawLine(lastX, lastY, x_valueG, 500 - y_valueG);
-      lastX = x_valueG;
-      lastY = 500 - y_valueG;
-      x_valueG++;
+    for (Integer yGreen : green) {
+      g.fillRect(xGreen, 500 - yGreen, 2, 2);
+      g.drawLine(lastX, lastY, xGreen, 500 - yGreen);
+      lastX = xGreen;
+      lastY = 500 - yGreen;
+      xGreen++;
     }
 
-    //blueFrequency lines
-    int x_valueB = 0;
+    // Blue
+    int xBlue = 0;
     g.setColor(Color.blue);
     List<Integer> blue = this.hm.getBlueBar();
-    for (Integer y_valueB : blue) {
-      g.fillRect(x_valueB, 500 - y_valueB, 2, 2);
-      g.drawLine(lastX, lastY, x_valueB, 500 - y_valueB);
-      lastX = x_valueB;
-      lastY = 500 - y_valueB;
-      x_valueB++;
+    for (Integer yBlue : blue) {
+      g.fillRect(xBlue, 500 - yBlue, 2, 2);
+      g.drawLine(lastX, lastY, xBlue, 500 - yBlue);
+      lastX = xBlue;
+      lastY = 500 - yBlue;
+      xBlue++;
     }
 
-    //intensity component lines
-    int x_valueI = 0;
+    // Intensity
+    int xIntensity = 0;
     g.setColor(Color.black);
     List<Integer> intensity = this.hm.getIntensityBar();
-    for (Integer y_valueI : intensity) {
-      g.fillRect(x_valueI, 500 - y_valueI, 2, 2);
-      g.drawLine(lastX, lastY, x_valueI, 500 - y_valueI);
-      lastX = x_valueI;
-      lastY = 500 - y_valueI;
-      x_valueI++;
+    for (Integer yIntensity : intensity) {
+      g.fillRect(xIntensity, 500 - yIntensity, 2, 2);
+      g.drawLine(lastX, lastY, xIntensity, 500 - yIntensity);
+      lastX = xIntensity;
+      lastY = 500 - yIntensity;
+      xIntensity++;
     }
   }
 }

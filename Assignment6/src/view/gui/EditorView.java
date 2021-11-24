@@ -13,9 +13,8 @@ import model.histogram.Histogram;
 import model.histogram.HistogramModel;
 
 /**
- * Description of class goes here.
- *
- * @author Matthew Love
+ * Represents the main frame for the GUI component of the program. Sets up all the different
+ * components that make up the program.
  */
 public class EditorView extends JFrame {
   private final JPanel leftPanel;
@@ -40,6 +39,11 @@ public class EditorView extends JFrame {
   private JScrollPane lastUsed;
   private final Histogram hm;
 
+  /**
+   * Constructs a new EditorView in order to allow the program to set up the GUI.
+   * @param state the state of the image editor, read only, so changes may not be made to the
+   *              model.
+   */
   public EditorView(ImageEditorState state) {
     super();
     if (state == null) {
