@@ -41,9 +41,18 @@ public class HistogramModelTest {
   public void fillFrequencies() {
     Histogram hm = new HistogramModel();
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
-
+    ArrayList<Integer> redVal = new ArrayList<>();
+    ArrayList<Integer> greenVal = new ArrayList<>();
+    ArrayList<Integer> blueVal = new ArrayList<>();
     hm.fillFrequencies();
+    Pixel p = array1(getRed(), getGreen(), getBlue());
 
+    assertEquals(redVal[0][0], p.getRed());
+    assertEquals(redVal[0][1], p.getRed());
+    assertEquals(greenVal[0][0], p.getGreen());
+    assertEquals(greenVal[0][1], p.getGreen());
+    assertEquals(blueVal[0][0], p.getBlue());
+    assertEquals(blueVal[0][1], p.getBlue());
   }
 
   @Test
