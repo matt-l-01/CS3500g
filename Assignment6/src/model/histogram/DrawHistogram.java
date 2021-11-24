@@ -1,15 +1,9 @@
 package model.histogram;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
 import javax.swing.JPanel;
-import javax.swing.*;
-
-import model.Pixel;
-
-//don't need to test
-//make it output a bufferedImage
 
 public class DrawHistogram extends JPanel implements HistogramView {
   private final Histogram hm;
@@ -42,8 +36,13 @@ public class DrawHistogram extends JPanel implements HistogramView {
     int x_valueR = 0;
     g.setColor(Color.RED);
     java.util.List<Integer> red = this.hm.getRedBar();
+    int lastX = 0;
+    int lastY = 0;
     for (Integer y_valueR : red) {
-      g.fillRect(x_valueR, 350 - y_valueR, 2, 2);
+      g.fillRect(x_valueR, 500 - y_valueR, 2, 2);
+      g.drawLine(lastX, lastY, x_valueR, 500 - y_valueR);
+      lastX = x_valueR;
+      lastY = 500 - y_valueR;
       x_valueR++;
     }
 
@@ -52,7 +51,10 @@ public class DrawHistogram extends JPanel implements HistogramView {
     g.setColor(Color.GREEN);
     java.util.List<Integer> green = this.hm.getGreenBar();
     for (Integer y_valueG : green) {
-      g.fillRect(x_valueG, 350 - y_valueG, 2, 2);
+      g.fillRect(x_valueG, 500 - y_valueG, 2, 2);
+      g.drawLine(lastX, lastY, x_valueG, 500 - y_valueG);
+      lastX = x_valueG;
+      lastY = 500 - y_valueG;
       x_valueG++;
     }
 
@@ -61,7 +63,10 @@ public class DrawHistogram extends JPanel implements HistogramView {
     g.setColor(Color.blue);
     java.util.List<Integer> blue = this.hm.getBlueBar();
     for (Integer y_valueB : blue) {
-      g.fillRect(x_valueB, 350 - y_valueB, 2, 2);
+      g.fillRect(x_valueB, 500 - y_valueB, 2, 2);
+      g.drawLine(lastX, lastY, x_valueB, 500 - y_valueB);
+      lastX = x_valueB;
+      lastY = 500 - y_valueB;
       x_valueB++;
     }
 
@@ -70,11 +75,13 @@ public class DrawHistogram extends JPanel implements HistogramView {
     g.setColor(Color.black);
     java.util.List<Integer> intensity = this.hm.getIntensityBar();
     for (Integer y_valueI : intensity) {
-      g.fillRect(x_valueI, 350 - y_valueI, 2, 2);
+      g.fillRect(x_valueI, 500 - y_valueI, 2, 2);
+      g.drawLine(lastX, lastY, x_valueI, 500 - y_valueI);
+      lastX = x_valueI;
+      lastY = 500 - y_valueI;
       x_valueI++;
     }
   }
 }
-
 
 

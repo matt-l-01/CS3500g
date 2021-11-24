@@ -8,6 +8,10 @@ import javax.swing.*;
 
 import model.ImageEditorState;
 import model.Pixel;
+import model.histogram.DrawHistogram;
+import model.histogram.Histogram;
+import model.histogram.HistogramModel;
+import model.histogram.HistogramView;
 
 /**
  * Description of class goes here.
@@ -35,14 +39,16 @@ public class EditorView extends JFrame {
   private final JProgressBar bar;
   private final JPanel barCont;
   private JScrollPane lastUsed;
+  private final Histogram hm;
 
   public EditorView(ImageEditorState state) {
     super();
     if (state == null) {
       throw new IllegalArgumentException("State may not be null");
     }
+    this.hm = new HistogramModel();
     this.leftPanel = new JPanel();
-    this.rightPanel = new JPanel();
+    this.rightPanel = new DrawHistogram(hm);
     this.container = new JPanel();
 
     this.menuBar = new JMenuBar();
@@ -68,9 +74,8 @@ public class EditorView extends JFrame {
     finalPanel.setLayout(new GridLayout(2, 1));
     this.container.setLayout(new GridLayout(1, 2));
     this.leftPanel.setLayout(new BorderLayout());
-    this.rightPanel.setLayout(new BorderLayout());
+    this.rightPanel.setLayout(new FlowLayout());
     leftPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Image View"));
-    rightPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Histogram"));
     this.container.add(this.leftPanel);
     this.container.add(this.rightPanel);
     this.barCont.add(this.bar);

@@ -14,7 +14,7 @@ public interface Histogram {
   ArrayList<Integer> getGreenBar();
 
   ArrayList<Integer> getBlueBar();
-
+  void fillFrequencies();
 
   ArrayList<Integer> getIntensityBar();
 }

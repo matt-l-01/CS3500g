@@ -48,7 +48,8 @@ public class HistogramModel extends SimpleEditorModel implements Histogram {
         Pixel checkRGB = this.image[i][j];
         if (checkRGB.getRed() == 0 && checkRGB.getBlue() == 0 && checkRGB.getGreen() == 0) {
           count0++;
-        } else if (checkRGB.clone().equals(new Pixel(255, 255, 255))) {
+        } else if (checkRGB.getRed() == 255 && checkRGB.getBlue() == 255
+                && checkRGB.getGreen() == 255) {
           count255++;
         }
       }
@@ -62,6 +63,15 @@ public class HistogramModel extends SimpleEditorModel implements Histogram {
   public void fillFrequencies() {
     if (image == null) {
       return;
+    }
+
+    for (int i = 0; i < this.image.length; i++) {
+      for (int j = 0; j < this.image[i].length; j++) {
+        Pixel p = this.image[i][j];
+        this.redFrequency.set(p.getRed(), this.redFrequency.get(p.getRed()) + 1);
+        this.greenFrequency.set(p.getGreen(), this.greenFrequency.get(p.getGreen()) + 1);
+        this.blueFrequency.set(p.getBlue(), this.blueFrequency.get(p.getBlue()) + 1);
+      }
     }
   }
 
