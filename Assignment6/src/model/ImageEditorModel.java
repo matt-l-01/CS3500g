@@ -17,15 +17,6 @@ public interface ImageEditorModel extends ImageEditorState {
       throws IllegalArgumentException;
 
   /**
-   * Given a name of an image in memory, returns the image 2D array of Pixels representing that
-   * specific image. If it is not found, throws an error.
-   * @param name the name of the image that has been saved in memory.
-   * @return the 2D array of Pixels representing the image.
-   * @throws IllegalStateException if the image cannot be found by its name in memory.
-   */
-  Pixel[][] releaseImage(String name) throws IllegalStateException;
-
-  /**
    * Uses the given component type to convert the given image to greyscale. Then, stores the
    * resulting image in memory with the new name.
    * @param type the component type, enum, which can be used to convert the image to greyscale.

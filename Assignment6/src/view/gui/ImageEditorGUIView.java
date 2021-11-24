@@ -14,4 +14,5 @@ import view.ImageEditorView;
 public interface ImageEditorGUIView extends ImageEditorView {
   void show(ActionListener a);
   JFrame releaseFrame();
+  void drawImage(String name);
 }

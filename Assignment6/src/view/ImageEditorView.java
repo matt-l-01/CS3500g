@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.*;
+
 /**
  * Represents the view for an image editor. Allows the editor to provide output to the user at the
  * provided data destination.
