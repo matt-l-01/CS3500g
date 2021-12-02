@@ -3,12 +3,18 @@ package controller.command;
 import controller.ImageManager;
 
 /**
- * Description of class goes here.
- *
- * @author Matthew Love
+ * Represents a command to conduct a mosaic operation on an image.
  */
 public class Mosaic extends AbstractImageCommand {
   int seeds;
+
+  /**
+   * Constructs a mosaic command to conduct mosaic operations on the given images.
+   * @param args additional arguments for the command provided here
+   * @param model the model for the image provided here
+   * @throws IllegalArgumentException if the arguments are null, or if the provided string cannot
+   *                                  be parsed to an integer
+   */
   public Mosaic(String[] args, ImageManager model) throws IllegalArgumentException {
     super(model);
     if (args == null) {
