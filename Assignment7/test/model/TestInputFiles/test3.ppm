@@ -1,0 +1,15 @@
+P3
+# Test file that
+# contains an invalid
+# grid of pixels (2x2 with 3 pixels)
+2 2
+255
+99
+104
+55
+25
+36
+204
+37
+68
+12

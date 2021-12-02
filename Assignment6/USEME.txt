@@ -1,5 +1,12 @@
 USEME - SIMPLE IMAGE EDITOR PROGRAM - MATTHEW LOVE & RITU SHAH
 
+GUI Instructions:
+The initial screen has a left panel to view the image and a right panel to view the histogram for the current image.
+- At the top there are two options File & Edit
+- Within File, you can load, save, and change the current image layer
+- Within Edit, you can brighten, flip, show component (red, green, blue, luma, value, intensity), or filter (sharpen, blur, sepia, greyscale)
+- Selecting filter or component will show an additional drop down for more operations
+
 Script Commands Supported:
 - load <path> <save-name> - Load an image using the given path, and saving it with the given name.
 - save <path> <save-name> - Saves the specified image to the given path.

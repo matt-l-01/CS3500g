@@ -1,0 +1,22 @@
+load bird.jpg bird
+red-component bird bird-red
+green-component bird bird-green
+blue-component bird bird-blue
+value-component bird bird-value
+intensity-component bird bird-intensity
+luma-component bird bird-luma
+brighten 50 bird bird-brighten
+brighten -50 bird bird-darken
+horizontal-flip bird bird-hflip
+vertical-flip bird bird-vflip
+greyscale bird bird-greyscale
+sepia bird bird-sepia
+blur bird bird-blur
+blur bird-blur bird-blur
+sharpen bird bird-sharpen
+sharpen bird-sharpen bird-sharpen
+save bird-greyscale.png bird-greyscale
+save bird-sepia.png bird-sepia
+save bird-blur.png bird-blur
+save bird-sharpen.png bird-sharpen
+quit

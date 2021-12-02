@@ -6,10 +6,12 @@ import model.Pixel;
 import model.histogram.Histogram;
 import model.histogram.HistogramModel;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+/**
+ * Testing class for the HistogramModel component of the SimpleEditor program.
+ */
 public class HistogramModelTest {
-
   @Test
   public void setImageTest() {
 
@@ -38,11 +40,12 @@ public class HistogramModelTest {
   public void fillFrequencies() {
     Histogram hm = new HistogramModel();
     Pixel[][] array1 = ImageUtil.readPPM("res/test/Test.ppm");
-    ArrayList<Integer> redVal = new ArrayList<>();
-    ArrayList<Integer> greenVal = new ArrayList<>();
-    ArrayList<Integer> blueVal = new ArrayList<>();
+    int[][] redVal = new int[0][0];
+    int[][] greenVal = new int[0][0];
+    int[][] blueVal = new int[0][0];
     hm.fillFrequencies();
-    Pixel p = array1(getRed(), getGreen(), getBlue());
+    Pixel p1 = new Pixel(2, 3, 4);
+    Pixel p = new Pixel(p1.getRed(), p1.getGreen(), p1.getBlue());
 
     assertEquals(redVal[0][0], p.getRed());
     assertEquals(redVal[0][1], p.getRed());
