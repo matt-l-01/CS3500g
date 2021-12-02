@@ -168,11 +168,11 @@ public class GUIImageController extends AbstractImageController implements Image
     try {
       Integer.parseInt(text); // check that input is an integer amount
     } catch (NumberFormatException e) {
-      view.renderMessage("Please enter an integer increment.");
+      view.renderMessage("Please enter an integer amount of seeds.");
       return; // do not execute the command for invalid input
     }
     Function<String[], ImageCommand> cmd = manager.getKnownCommands().get("mosaic");
-    ImageCommand c = cmd.apply(new String[0]);
+    ImageCommand c = cmd.apply(new String[]{text});
     this.useCommand(c);
   }
 
