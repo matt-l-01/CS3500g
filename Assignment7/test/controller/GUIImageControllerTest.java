@@ -156,6 +156,11 @@ public class GUIImageControllerTest {
       log.append("colorTransform ").append(matrix.toString()).append(" ").append(imageName)
               .append(" ").append(resultName).append("\n");
     }
+
+    @Override
+    public void mosaic(int seeds, String imageName, String resultName) throws IllegalArgumentException {
+
+    }
   }
 
   private class ExceptionMockManager extends MockManager {
