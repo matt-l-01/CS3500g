@@ -201,7 +201,7 @@ public class GUIImageProcessorView extends JFrame implements ImageGUIView {
     this.mosaicButton.setActionCommand("mosaic button");
     mosaicGrid.add(mosaicButton);
     mosaicGrid.add(Box.createHorizontalGlue());
-    //r
+
     // mosaic prompt
     JLabel mosaicPrompt = new JLabel("Amount of seeds: ");
     mosaicGrid.add(mosaicPrompt);

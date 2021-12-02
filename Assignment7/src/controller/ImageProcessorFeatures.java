@@ -115,6 +115,6 @@ public interface ImageProcessorFeatures {
    * @param text
    */
   void mosaic(String text);
-//r
+
 
 }
