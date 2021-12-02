@@ -15,6 +15,7 @@ import java.util.function.Function;
 
 import javax.imageio.ImageIO;
 
+import controller.command.Mosaic;
 import model.ARGBPixel;
 import model.ColorMatrix;
 import model.ImageModel;
@@ -72,6 +73,7 @@ public class RasterImageManager implements ImageManager {
     this.knownCommands.put("sharpen",s -> new Sharpen(this));
     this.knownCommands.put("greyscale",s -> new Greyscale(this));
     this.knownCommands.put("sepia",s -> new Sepia(this));
+    this.knownCommands.put("mosaic",s -> new Mosaic(this));
   }
 
   /**
@@ -350,6 +352,13 @@ public class RasterImageManager implements ImageManager {
           throws IllegalArgumentException {
     checkNull(matrix, imageName, resultName);
     this.storedImages.put(resultName, this.getImage(imageName).colorTransform(matrix));
+  }
+
+  @Override
+  public void mosaic(int seeds, String imageName, String resultName)
+      throws IllegalArgumentException {
+    checkNull(imageName, resultName);
+    this.storedImages.put(resultName, this.getImage(imageName).mosaic(seeds));
   }
 
   // throws an exception if any of the arguments is null

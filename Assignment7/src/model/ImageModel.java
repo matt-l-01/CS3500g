@@ -60,6 +60,13 @@ public interface ImageModel {
   ImageModel colorTransform(ColorMatrix matrix);
 
   /**
+   * Conducts a mosaic operation on the given image using the number of seeds provided.
+   * @param seeds the number of seeds to conduct the operation with.
+   * @return a new image visualizing a mosaic image
+   */
+  ImageModel mosaic(int seeds);
+
+  /**
    * Returns the width of the
    * image in pixels.
    *
