@@ -109,5 +109,12 @@ public interface ImageProcessorFeatures {
    */
   void sharpen();
 
+  /**
+   * Has the model produce a mosaic version of the current image and updates the view
+   * to display it.
+   * @param text
+   */
+  void mosaic(String text);
+
 
 }

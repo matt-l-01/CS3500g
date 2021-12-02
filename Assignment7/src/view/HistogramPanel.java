@@ -23,7 +23,6 @@ public class HistogramPanel extends JPanel {
     this.image = image;
   }
 
-
   /**
    * Calculates the number of pixels that have each value for each component and returns them
    * in a 4 by 256 2d array. The first inner array is frequencies for the red component,

@@ -164,6 +164,13 @@ public class GUIImageController extends AbstractImageController implements Image
   }
 
   @Override
+  public void mosaic(String text) {
+    Function<String[], ImageCommand> cmd = manager.getKnownCommands().get("mosaic");
+    ImageCommand c = cmd.apply(new String[0]);
+    this.useCommand(c);
+  }
+
+  @Override
   public void brighten(String amount) {
     try {
       Integer.parseInt(amount); // check that input is an integer amount
@@ -202,4 +209,6 @@ public class GUIImageController extends AbstractImageController implements Image
     ImageCommand c = cmd.apply(new String[0]);
     this.useCommand(c);
   }
+
+
 }

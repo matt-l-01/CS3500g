@@ -44,6 +44,8 @@ public class GUIImageProcessorView extends JFrame implements ImageGUIView {
   private JTextField brightenField;
   private JButton darkenButton;
   private JTextField darkenField;
+  private JButton mosaicButton;
+  private JTextField mosaicField;
   private JFileChooser fileChooser;
   private Image currentImage;
 
@@ -77,7 +79,6 @@ public class GUIImageProcessorView extends JFrame implements ImageGUIView {
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     imageScrollPane.setPreferredSize(new Dimension(500, 500));
     this.add(imageScrollPane, BorderLayout.CENTER);
-
 
     // add a panel in the right-hand side of the layout
     this.optionPanel = new JPanel();
@@ -189,6 +190,27 @@ public class GUIImageProcessorView extends JFrame implements ImageGUIView {
     darkenField.setMaximumSize(new Dimension(100,60));
     darkenGrid.add(darkenField);
 
+    // add panel for mosaic features
+    JPanel mosaicGrid = new JPanel();
+    mosaicGrid.setLayout(new BoxLayout(mosaicGrid, BoxLayout.LINE_AXIS));
+    optionPanel.add(mosaicGrid);
+    optionPanel.add(Box.createVerticalGlue()); // put extra space at the bottom
+
+    // mosaic button
+    this.mosaicButton = new JButton("Mosaic");
+    this.mosaicButton.setActionCommand("mosaic button");
+    mosaicGrid.add(mosaicButton);
+    mosaicGrid.add(Box.createHorizontalGlue());
+
+    // mosaic prompt
+    JLabel mosaicPrompt = new JLabel("Amount of seeds: ");
+    mosaicGrid.add(mosaicPrompt);
+    mosaicGrid.add(Box.createHorizontalGlue());
+
+    // mosaic text field
+    this.mosaicField = new JTextField(10);
+    mosaicField.setMaximumSize(new Dimension(100,60));
+    mosaicGrid.add(mosaicField);
 
     pack();
     setVisible(true);
@@ -211,8 +233,8 @@ public class GUIImageProcessorView extends JFrame implements ImageGUIView {
       }
     });
     componentSelector.addActionListener(e -> {
-      JComboBox<String> options = (JComboBox<String>)e.getSource();
-      String component = (String)options.getSelectedItem();
+      JComboBox<String> options = (JComboBox<String>) e.getSource();
+      String component = (String) options.getSelectedItem();
       switch (component) {
         case "Red":
           features.visualizeRed(); // call the corresponding features method for each menu item
@@ -243,8 +265,11 @@ public class GUIImageProcessorView extends JFrame implements ImageGUIView {
     blurButton.addActionListener(evt -> features.blur());
     sharpenButton.addActionListener(evt -> features.sharpen());
     brightenButton.addActionListener(
-        evt -> features.brighten(brightenField.getText()));
+            evt -> features.brighten(brightenField.getText()));
     darkenButton.addActionListener(evt -> features.darken(darkenField.getText()));
+    mosaicButton.addActionListener(
+            evt -> features.mosaic(mosaicField.getText()));
+
   }
 
   @Override
