@@ -16,6 +16,7 @@ import java.util.function.Function;
 
 import controller.command.GaussianBlur;
 import controller.command.Greyscale;
+import controller.command.Mosaic;
 import controller.command.Sepia;
 import controller.command.Sharpen;
 import model.ColorMatrix;
@@ -142,6 +143,7 @@ public class TextImageControllerTest {
       commands.put("sharpen",s -> new Sharpen(this));
       commands.put("greyscale",s -> new Greyscale(this));
       commands.put("sepia",s -> new Sepia(this));
+      commands.put("mosaic", s -> new Mosaic(s,this));
       return commands;
       // needs to have a list of the commands so go() tests will be able to process inputs
     }
@@ -184,9 +186,12 @@ public class TextImageControllerTest {
 
     @Override
     public void mosaic(int seeds, String imageName, String resultName) throws IllegalArgumentException {
-
+      log.append("brighten ").append(Integer.toString(seeds)).append(" ")
+              .append(imageName).append(" ").append(resultName).append("\n");
     }
+
   }
+
 
   /**
    * A Readable that throws IOExceptions for all methods
@@ -216,9 +221,8 @@ public class TextImageControllerTest {
     public void renderMessage(String message) throws IOException {
       throw new IOException();
     }
-
-
   }
+
 
   @Before
   public void setUp() {

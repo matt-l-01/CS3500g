@@ -18,6 +18,7 @@ import controller.command.Greyscale;
 import controller.command.ImageCommand;
 import controller.command.Intensity;
 import controller.command.Luma;
+import controller.command.Mosaic;
 import controller.command.Red;
 import controller.command.Sepia;
 import controller.command.Sharpen;
@@ -118,6 +119,7 @@ public class GUIImageControllerTest {
       commands.put("sharpen",s -> new Sharpen(this));
       commands.put("greyscale",s -> new Greyscale(this));
       commands.put("sepia",s -> new Sepia(this));
+      commands.put("mosaic", s -> new Mosaic(s,this));
       return commands; //have to actually store commands so the image manipulation methods work
     }
 
@@ -159,7 +161,8 @@ public class GUIImageControllerTest {
 
     @Override
     public void mosaic(int seeds, String imageName, String resultName) throws IllegalArgumentException {
-//r
+      log.append("mosaic").append(" ").append(seeds).append(" ").append(imageName)
+              .append(" ").append(resultName).append("\n");
     }
   }
 

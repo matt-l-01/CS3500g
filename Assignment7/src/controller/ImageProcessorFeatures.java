@@ -112,7 +112,7 @@ public interface ImageProcessorFeatures {
   /**
    * Has the model produce a mosaic version of the current image and updates the view
    * to display it.
-   * @param text
+   * @param text the amount of seeds to use in the mosaic
    */
   void mosaic(String text);
 
