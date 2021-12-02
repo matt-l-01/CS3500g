@@ -113,6 +113,16 @@ public interface ImageManager {
           throws IllegalArgumentException;
 
   /**
+   * Conducts a mosaic operation on the respective image with the given number of seeds and stores
+   * the result under the given resultName.
+   * @param seeds the number of seeds for the mosaic operation
+   * @param imageName the name of the image to be operated on
+   * @param resultName the name to store the resulting image under
+   * @throws IllegalArgumentException if the image is not found
+   */
+  void mosaic(int seeds, String imageName, String resultName) throws IllegalArgumentException;
+
+  /**
    * Enum used to represent the different
    * choices for possible file extensions.
    * This limits the amount of file formats

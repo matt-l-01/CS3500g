@@ -1,7 +1,11 @@
 package model;
 
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Class for an image loaded from
@@ -333,6 +337,67 @@ public class RasterImageModel implements ImageModel {
     }
     return new RasterImageModel(this.getWidth(),
             this.getHeight(), this.getMaxRGB(), newPixelGrid);
+  }
+
+  @Override
+  public ImageModel mosaic(int seeds) {
+    Random r = new Random();
+    Map<Point, List<Point>> clusters = new HashMap<>();
+
+    for (int i = 0; i < seeds; i++) {
+      clusters.put(new Point(r.nextInt(this.getHeight()), r.nextInt(this.getWidth())),
+          new ArrayList<>());
+    }
+
+    List<List<Pixel>> newPixelGrid = List.copyOf(this.pixelGrid);
+    for (int row = 0; row < this.getHeight(); row++) {
+      for (int col = 0; col < this.getWidth(); col++) {
+        Point lowest = new Point();
+
+        // Purposely bigger than possible in the image to start as a max distance
+        double distance = this.getHeight() + this.getWidth();
+
+        for (Point p : clusters.keySet()) {
+          double currDistance = this.distanceTo(row, col, (int) p.getX(), (int) p.getY());
+          if (currDistance < distance) {
+            lowest = p;
+            distance = currDistance;
+          }
+        }
+        clusters.get(lowest).add(new Point(row, col));
+      }
+    } // Clusters are formed by here
+
+    for (Point p : clusters.keySet()) {
+      double avgR = 0;
+      double avgG = 0;
+      double avgB = 0;
+      double count = 0;
+
+      for (Point pt : clusters.get(p)) {
+        avgR += this.pixelGrid.get(pt.x).get(pt.y).getRed();
+        avgG += this.pixelGrid.get(pt.x).get(pt.y).getGreen();
+        avgB += this.pixelGrid.get(pt.x).get(pt.y).getBlue();
+        count++;
+      }
+
+      avgR /= count;
+      avgG /= count;
+      avgB /= count;
+
+      for (Point pt : clusters.get(p)) {
+        newPixelGrid.get(pt.x).set(pt.y, new ARGBPixel(this.getPixel(pt.x, pt.y).getAlpha(),
+            (int) avgR, (int) avgG, (int) avgB));
+      }
+    }
+
+    return new RasterImageModel(this.getWidth(),
+        this.getHeight(), this.getMaxRGB(), newPixelGrid);
+  }
+
+  // returns the distance between two points, or pixels
+  private double distanceTo(int row1, int col1, int row2, int col2) {
+    return Math.sqrt(Math.pow(col2 - col1, 2) + Math.pow(row2 - row1, 2));
   }
 
   // applies an array of coefficients to a pixel's corresponding RGB values and returns the sum
