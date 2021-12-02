@@ -73,7 +73,7 @@ public class RasterImageManager implements ImageManager {
     this.knownCommands.put("sharpen",s -> new Sharpen(this));
     this.knownCommands.put("greyscale",s -> new Greyscale(this));
     this.knownCommands.put("sepia",s -> new Sepia(this));
-    this.knownCommands.put("mosaic",s -> new Mosaic(this));
+    this.knownCommands.put("mosaic",s -> new Mosaic(s, this));
   }
 
   /**
