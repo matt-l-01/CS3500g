@@ -11,21 +11,16 @@ public class Mosaic extends AbstractImageCommand {
   int seeds;
   public Mosaic(String[] args, ImageManager model) throws IllegalArgumentException {
     super(model);
-    boolean seedsFound = false;
     if (args == null) {
       throw new IllegalArgumentException("Arguments may not be null.");
     }
+
     for (String arg : args) {
       try {
         this.seeds = Integer.parseInt(arg);
-        seedsFound = true;
-        return;
-      } catch (NumberFormatException ignored) {
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Must specify an amount of seeds.");
       }
-    }
-
-    if (!seedsFound) {
-      throw new IllegalArgumentException("Must specify an amount of seeds.");
     }
   }
 
