@@ -209,6 +209,7 @@ public class GUIImageController extends AbstractImageController implements Image
     ImageCommand c = cmd.apply(new String[0]);
     this.useCommand(c);
   }
+  //r
 
 
 }

@@ -159,7 +159,7 @@ public class GUIImageControllerTest {
 
     @Override
     public void mosaic(int seeds, String imageName, String resultName) throws IllegalArgumentException {
-
+//r
     }
   }
 
