@@ -63,8 +63,9 @@ public interface ImageModel {
    * Conducts a mosaic operation on the given image using the number of seeds provided.
    * @param seeds the number of seeds to conduct the operation with.
    * @return a new image visualizing a mosaic image
+   * @throws IllegalArgumentException if the given seeds int is less than or equal to zero
    */
-  ImageModel mosaic(int seeds);
+  ImageModel mosaic(int seeds) throws IllegalArgumentException;
 
   /**
    * Returns the width of the
