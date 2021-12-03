@@ -80,6 +80,9 @@ public class TextImageControllerTest {
                   + "- brighten increment image-name result-name "
                   + "(brighten an image by the given increment if positive, or darken if negative, "
                   + "and refer to the result by the given result name)\n"
+                  +"- mosaic num-seeds source-image-name dest-image-name "
+                  +"(mosaic an image by the given amount of seeds"
+                  +"and refer to the result by the given result name)\n"
                   + "- blur image-name result-name "
                   + "(apply a Gaussian blur to an image and refer to the result "
                   + "by the given result name)\n"
@@ -191,7 +194,6 @@ public class TextImageControllerTest {
     }
 
   }
-
 
   /**
    * A Readable that throws IOExceptions for all methods

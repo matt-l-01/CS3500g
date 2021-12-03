@@ -95,9 +95,9 @@ public class GUIImageControllerTest {
     public Map<String, ImageModel> getStoredImages() {
       log.append("getStoredImages\n");
       Map<String, ImageModel> dummyMap = new HashMap<>();
-      dummyMap.put("1", new RasterImageModel(1,1,1,new ArrayList<>()));
-      dummyMap.put("2", new RasterImageModel(2,2,2,new ArrayList<>()));
-      dummyMap.put("3", new RasterImageModel(3,3,3,new ArrayList<>()));
+      dummyMap.put("1", new RasterImageModel(1, 1, 1, new ArrayList<>()));
+      dummyMap.put("2", new RasterImageModel(2, 2, 2, new ArrayList<>()));
+      dummyMap.put("3", new RasterImageModel(3, 3, 3, new ArrayList<>()));
 
       return dummyMap;
     }
@@ -106,20 +106,20 @@ public class GUIImageControllerTest {
     public Map<String, Function<String[], ImageCommand>> getKnownCommands() {
       log.append("getKnownCommands\n");
       Map<String, Function<String[], ImageCommand>> commands = new HashMap<>();
-      commands.put("red-component",s -> new Red(this));
-      commands.put("green-component",s -> new Green(this));
-      commands.put("blue-component",s -> new Blue(this));
-      commands.put("value-component",s -> new Value(this));
-      commands.put("intensity-component",s -> new Intensity(this));
-      commands.put("luma-component",s -> new Luma(this));
-      commands.put("brighten",s -> new Brighten(s,this));
-      commands.put("horizontal-flip",s -> new FlipHorizontal(this));
-      commands.put("vertical-flip",s -> new FlipVertical(this));
-      commands.put("blur",s -> new GaussianBlur(this));
-      commands.put("sharpen",s -> new Sharpen(this));
-      commands.put("greyscale",s -> new Greyscale(this));
-      commands.put("sepia",s -> new Sepia(this));
-      commands.put("mosaic", s -> new Mosaic(s,this));
+      commands.put("red-component", s -> new Red(this));
+      commands.put("green-component", s -> new Green(this));
+      commands.put("blue-component", s -> new Blue(this));
+      commands.put("value-component", s -> new Value(this));
+      commands.put("intensity-component", s -> new Intensity(this));
+      commands.put("luma-component", s -> new Luma(this));
+      commands.put("brighten", s -> new Brighten(s, this));
+      commands.put("horizontal-flip", s -> new FlipHorizontal(this));
+      commands.put("vertical-flip", s -> new FlipVertical(this));
+      commands.put("blur", s -> new GaussianBlur(this));
+      commands.put("sharpen", s -> new Sharpen(this));
+      commands.put("greyscale", s -> new Greyscale(this));
+      commands.put("sepia", s -> new Sepia(this));
+      commands.put("mosaic", s -> new Mosaic(s, this));
       return commands; //have to actually store commands so the image manipulation methods work
     }
 
@@ -607,4 +607,44 @@ public class GUIImageControllerTest {
             v.getLog());
   }
 
+  //test mosaic
+  @Test
+  public void testMosaic() {
+    v = new MockView();
+    m = new MockManager();
+    controller = new GUIImageController(v, m);
+    controller.mosaic("50");
+    assertEquals("getKnownCommands\nmosaic 50 0 1\ngetStoredImages\n",
+            m.getLog()); // mosaic by negative inputted value
+    assertEquals("addFeatures\nsetDisplayImage 1 1 1\nrefresh\n", v.getLog());
+  }
+
+  // test mosaic input error
+  @Test
+  public void testMosaicInvalidAmount() {
+    v = new MockView();
+    m = new MockManager();
+    controller = new GUIImageController(v, m);
+    controller.mosaic("aa");
+    assertEquals("", m.getLog()); // will not call the manager for invalid input
+    assertEquals("addFeatures\nrenderMessage Please enter an integer amount of seeds.\n",
+            v.getLog());
+  }
+
+  // test mosaic no input error
+  @Test
+  public void testMosaicMissingIncrement() {
+    v = new MockView();
+    m = new MockManager();
+    controller = new GUIImageController(v, m);
+    controller.mosaic("");
+    assertEquals("", m.getLog()); // will not call the manager for invalid input
+    assertEquals("addFeatures\nrenderMessage Please enter an integer amount of seeds.\n",
+            v.getLog());
+  }
+
 }
+
+
+
+

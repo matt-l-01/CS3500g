@@ -112,7 +112,7 @@ public class RasterImageModelTest {
   public void redVisualize1() {
     try {
       testProcessorModel = new RasterImageManager();
-      testProcessorModel.load("images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+      testProcessorModel.load("test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -139,7 +139,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -166,7 +166,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -193,7 +193,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -220,7 +220,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -247,7 +247,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -274,7 +274,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -301,7 +301,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -328,7 +328,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -355,7 +355,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -382,7 +382,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -409,7 +409,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -434,7 +434,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\test1.ppm", "test1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\test1.ppm", "test1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("test1");
     } catch (IOException e) {
       fail("Could not open file");
@@ -453,7 +453,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -479,7 +479,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -505,7 +505,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -531,7 +531,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -557,7 +557,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -583,7 +583,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -608,7 +608,7 @@ public class RasterImageModelTest {
   public void brightenIncreaseMaxRGB() {
     try {
       testProcessorModel = new RasterImageManager();
-      testProcessorModel.load("images\\ppm\\brighten1.ppm", "brighten", ImageFileFormat.PPM);
+      testProcessorModel.load("test\\model\\TestInputFiles\\brighten1.ppm", "brighten", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("brighten");
     } catch (IOException e) {
       fail("Could not open file");
@@ -628,7 +628,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -654,7 +654,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -680,7 +680,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -705,7 +705,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\visualize2.ppm", "visualize2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize2");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -720,13 +720,31 @@ public class RasterImageModelTest {
     assertEquals(new ARGBPixel(255, 0, 8, 82), testModel.getPixel(3, 0));
   }
 
+  // MOSAIC
+  @Test
+  public void mosaic1() {
+    try {
+      testProcessorModel = new RasterImageManager();
+      testProcessorModel.load(
+              "test\\model\\TestInputFiles\\mosaic.ppm", "mosaic", ImageFileFormat.PPM);
+      testModel = testProcessorModel.getStoredImages().get("mosaic");
+    } catch (IOException e)  {
+      fail("Could not find file");
+    }
+    testModel = testModel.mosaic(1);
+    assertEquals(new ARGBPixel(255, 71, 106, 73), testModel.getPixel(0, 0));
+    assertEquals(new ARGBPixel(255, 71, 106, 73), testModel.getPixel(0, 1));
+    assertEquals(new ARGBPixel(255, 71, 106, 73), testModel.getPixel(1, 0));
+    assertEquals(new ARGBPixel(255, 71, 106, 73), testModel.getPixel(1, 1));
+  }
+
   // test filter exception
   @Test(expected = IllegalArgumentException.class)
   public void testFilterNullKernelException() {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\test1.ppm", "test1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\test1.ppm", "test1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("test1");
     } catch (IOException e) {
       fail("Could not open file");
@@ -740,7 +758,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\test1.ppm", "test1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\test1.ppm", "test1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("test1");
     } catch (IOException e) {
       fail("Could not open file");
@@ -757,7 +775,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\filter1.ppm", "filter1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\filter1.ppm", "filter1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("filter1");
     } catch (IOException e) {
       fail("Could not open file");
@@ -774,7 +792,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\filter2.ppm", "filter2", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\filter2.ppm", "filter2", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("filter2");
     } catch (IOException e) {
       fail("Could not open file");
@@ -791,7 +809,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\test1.ppm", "test1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\test1.ppm", "test1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("test1");
     } catch (IOException e) {
       fail("Could not open file");
@@ -805,7 +823,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\test1.ppm", "test1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\test1.ppm", "test1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("test1");
     } catch (IOException e) {
       fail("Could not open file");
@@ -821,7 +839,7 @@ public class RasterImageModelTest {
     try {
       testProcessorModel = new RasterImageManager();
       testProcessorModel.load(
-              "images\\ppm\\test1.ppm", "test1", ImageFileFormat.PPM);
+              "test\\model\\TestInputFiles\\test1.ppm", "test1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("test1");
     } catch (IOException e) {
       fail("Could not open file");
