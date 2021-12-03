@@ -1,3 +1,13 @@
+# Updates with Mosaicking - Matthew Love & Ritu Shah
+
+- Implement image mosaicking correctly: Yes
+- Supported a script command: Yes
+- Exposed it through the GUI: Yes
+
+In order to implement the mosaicking feature to the current program, we started by creating a new command to fit in the command design pattern "Mosaic". We then added this to their list of known commands in the RasterImageManager along with an additional method to handle the mosaic command. We then added a mosaic implementation into the RasterImageModel class which handles the actual calculations for the mosaic operation. Then, the GUIImageProcessorView class was updated to allow the addition of a mosaic button and field for seed amount (along with implementing the listeners for that button). Lastly, we added support for the script command in the TextImageController such as adding it to the list of commands in the menu, and ensuring the text command properly called the command object.
+
+-------------
+
 # ImageProcessingP3
 
 ### Changes:

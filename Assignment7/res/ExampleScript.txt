@@ -1,4 +1,4 @@
-load bird.jpg bird
+load animal.jpg bird
 red-component bird bird-red
 green-component bird bird-green
 blue-component bird bird-blue
