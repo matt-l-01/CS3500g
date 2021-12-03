@@ -165,10 +165,15 @@ public class GUIImageController extends AbstractImageController implements Image
 
   @Override
   public void mosaic(String text) {
+    int num;
     try {
-      Integer.parseInt(text); // check that input is an integer amount
+      num = Integer.parseInt(text); // check that input is an integer amount
     } catch (NumberFormatException e) {
-      view.renderMessage("Please enter an integer amount of seeds.");
+      view.renderMessage("Please enter a positive integer amount of seeds.");
+      return; // do not execute the command for invalid input
+    }
+    if (num <= 0) {
+      view.renderMessage("Please enter a positive integer amount of seeds.");
       return; // do not execute the command for invalid input
     }
     Function<String[], ImageCommand> cmd = manager.getKnownCommands().get("mosaic");

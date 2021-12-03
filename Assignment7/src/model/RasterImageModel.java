@@ -343,10 +343,7 @@ public class RasterImageModel implements ImageModel {
   }
 
   @Override
-  public ImageModel mosaic(int seeds) throws IllegalArgumentException {
-    if (seeds <= 0) {
-      throw new IllegalArgumentException("Seeds must be a positive integer");
-    }
+  public ImageModel mosaic(int seeds) {
     Random r = new Random();
     Map<Point, List<Point>> clusters = new HashMap<>();
 
