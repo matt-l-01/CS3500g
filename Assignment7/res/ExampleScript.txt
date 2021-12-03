@@ -15,8 +15,10 @@ blur bird bird-blur
 blur bird-blur bird-blur
 sharpen bird bird-sharpen
 sharpen bird-sharpen bird-sharpen
+mosaic 50 bird bird-mos
 save bird-greyscale.png bird-greyscale
 save bird-sepia.png bird-sepia
 save bird-blur.png bird-blur
 save bird-sharpen.png bird-sharpen
+save bird-mos.png bird-mos
 quit

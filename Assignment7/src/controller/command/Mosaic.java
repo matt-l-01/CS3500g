@@ -6,7 +6,7 @@ import controller.ImageManager;
  * Represents a command to conduct a mosaic operation on an image.
  */
 public class Mosaic extends AbstractImageCommand {
-  int seeds;
+  private int seeds;
 
   /**
    * Constructs a mosaic command to conduct mosaic operations on the given images.
@@ -17,6 +17,7 @@ public class Mosaic extends AbstractImageCommand {
    */
   public Mosaic(String[] args, ImageManager model) throws IllegalArgumentException {
     super(model);
+    boolean seedsFound = false;
     if (args == null) {
       throw new IllegalArgumentException("Arguments may not be null.");
     }
@@ -24,9 +25,15 @@ public class Mosaic extends AbstractImageCommand {
     for (String arg : args) {
       try {
         this.seeds = Integer.parseInt(arg);
+        seedsFound = true;
+        return;
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Must specify an amount of seeds.");
       }
+    }
+
+    if (!seedsFound) {
+      throw new IllegalArgumentException("Must specify an amount of seeds");
     }
   }
 

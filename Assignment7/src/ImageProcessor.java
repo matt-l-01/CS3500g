@@ -32,7 +32,7 @@ public class ImageProcessor {
   public static void main(String[] args) {
 
     Readable input = new InputStreamReader(System.in);
-    boolean guiMode = true;
+    boolean guiMode = false;
 
     try {
       ArrayList<String> entered = new ArrayList<String>(List.of(args));
