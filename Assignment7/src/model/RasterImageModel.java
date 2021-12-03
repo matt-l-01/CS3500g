@@ -2,10 +2,13 @@ package model;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Class for an image loaded from
@@ -346,11 +349,15 @@ public class RasterImageModel implements ImageModel {
 
     for (int i = 0; i < seeds; i++) {
       clusters.put(new Point(r.nextInt(this.getHeight()), r.nextInt(this.getWidth())),
-          new ArrayList<>());
+              Collections.synchronizedList(new ArrayList<>()));
     }
 
     List<List<Pixel>> newPixelGrid = List.copyOf(this.pixelGrid);
-    for (int row = 0; row < this.getHeight(); row++) {
+
+    List<Integer> heightRange = IntStream.range(0, getHeight()).boxed()
+            .collect(Collectors.toList());
+
+    heightRange.parallelStream().forEach( (row) -> {
       for (int col = 0; col < this.getWidth(); col++) {
         Point lowest = new Point();
 
@@ -366,7 +373,7 @@ public class RasterImageModel implements ImageModel {
         }
         clusters.get(lowest).add(new Point(row, col));
       }
-    } // Clusters are formed by here
+    }); // Clusters are formed by here
 
     for (Point p : clusters.keySet()) {
       double avgR = 0;
