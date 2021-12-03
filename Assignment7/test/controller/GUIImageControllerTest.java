@@ -308,7 +308,7 @@ public class GUIImageControllerTest {
     assertEquals("save 0 aaa.jpg jpg\ngetStoredImages\n", m.getLog());
   }
 
-  // test save with invalid extension
+  // test save with invalid mos
   @Test
   public void testSaveBadExtension() {
     v = new MockView();
@@ -627,7 +627,19 @@ public class GUIImageControllerTest {
     controller = new GUIImageController(v, m);
     controller.mosaic("aa");
     assertEquals("", m.getLog()); // will not call the manager for invalid input
-    assertEquals("addFeatures\nrenderMessage Please enter an integer amount of seeds.\n",
+    assertEquals("addFeatures\nrenderMessage Please enter a positive integer amount of seeds.\n",
+            v.getLog());
+  }
+
+  // test mosaic input error
+  @Test
+  public void testMosaicInvalidAmount1() {
+    v = new MockView();
+    m = new MockManager();
+    controller = new GUIImageController(v, m);
+    controller.mosaic("-10");
+    assertEquals("", m.getLog());// will not call the manager for invalid input
+    assertEquals("addFeatures\nrenderMessage Please enter a positive integer amount of seeds.\n",
             v.getLog());
   }
 
@@ -639,7 +651,7 @@ public class GUIImageControllerTest {
     controller = new GUIImageController(v, m);
     controller.mosaic("");
     assertEquals("", m.getLog()); // will not call the manager for invalid input
-    assertEquals("addFeatures\nrenderMessage Please enter an integer amount of seeds.\n",
+    assertEquals("addFeatures\nrenderMessage Please enter a positive integer amount of seeds.\n",
             v.getLog());
   }
 

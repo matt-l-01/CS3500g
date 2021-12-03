@@ -189,7 +189,7 @@ public class TextImageControllerTest {
 
     @Override
     public void mosaic(int seeds, String imageName, String resultName) throws IllegalArgumentException {
-      log.append("brighten ").append(Integer.toString(seeds)).append(" ")
+      log.append("mosaic ").append(Integer.toString(seeds)).append(" ")
               .append(imageName).append(" ").append(resultName).append("\n");
     }
 
@@ -484,6 +484,17 @@ public class TextImageControllerTest {
     assertEquals("getKnownCommands\nbrighten -10 image1 image1-darker\n",
             manager1.getLog());
   }
+
+  @Test
+  public void testMosaic() {
+    Readable input = new StringReader("mosaic image1 image1-mosaic\nq");
+    ManagerLogMock manager1 = new ManagerLogMock();
+    ImageController controller1 = new TextImageController(input, manager1, view);
+    controller1.runProgram();
+    assertEquals("getKnownCommands\nmosaic image1 image1-mosaic\n",
+            manager1.getLog());
+  }
+
 
   /**
    * Tests that runProgram() will reject invalid commands
