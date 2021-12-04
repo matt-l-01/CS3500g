@@ -112,7 +112,8 @@ public class RasterImageModelTest {
   public void redVisualize1() {
     try {
       testProcessorModel = new RasterImageManager();
-      testProcessorModel.load("test\\model\\TestInputFiles\\visualize1.ppm", "visualize1", ImageFileFormat.PPM);
+      testProcessorModel.load("test\\model\\TestInputFiles\\visualize1.ppm",
+          "visualize1", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("visualize1");
     } catch (IOException e)  {
       fail("Could not find file");
@@ -608,7 +609,8 @@ public class RasterImageModelTest {
   public void brightenIncreaseMaxRGB() {
     try {
       testProcessorModel = new RasterImageManager();
-      testProcessorModel.load("test\\model\\TestInputFiles\\brighten1.ppm", "brighten", ImageFileFormat.PPM);
+      testProcessorModel.load("test\\model\\TestInputFiles\\brighten1.ppm",
+          "brighten", ImageFileFormat.PPM);
       testModel = testProcessorModel.getStoredImages().get("brighten");
     } catch (IOException e) {
       fail("Could not open file");

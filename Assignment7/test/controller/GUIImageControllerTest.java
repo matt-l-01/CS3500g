@@ -160,7 +160,8 @@ public class GUIImageControllerTest {
     }
 
     @Override
-    public void mosaic(int seeds, String imageName, String resultName) throws IllegalArgumentException {
+    public void mosaic(int seeds, String imageName, String resultName)
+        throws IllegalArgumentException {
       log.append("mosaic").append(" ").append(seeds).append(" ").append(imageName)
               .append(" ").append(resultName).append("\n");
     }

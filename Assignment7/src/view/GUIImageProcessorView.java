@@ -265,10 +265,10 @@ public class GUIImageProcessorView extends JFrame implements ImageGUIView {
     blurButton.addActionListener(evt -> features.blur());
     sharpenButton.addActionListener(evt -> features.sharpen());
     brightenButton.addActionListener(
-            evt -> features.brighten(brightenField.getText()));
+        evt -> features.brighten(brightenField.getText()));
     darkenButton.addActionListener(evt -> features.darken(darkenField.getText()));
     mosaicButton.addActionListener(
-            evt -> features.mosaic(mosaicField.getText()));
+        evt -> features.mosaic(mosaicField.getText()));
 
   }
 
